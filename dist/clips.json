@@ -1,0 +1,9680 @@
+{
+ "schema": "msk-clips/1",
+ "units": "metres; seconds; degrees",
+ "axes": "text: root motion is given in the root bone's own axes, which are the glTF axes: x = the character's left, y = up, z = forward. In Blender axes that is (x, -z, y). The FBX is in centimetres.",
+ "fps": 30,
+ "frames": "text: 0-based; frame i is at i / 30 s; a clip of length N has N + 1 frames and lasts N / 30 s",
+ "handedness": "L",
+ "skeleton_hash": "58087d952b1022ad4c5bb400f685e55c459a36f2b5f3547e3feba861d1ca0003",
+ "clip_order": [
+  "knee_idle",
+  "ref_bind",
+  "ref_tpose",
+  "knee_shuffle_fwd",
+  "knee_shuffle_back",
+  "knee_shuffle_left",
+  "knee_shuffle_right",
+  "knee_push_glide_l",
+  "knee_push_glide_r",
+  "knee_glide_hold_l",
+  "knee_glide_hold_r",
+  "knee_stickhandle",
+  "knee_wrist_shot",
+  "knee_slap_shot",
+  "knee_pass",
+  "knee_pass_hard",
+  "knee_receive_pass",
+  "knee_poke_check",
+  "knee_slash",
+  "goalie_idle",
+  "knee_to_butterfly",
+  "butterfly_to_knee",
+  "knee_cross_check",
+  "knee_body_check_l",
+  "knee_body_check_r",
+  "knee_punch_head",
+  "knee_punch_stomach",
+  "react_cross_checked",
+  "react_body_checked_l",
+  "react_body_checked_r",
+  "react_slashed_stick",
+  "react_slashed_face",
+  "react_punched_head",
+  "react_punched_stomach",
+  "react_fall",
+  "react_getup",
+  "knee_dive_poke",
+  "prone_getup",
+  "knee_turn_l_90",
+  "knee_turn_r_90",
+  "knee_backhand_shot",
+  "knee_pass_backhand",
+  "emote_goal_celebrate",
+  "emote_fist_pump",
+  "emote_stick_tap",
+  "goalie_slide_l",
+  "goalie_slide_r",
+  "goalie_glove_save",
+  "goalie_blocker_save",
+  "goalie_dive_l",
+  "goalie_dive_r",
+  "goalie_dive_recover_l",
+  "goalie_dive_recover_r",
+  "goalie_cover",
+  "goalie_cover_idle",
+  "goalie_pick_up",
+  "goalie_ball_idle",
+  "goalie_throw"
+ ],
+ "clips": {
+  "knee_idle": {
+   "kind": "clip",
+   "length": 120,
+   "loop": true,
+   "root_motion": false,
+   "family": "possession",
+   "tier": 1,
+   "hub_start": "H_KNEE",
+   "hub_end": "H_KNEE",
+   "handedness": "L",
+   "events": [
+    {
+     "name": "puck_touch",
+     "frame": 75,
+     "time_s": 2.5
+    },
+    {
+     "name": "puck_touch",
+     "frame": 91,
+     "time_s": 3.033333333333333
+    }
+   ],
+   "ranges": [
+    {
+     "name": "regrip_l",
+     "start": 44,
+     "end": 58
+    }
+   ],
+   "sections": [],
+   "contacts": [
+    {
+     "name": "BLADE_HEEL",
+     "start": 0,
+     "end": 65,
+     "kind": "slide"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 0,
+     "end": 120,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 0,
+     "end": 120,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_l",
+     "start": 0,
+     "end": 120,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_r",
+     "start": 0,
+     "end": 120,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_l",
+     "start": 0,
+     "end": 120,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_r",
+     "start": 0,
+     "end": 120,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_l",
+     "start": 0,
+     "end": 120,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_r",
+     "start": 0,
+     "end": 120,
+     "kind": "pin"
+    },
+    {
+     "name": "BLADE_HEEL",
+     "start": 75,
+     "end": 81,
+     "kind": "slide"
+    },
+    {
+     "name": "BLADE_HEEL",
+     "start": 91,
+     "end": 120,
+     "kind": "slide"
+    }
+   ],
+   "quality": "accepted",
+   "skeleton_hash": "58087d952b1022ad4c5bb400f685e55c459a36f2b5f3547e3feba861d1ca0003",
+   "helpers_hash": "1cc0779edbaa08e08967cbdcb15fab6ca8bbc299896a039c4fea1bc70a5f910c",
+   "stick_hash": "2491b6b1d87587492195fed911765309172341a0ae9b8bd2f63dcaffc10fecdd",
+   "source_hash": "8dca4d6c778b3fb57ebc96f5a0a0acb96698eca47877ab79627c74e8289171bc",
+   "frames": 121,
+   "duration_s": 4.0,
+   "root_motion_delta": {
+    "translation": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "yaw_deg": 0.0,
+    "speed_mps": 0.0
+   }
+  },
+  "ref_bind": {
+   "kind": "clip",
+   "length": 1,
+   "loop": false,
+   "root_motion": false,
+   "family": "refs",
+   "tier": 1,
+   "hub_start": "H_BIND",
+   "hub_end": "H_BIND",
+   "handedness": "L",
+   "events": [],
+   "ranges": [],
+   "sections": [],
+   "contacts": [],
+   "quality": "accepted",
+   "skeleton_hash": "58087d952b1022ad4c5bb400f685e55c459a36f2b5f3547e3feba861d1ca0003",
+   "helpers_hash": "1cc0779edbaa08e08967cbdcb15fab6ca8bbc299896a039c4fea1bc70a5f910c",
+   "stick_hash": "2491b6b1d87587492195fed911765309172341a0ae9b8bd2f63dcaffc10fecdd",
+   "source_hash": "4ebd9a7428959017192085ec946f04aa9023af298312c2e606f2b12a34b6b1bc",
+   "frames": 2,
+   "duration_s": 0.03333333333333333,
+   "root_motion_delta": {
+    "translation": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "yaw_deg": 0.0,
+    "speed_mps": 0.0
+   }
+  },
+  "ref_tpose": {
+   "kind": "clip",
+   "length": 1,
+   "loop": false,
+   "root_motion": false,
+   "family": "refs",
+   "tier": 1,
+   "hub_start": "H_TPOSE",
+   "hub_end": "H_TPOSE",
+   "handedness": "L",
+   "events": [],
+   "ranges": [],
+   "sections": [],
+   "contacts": [],
+   "quality": "accepted",
+   "skeleton_hash": "58087d952b1022ad4c5bb400f685e55c459a36f2b5f3547e3feba861d1ca0003",
+   "helpers_hash": "1cc0779edbaa08e08967cbdcb15fab6ca8bbc299896a039c4fea1bc70a5f910c",
+   "stick_hash": "2491b6b1d87587492195fed911765309172341a0ae9b8bd2f63dcaffc10fecdd",
+   "source_hash": "4ebd9a7428959017192085ec946f04aa9023af298312c2e606f2b12a34b6b1bc",
+   "frames": 2,
+   "duration_s": 0.03333333333333333,
+   "root_motion_delta": {
+    "translation": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "yaw_deg": 0.0,
+    "speed_mps": 0.0
+   }
+  },
+  "knee_shuffle_fwd": {
+   "kind": "clip",
+   "length": 24,
+   "loop": true,
+   "root_motion": true,
+   "family": "shuffles",
+   "tier": 1,
+   "hub_start": "H_KNEE",
+   "hub_end": "H_KNEE",
+   "handedness": "L",
+   "events": [
+    {
+     "name": "knee_up_l",
+     "frame": 0,
+     "time_s": 0.0
+    },
+    {
+     "name": "knee_down_l",
+     "frame": 9,
+     "time_s": 0.3
+    },
+    {
+     "name": "knee_up_r",
+     "frame": 12,
+     "time_s": 0.4
+    },
+    {
+     "name": "knee_down_r",
+     "frame": 21,
+     "time_s": 0.7
+    }
+   ],
+   "ranges": [],
+   "sections": [],
+   "contacts": [
+    {
+     "name": "ankle_front_l",
+     "start": 0,
+     "end": 0,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 0,
+     "end": 9,
+     "kind": "slide"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 0,
+     "end": 12,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_l",
+     "start": 0,
+     "end": 0,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_l",
+     "start": 0,
+     "end": 9,
+     "kind": "slide"
+    },
+    {
+     "name": "instep_r",
+     "start": 0,
+     "end": 12,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_l",
+     "start": 0,
+     "end": 0,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_r",
+     "start": 0,
+     "end": 12,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_l",
+     "start": 0,
+     "end": 0,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_l",
+     "start": 0,
+     "end": 9,
+     "kind": "slide"
+    },
+    {
+     "name": "toe_r",
+     "start": 0,
+     "end": 12,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 9,
+     "end": 24,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_l",
+     "start": 9,
+     "end": 24,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_l",
+     "start": 9,
+     "end": 24,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_l",
+     "start": 9,
+     "end": 24,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 12,
+     "end": 21,
+     "kind": "slide"
+    },
+    {
+     "name": "instep_r",
+     "start": 12,
+     "end": 21,
+     "kind": "slide"
+    },
+    {
+     "name": "toe_r",
+     "start": 12,
+     "end": 21,
+     "kind": "slide"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 21,
+     "end": 24,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_r",
+     "start": 21,
+     "end": 24,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_r",
+     "start": 21,
+     "end": 24,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_r",
+     "start": 21,
+     "end": 24,
+     "kind": "pin"
+    }
+   ],
+   "quality": "accepted",
+   "skeleton_hash": "58087d952b1022ad4c5bb400f685e55c459a36f2b5f3547e3feba861d1ca0003",
+   "helpers_hash": "1cc0779edbaa08e08967cbdcb15fab6ca8bbc299896a039c4fea1bc70a5f910c",
+   "stick_hash": "2491b6b1d87587492195fed911765309172341a0ae9b8bd2f63dcaffc10fecdd",
+   "source_hash": "b260071c2f7d2cd9b07d97b740feba647a92553bb52b69c8b2a8512918683f8c",
+   "frames": 25,
+   "duration_s": 0.8,
+   "root_motion_delta": {
+    "translation": [
+     0.0,
+     0.0,
+     0.32
+    ],
+    "yaw_deg": 0.0,
+    "speed_mps": 0.39999999999999997
+   }
+  },
+  "knee_shuffle_back": {
+   "kind": "clip",
+   "length": 24,
+   "loop": true,
+   "root_motion": true,
+   "family": "shuffles",
+   "tier": 1,
+   "hub_start": "H_KNEE",
+   "hub_end": "H_KNEE",
+   "handedness": "L",
+   "events": [
+    {
+     "name": "knee_up_l",
+     "frame": 0,
+     "time_s": 0.0
+    },
+    {
+     "name": "knee_down_l",
+     "frame": 9,
+     "time_s": 0.3
+    },
+    {
+     "name": "knee_up_r",
+     "frame": 12,
+     "time_s": 0.4
+    },
+    {
+     "name": "knee_down_r",
+     "frame": 21,
+     "time_s": 0.7
+    }
+   ],
+   "ranges": [],
+   "sections": [],
+   "contacts": [
+    {
+     "name": "ankle_front_l",
+     "start": 0,
+     "end": 0,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 0,
+     "end": 9,
+     "kind": "slide"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 0,
+     "end": 12,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_l",
+     "start": 0,
+     "end": 0,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_l",
+     "start": 0,
+     "end": 9,
+     "kind": "slide"
+    },
+    {
+     "name": "instep_r",
+     "start": 0,
+     "end": 12,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_l",
+     "start": 0,
+     "end": 0,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_r",
+     "start": 0,
+     "end": 12,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_l",
+     "start": 0,
+     "end": 0,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_l",
+     "start": 0,
+     "end": 9,
+     "kind": "slide"
+    },
+    {
+     "name": "toe_r",
+     "start": 0,
+     "end": 12,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 9,
+     "end": 24,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_l",
+     "start": 9,
+     "end": 24,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_l",
+     "start": 9,
+     "end": 24,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_l",
+     "start": 9,
+     "end": 24,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 12,
+     "end": 21,
+     "kind": "slide"
+    },
+    {
+     "name": "instep_r",
+     "start": 12,
+     "end": 21,
+     "kind": "slide"
+    },
+    {
+     "name": "toe_r",
+     "start": 12,
+     "end": 21,
+     "kind": "slide"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 21,
+     "end": 24,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_r",
+     "start": 21,
+     "end": 24,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_r",
+     "start": 21,
+     "end": 24,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_r",
+     "start": 21,
+     "end": 24,
+     "kind": "pin"
+    }
+   ],
+   "quality": "accepted",
+   "skeleton_hash": "58087d952b1022ad4c5bb400f685e55c459a36f2b5f3547e3feba861d1ca0003",
+   "helpers_hash": "1cc0779edbaa08e08967cbdcb15fab6ca8bbc299896a039c4fea1bc70a5f910c",
+   "stick_hash": "2491b6b1d87587492195fed911765309172341a0ae9b8bd2f63dcaffc10fecdd",
+   "source_hash": "b260071c2f7d2cd9b07d97b740feba647a92553bb52b69c8b2a8512918683f8c",
+   "frames": 25,
+   "duration_s": 0.8,
+   "root_motion_delta": {
+    "translation": [
+     0.0,
+     0.0,
+     -0.22
+    ],
+    "yaw_deg": 0.0,
+    "speed_mps": 0.27499999999999997
+   }
+  },
+  "knee_shuffle_left": {
+   "kind": "clip",
+   "length": 24,
+   "loop": true,
+   "root_motion": true,
+   "family": "shuffles",
+   "tier": 1,
+   "hub_start": "H_KNEE",
+   "hub_end": "H_KNEE",
+   "handedness": "L",
+   "events": [
+    {
+     "name": "knee_up_l",
+     "frame": 0,
+     "time_s": 0.0
+    },
+    {
+     "name": "knee_down_l",
+     "frame": 9,
+     "time_s": 0.3
+    },
+    {
+     "name": "knee_up_r",
+     "frame": 12,
+     "time_s": 0.4
+    },
+    {
+     "name": "knee_down_r",
+     "frame": 21,
+     "time_s": 0.7
+    }
+   ],
+   "ranges": [],
+   "sections": [],
+   "contacts": [
+    {
+     "name": "ankle_front_l",
+     "start": 0,
+     "end": 0,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 0,
+     "end": 9,
+     "kind": "slide"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 0,
+     "end": 12,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_l",
+     "start": 0,
+     "end": 0,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_l",
+     "start": 0,
+     "end": 9,
+     "kind": "slide"
+    },
+    {
+     "name": "instep_r",
+     "start": 0,
+     "end": 12,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_l",
+     "start": 0,
+     "end": 0,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_r",
+     "start": 0,
+     "end": 12,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_l",
+     "start": 0,
+     "end": 0,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_l",
+     "start": 0,
+     "end": 9,
+     "kind": "slide"
+    },
+    {
+     "name": "toe_r",
+     "start": 0,
+     "end": 12,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 9,
+     "end": 24,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_l",
+     "start": 9,
+     "end": 24,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_l",
+     "start": 9,
+     "end": 24,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_l",
+     "start": 9,
+     "end": 24,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 12,
+     "end": 21,
+     "kind": "slide"
+    },
+    {
+     "name": "instep_r",
+     "start": 12,
+     "end": 21,
+     "kind": "slide"
+    },
+    {
+     "name": "toe_r",
+     "start": 12,
+     "end": 21,
+     "kind": "slide"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 21,
+     "end": 24,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_r",
+     "start": 21,
+     "end": 24,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_r",
+     "start": 21,
+     "end": 24,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_r",
+     "start": 21,
+     "end": 24,
+     "kind": "pin"
+    }
+   ],
+   "quality": "accepted",
+   "skeleton_hash": "58087d952b1022ad4c5bb400f685e55c459a36f2b5f3547e3feba861d1ca0003",
+   "helpers_hash": "1cc0779edbaa08e08967cbdcb15fab6ca8bbc299896a039c4fea1bc70a5f910c",
+   "stick_hash": "2491b6b1d87587492195fed911765309172341a0ae9b8bd2f63dcaffc10fecdd",
+   "source_hash": "b260071c2f7d2cd9b07d97b740feba647a92553bb52b69c8b2a8512918683f8c",
+   "frames": 25,
+   "duration_s": 0.8,
+   "root_motion_delta": {
+    "translation": [
+     0.26,
+     0.0,
+     0.0
+    ],
+    "yaw_deg": 0.0,
+    "speed_mps": 0.325
+   }
+  },
+  "knee_shuffle_right": {
+   "kind": "clip",
+   "length": 24,
+   "loop": true,
+   "root_motion": true,
+   "family": "shuffles",
+   "tier": 1,
+   "hub_start": "H_KNEE",
+   "hub_end": "H_KNEE",
+   "handedness": "L",
+   "events": [
+    {
+     "name": "knee_up_l",
+     "frame": 0,
+     "time_s": 0.0
+    },
+    {
+     "name": "knee_down_l",
+     "frame": 9,
+     "time_s": 0.3
+    },
+    {
+     "name": "knee_up_r",
+     "frame": 12,
+     "time_s": 0.4
+    },
+    {
+     "name": "knee_down_r",
+     "frame": 21,
+     "time_s": 0.7
+    }
+   ],
+   "ranges": [],
+   "sections": [],
+   "contacts": [
+    {
+     "name": "ankle_front_l",
+     "start": 0,
+     "end": 0,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 0,
+     "end": 9,
+     "kind": "slide"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 0,
+     "end": 12,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_l",
+     "start": 0,
+     "end": 0,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_l",
+     "start": 0,
+     "end": 9,
+     "kind": "slide"
+    },
+    {
+     "name": "instep_r",
+     "start": 0,
+     "end": 12,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_l",
+     "start": 0,
+     "end": 0,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_r",
+     "start": 0,
+     "end": 12,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_l",
+     "start": 0,
+     "end": 0,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_l",
+     "start": 0,
+     "end": 9,
+     "kind": "slide"
+    },
+    {
+     "name": "toe_r",
+     "start": 0,
+     "end": 12,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 9,
+     "end": 24,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_l",
+     "start": 9,
+     "end": 24,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_l",
+     "start": 9,
+     "end": 24,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_l",
+     "start": 9,
+     "end": 24,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 12,
+     "end": 21,
+     "kind": "slide"
+    },
+    {
+     "name": "instep_r",
+     "start": 12,
+     "end": 21,
+     "kind": "slide"
+    },
+    {
+     "name": "toe_r",
+     "start": 12,
+     "end": 21,
+     "kind": "slide"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 21,
+     "end": 24,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_r",
+     "start": 21,
+     "end": 24,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_r",
+     "start": 21,
+     "end": 24,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_r",
+     "start": 21,
+     "end": 24,
+     "kind": "pin"
+    }
+   ],
+   "quality": "accepted",
+   "skeleton_hash": "58087d952b1022ad4c5bb400f685e55c459a36f2b5f3547e3feba861d1ca0003",
+   "helpers_hash": "1cc0779edbaa08e08967cbdcb15fab6ca8bbc299896a039c4fea1bc70a5f910c",
+   "stick_hash": "2491b6b1d87587492195fed911765309172341a0ae9b8bd2f63dcaffc10fecdd",
+   "source_hash": "b260071c2f7d2cd9b07d97b740feba647a92553bb52b69c8b2a8512918683f8c",
+   "frames": 25,
+   "duration_s": 0.8,
+   "root_motion_delta": {
+    "translation": [
+     -0.26,
+     0.0,
+     0.0
+    ],
+    "yaw_deg": 0.0,
+    "speed_mps": 0.325
+   }
+  },
+  "knee_push_glide_l": {
+   "kind": "clip",
+   "length": 44,
+   "loop": false,
+   "root_motion": true,
+   "family": "glides",
+   "tier": 1,
+   "hub_start": "H_KNEE",
+   "hub_end": "H_KNEE",
+   "handedness": "L",
+   "events": [
+    {
+     "name": "knee_up_l",
+     "frame": 2,
+     "time_s": 0.06666666666666667
+    },
+    {
+     "name": "foot_down_l",
+     "frame": 10,
+     "time_s": 0.3333333333333333
+    },
+    {
+     "name": "slide_start",
+     "frame": 11,
+     "time_s": 0.36666666666666664
+    },
+    {
+     "name": "foot_up_l",
+     "frame": 17,
+     "time_s": 0.5666666666666667
+    },
+    {
+     "name": "peak",
+     "frame": 17,
+     "time_s": 0.5666666666666667
+    },
+    {
+     "name": "foot_down_l",
+     "frame": 31,
+     "time_s": 1.0333333333333334
+    },
+    {
+     "name": "interruptible",
+     "frame": 32,
+     "time_s": 1.0666666666666667
+    },
+    {
+     "name": "foot_up_l",
+     "frame": 33,
+     "time_s": 1.1
+    },
+    {
+     "name": "knee_down_l",
+     "frame": 40,
+     "time_s": 1.3333333333333333
+    },
+    {
+     "name": "slide_end",
+     "frame": 43,
+     "time_s": 1.4333333333333333
+    }
+   ],
+   "ranges": [
+    {
+     "name": "puck_attached",
+     "start": 0,
+     "end": 44
+    }
+   ],
+   "sections": [
+    {
+     "name": "load",
+     "start": 0,
+     "end": 11
+    },
+    {
+     "name": "push",
+     "start": 11,
+     "end": 17
+    },
+    {
+     "name": "glide",
+     "start": 17,
+     "end": 31
+    },
+    {
+     "name": "ride",
+     "start": 31,
+     "end": 33
+    },
+    {
+     "name": "recover",
+     "start": 33,
+     "end": 44
+    }
+   ],
+   "contacts": [
+    {
+     "name": "BLADE_HEEL",
+     "start": 0,
+     "end": 44,
+     "kind": "slide"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 0,
+     "end": 2,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 0,
+     "end": 11,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_l",
+     "start": 0,
+     "end": 2,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_r",
+     "start": 0,
+     "end": 11,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_l",
+     "start": 0,
+     "end": 2,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_r",
+     "start": 0,
+     "end": 11,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_l",
+     "start": 0,
+     "end": 2,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_r",
+     "start": 0,
+     "end": 11,
+     "kind": "pin"
+    },
+    {
+     "name": "ball_l",
+     "start": 10,
+     "end": 13,
+     "kind": "pin"
+    },
+    {
+     "name": "heel_l",
+     "start": 10,
+     "end": 11,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 11,
+     "end": 43,
+     "kind": "slide"
+    },
+    {
+     "name": "instep_r",
+     "start": 11,
+     "end": 43,
+     "kind": "slide"
+    },
+    {
+     "name": "knee_r",
+     "start": 11,
+     "end": 43,
+     "kind": "slide"
+    },
+    {
+     "name": "toe_r",
+     "start": 11,
+     "end": 43,
+     "kind": "slide"
+    },
+    {
+     "name": "ball_l",
+     "start": 31,
+     "end": 33,
+     "kind": "slide"
+    },
+    {
+     "name": "heel_l",
+     "start": 31,
+     "end": 33,
+     "kind": "slide"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 40,
+     "end": 43,
+     "kind": "slide"
+    },
+    {
+     "name": "instep_l",
+     "start": 40,
+     "end": 43,
+     "kind": "slide"
+    },
+    {
+     "name": "knee_l",
+     "start": 40,
+     "end": 43,
+     "kind": "slide"
+    },
+    {
+     "name": "toe_l",
+     "start": 40,
+     "end": 43,
+     "kind": "slide"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 43,
+     "end": 44,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 43,
+     "end": 44,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_l",
+     "start": 43,
+     "end": 44,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_r",
+     "start": 43,
+     "end": 44,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_l",
+     "start": 43,
+     "end": 44,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_r",
+     "start": 43,
+     "end": 44,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_l",
+     "start": 43,
+     "end": 44,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_r",
+     "start": 43,
+     "end": 44,
+     "kind": "pin"
+    }
+   ],
+   "quality": "accepted",
+   "skeleton_hash": "58087d952b1022ad4c5bb400f685e55c459a36f2b5f3547e3feba861d1ca0003",
+   "helpers_hash": "1cc0779edbaa08e08967cbdcb15fab6ca8bbc299896a039c4fea1bc70a5f910c",
+   "stick_hash": "2491b6b1d87587492195fed911765309172341a0ae9b8bd2f63dcaffc10fecdd",
+   "source_hash": "d20a2f5d4c5459db009aa0f443d7d625cb12b3e125a00785c305b67486da457b",
+   "frames": 45,
+   "duration_s": 1.4666666666666666,
+   "root_motion_delta": {
+    "translation": [
+     0.0,
+     0.0,
+     1.0
+    ],
+    "yaw_deg": 0.0,
+    "speed_mps": 0.6818181818181819
+   }
+  },
+  "knee_push_glide_r": {
+   "kind": "clip",
+   "length": 44,
+   "loop": false,
+   "root_motion": true,
+   "family": "glides",
+   "tier": 1,
+   "hub_start": "H_KNEE",
+   "hub_end": "H_KNEE",
+   "handedness": "L",
+   "events": [
+    {
+     "name": "knee_up_r",
+     "frame": 2,
+     "time_s": 0.06666666666666667
+    },
+    {
+     "name": "foot_down_r",
+     "frame": 10,
+     "time_s": 0.3333333333333333
+    },
+    {
+     "name": "slide_start",
+     "frame": 11,
+     "time_s": 0.36666666666666664
+    },
+    {
+     "name": "foot_up_r",
+     "frame": 17,
+     "time_s": 0.5666666666666667
+    },
+    {
+     "name": "peak",
+     "frame": 17,
+     "time_s": 0.5666666666666667
+    },
+    {
+     "name": "foot_down_r",
+     "frame": 31,
+     "time_s": 1.0333333333333334
+    },
+    {
+     "name": "interruptible",
+     "frame": 32,
+     "time_s": 1.0666666666666667
+    },
+    {
+     "name": "foot_up_r",
+     "frame": 33,
+     "time_s": 1.1
+    },
+    {
+     "name": "knee_down_r",
+     "frame": 40,
+     "time_s": 1.3333333333333333
+    },
+    {
+     "name": "slide_end",
+     "frame": 43,
+     "time_s": 1.4333333333333333
+    }
+   ],
+   "ranges": [
+    {
+     "name": "puck_attached",
+     "start": 0,
+     "end": 44
+    }
+   ],
+   "sections": [
+    {
+     "name": "load",
+     "start": 0,
+     "end": 11
+    },
+    {
+     "name": "push",
+     "start": 11,
+     "end": 17
+    },
+    {
+     "name": "glide",
+     "start": 17,
+     "end": 31
+    },
+    {
+     "name": "ride",
+     "start": 31,
+     "end": 33
+    },
+    {
+     "name": "recover",
+     "start": 33,
+     "end": 44
+    }
+   ],
+   "contacts": [
+    {
+     "name": "BLADE_HEEL",
+     "start": 0,
+     "end": 44,
+     "kind": "slide"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 0,
+     "end": 11,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 0,
+     "end": 2,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_l",
+     "start": 0,
+     "end": 11,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_r",
+     "start": 0,
+     "end": 2,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_l",
+     "start": 0,
+     "end": 11,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_r",
+     "start": 0,
+     "end": 2,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_l",
+     "start": 0,
+     "end": 11,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_r",
+     "start": 0,
+     "end": 2,
+     "kind": "pin"
+    },
+    {
+     "name": "ball_r",
+     "start": 10,
+     "end": 13,
+     "kind": "pin"
+    },
+    {
+     "name": "heel_r",
+     "start": 10,
+     "end": 11,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 11,
+     "end": 43,
+     "kind": "slide"
+    },
+    {
+     "name": "instep_l",
+     "start": 11,
+     "end": 43,
+     "kind": "slide"
+    },
+    {
+     "name": "knee_l",
+     "start": 11,
+     "end": 43,
+     "kind": "slide"
+    },
+    {
+     "name": "toe_l",
+     "start": 11,
+     "end": 43,
+     "kind": "slide"
+    },
+    {
+     "name": "ball_r",
+     "start": 31,
+     "end": 33,
+     "kind": "slide"
+    },
+    {
+     "name": "heel_r",
+     "start": 31,
+     "end": 33,
+     "kind": "slide"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 40,
+     "end": 43,
+     "kind": "slide"
+    },
+    {
+     "name": "instep_r",
+     "start": 40,
+     "end": 43,
+     "kind": "slide"
+    },
+    {
+     "name": "knee_r",
+     "start": 40,
+     "end": 43,
+     "kind": "slide"
+    },
+    {
+     "name": "toe_r",
+     "start": 40,
+     "end": 43,
+     "kind": "slide"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 43,
+     "end": 44,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 43,
+     "end": 44,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_l",
+     "start": 43,
+     "end": 44,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_r",
+     "start": 43,
+     "end": 44,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_l",
+     "start": 43,
+     "end": 44,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_r",
+     "start": 43,
+     "end": 44,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_l",
+     "start": 43,
+     "end": 44,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_r",
+     "start": 43,
+     "end": 44,
+     "kind": "pin"
+    }
+   ],
+   "quality": "accepted",
+   "skeleton_hash": "58087d952b1022ad4c5bb400f685e55c459a36f2b5f3547e3feba861d1ca0003",
+   "helpers_hash": "1cc0779edbaa08e08967cbdcb15fab6ca8bbc299896a039c4fea1bc70a5f910c",
+   "stick_hash": "2491b6b1d87587492195fed911765309172341a0ae9b8bd2f63dcaffc10fecdd",
+   "source_hash": "d20a2f5d4c5459db009aa0f443d7d625cb12b3e125a00785c305b67486da457b",
+   "frames": 45,
+   "duration_s": 1.4666666666666666,
+   "root_motion_delta": {
+    "translation": [
+     0.0,
+     0.0,
+     1.0
+    ],
+    "yaw_deg": 0.0,
+    "speed_mps": 0.6818181818181819
+   }
+  },
+  "knee_glide_hold_l": {
+   "kind": "clip",
+   "length": 30,
+   "loop": true,
+   "root_motion": false,
+   "family": "glides",
+   "tier": 1,
+   "hub_start": "H_HALFKNEEL_L",
+   "hub_end": "H_HALFKNEEL_L",
+   "handedness": "L",
+   "events": [],
+   "ranges": [
+    {
+     "name": "puck_attached",
+     "start": 0,
+     "end": 30
+    }
+   ],
+   "sections": [],
+   "contacts": [
+    {
+     "name": "BLADE_HEEL",
+     "start": 0,
+     "end": 30,
+     "kind": "slide"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 0,
+     "end": 30,
+     "kind": "slide"
+    },
+    {
+     "name": "ball_l",
+     "start": 0,
+     "end": 30,
+     "kind": "slide"
+    },
+    {
+     "name": "heel_l",
+     "start": 0,
+     "end": 30,
+     "kind": "slide"
+    },
+    {
+     "name": "instep_r",
+     "start": 0,
+     "end": 30,
+     "kind": "slide"
+    },
+    {
+     "name": "knee_r",
+     "start": 0,
+     "end": 30,
+     "kind": "slide"
+    },
+    {
+     "name": "toe_r",
+     "start": 0,
+     "end": 30,
+     "kind": "slide"
+    }
+   ],
+   "quality": "accepted",
+   "skeleton_hash": "58087d952b1022ad4c5bb400f685e55c459a36f2b5f3547e3feba861d1ca0003",
+   "helpers_hash": "1cc0779edbaa08e08967cbdcb15fab6ca8bbc299896a039c4fea1bc70a5f910c",
+   "stick_hash": "2491b6b1d87587492195fed911765309172341a0ae9b8bd2f63dcaffc10fecdd",
+   "source_hash": "d20a2f5d4c5459db009aa0f443d7d625cb12b3e125a00785c305b67486da457b",
+   "frames": 31,
+   "duration_s": 1.0,
+   "root_motion_delta": {
+    "translation": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "yaw_deg": 0.0,
+    "speed_mps": 0.0
+   }
+  },
+  "knee_glide_hold_r": {
+   "kind": "clip",
+   "length": 30,
+   "loop": true,
+   "root_motion": false,
+   "family": "glides",
+   "tier": 1,
+   "hub_start": "H_HALFKNEEL_R",
+   "hub_end": "H_HALFKNEEL_R",
+   "handedness": "L",
+   "events": [],
+   "ranges": [
+    {
+     "name": "puck_attached",
+     "start": 0,
+     "end": 30
+    }
+   ],
+   "sections": [],
+   "contacts": [
+    {
+     "name": "BLADE_HEEL",
+     "start": 0,
+     "end": 30,
+     "kind": "slide"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 0,
+     "end": 30,
+     "kind": "slide"
+    },
+    {
+     "name": "ball_r",
+     "start": 0,
+     "end": 30,
+     "kind": "slide"
+    },
+    {
+     "name": "heel_r",
+     "start": 0,
+     "end": 30,
+     "kind": "slide"
+    },
+    {
+     "name": "instep_l",
+     "start": 0,
+     "end": 30,
+     "kind": "slide"
+    },
+    {
+     "name": "knee_l",
+     "start": 0,
+     "end": 30,
+     "kind": "slide"
+    },
+    {
+     "name": "toe_l",
+     "start": 0,
+     "end": 30,
+     "kind": "slide"
+    }
+   ],
+   "quality": "accepted",
+   "skeleton_hash": "58087d952b1022ad4c5bb400f685e55c459a36f2b5f3547e3feba861d1ca0003",
+   "helpers_hash": "1cc0779edbaa08e08967cbdcb15fab6ca8bbc299896a039c4fea1bc70a5f910c",
+   "stick_hash": "2491b6b1d87587492195fed911765309172341a0ae9b8bd2f63dcaffc10fecdd",
+   "source_hash": "d20a2f5d4c5459db009aa0f443d7d625cb12b3e125a00785c305b67486da457b",
+   "frames": 31,
+   "duration_s": 1.0,
+   "root_motion_delta": {
+    "translation": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "yaw_deg": 0.0,
+    "speed_mps": 0.0
+   }
+  },
+  "knee_stickhandle": {
+   "kind": "clip",
+   "length": 30,
+   "loop": true,
+   "root_motion": false,
+   "family": "possession",
+   "tier": 1,
+   "hub_start": "H_KNEE",
+   "hub_end": "H_KNEE",
+   "handedness": "L",
+   "events": [
+    {
+     "name": "puck_touch",
+     "frame": 10,
+     "time_s": 0.3333333333333333
+    },
+    {
+     "name": "puck_touch",
+     "frame": 22,
+     "time_s": 0.7333333333333333
+    }
+   ],
+   "ranges": [
+    {
+     "name": "puck_attached",
+     "start": 0,
+     "end": 6
+    },
+    {
+     "name": "puck_attached",
+     "start": 10,
+     "end": 18
+    },
+    {
+     "name": "puck_attached",
+     "start": 22,
+     "end": 30
+    }
+   ],
+   "sections": [],
+   "contacts": [
+    {
+     "name": "BLADE_HEEL",
+     "start": 0,
+     "end": 6,
+     "kind": "slide"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 0,
+     "end": 30,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 0,
+     "end": 30,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_l",
+     "start": 0,
+     "end": 30,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_r",
+     "start": 0,
+     "end": 30,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_l",
+     "start": 0,
+     "end": 30,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_r",
+     "start": 0,
+     "end": 30,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_l",
+     "start": 0,
+     "end": 30,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_r",
+     "start": 0,
+     "end": 30,
+     "kind": "pin"
+    },
+    {
+     "name": "BLADE_HEEL",
+     "start": 10,
+     "end": 18,
+     "kind": "slide"
+    },
+    {
+     "name": "BLADE_HEEL",
+     "start": 22,
+     "end": 30,
+     "kind": "slide"
+    }
+   ],
+   "quality": "accepted",
+   "skeleton_hash": "58087d952b1022ad4c5bb400f685e55c459a36f2b5f3547e3feba861d1ca0003",
+   "helpers_hash": "1cc0779edbaa08e08967cbdcb15fab6ca8bbc299896a039c4fea1bc70a5f910c",
+   "stick_hash": "2491b6b1d87587492195fed911765309172341a0ae9b8bd2f63dcaffc10fecdd",
+   "source_hash": "8dca4d6c778b3fb57ebc96f5a0a0acb96698eca47877ab79627c74e8289171bc",
+   "frames": 31,
+   "duration_s": 1.0,
+   "root_motion_delta": {
+    "translation": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "yaw_deg": 0.0,
+    "speed_mps": 0.0
+   }
+  },
+  "knee_wrist_shot": {
+   "kind": "clip",
+   "length": 28,
+   "loop": false,
+   "root_motion": false,
+   "family": "shots",
+   "tier": 1,
+   "hub_start": "H_KNEE",
+   "hub_end": "H_KNEE",
+   "handedness": "L",
+   "events": [
+    {
+     "name": "release",
+     "frame": 11,
+     "time_s": 0.36666666666666664
+    },
+    {
+     "name": "interruptible",
+     "frame": 18,
+     "time_s": 0.6
+    }
+   ],
+   "ranges": [
+    {
+     "name": "puck_attached",
+     "start": 0,
+     "end": 11
+    }
+   ],
+   "sections": [
+    {
+     "name": "load",
+     "start": 0,
+     "end": 7
+    },
+    {
+     "name": "drive",
+     "start": 7,
+     "end": 9
+    },
+    {
+     "name": "snap",
+     "start": 9,
+     "end": 11
+    },
+    {
+     "name": "follow",
+     "start": 11,
+     "end": 16
+    },
+    {
+     "name": "hold",
+     "start": 16,
+     "end": 18
+    },
+    {
+     "name": "recover",
+     "start": 18,
+     "end": 28
+    }
+   ],
+   "contacts": [
+    {
+     "name": "BLADE_HEEL",
+     "start": 0,
+     "end": 11,
+     "kind": "slide"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 0,
+     "end": 28,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 0,
+     "end": 28,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_l",
+     "start": 0,
+     "end": 28,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_r",
+     "start": 0,
+     "end": 28,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_l",
+     "start": 0,
+     "end": 28,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_r",
+     "start": 0,
+     "end": 28,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_l",
+     "start": 0,
+     "end": 28,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_r",
+     "start": 0,
+     "end": 28,
+     "kind": "pin"
+    },
+    {
+     "name": "BLADE_HEEL",
+     "start": 25,
+     "end": 28,
+     "kind": "slide"
+    }
+   ],
+   "quality": "accepted",
+   "skeleton_hash": "58087d952b1022ad4c5bb400f685e55c459a36f2b5f3547e3feba861d1ca0003",
+   "helpers_hash": "1cc0779edbaa08e08967cbdcb15fab6ca8bbc299896a039c4fea1bc70a5f910c",
+   "stick_hash": "2491b6b1d87587492195fed911765309172341a0ae9b8bd2f63dcaffc10fecdd",
+   "source_hash": "02accf26aa2968f271d9da026dc99364fe3b0405ede2f9a13b7dc5bda0f1f75d",
+   "frames": 29,
+   "duration_s": 0.9333333333333333,
+   "root_motion_delta": {
+    "translation": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "yaw_deg": 0.0,
+    "speed_mps": 0.0
+   }
+  },
+  "knee_slap_shot": {
+   "kind": "clip",
+   "length": 34,
+   "loop": false,
+   "root_motion": false,
+   "family": "shots",
+   "tier": 1,
+   "hub_start": "H_KNEE",
+   "hub_end": "H_KNEE",
+   "handedness": "L",
+   "events": [
+    {
+     "name": "stick_floor_hit",
+     "frame": 16,
+     "time_s": 0.5333333333333333
+    },
+    {
+     "name": "release",
+     "frame": 17,
+     "time_s": 0.5666666666666667
+    },
+    {
+     "name": "interruptible",
+     "frame": 25,
+     "time_s": 0.8333333333333334
+    }
+   ],
+   "ranges": [],
+   "sections": [
+    {
+     "name": "address",
+     "start": 0,
+     "end": 2
+    },
+    {
+     "name": "backswing",
+     "start": 2,
+     "end": 12
+    },
+    {
+     "name": "downswing",
+     "start": 12,
+     "end": 16
+    },
+    {
+     "name": "strike",
+     "start": 16,
+     "end": 17
+    },
+    {
+     "name": "follow",
+     "start": 17,
+     "end": 23
+    },
+    {
+     "name": "hold",
+     "start": 23,
+     "end": 25
+    },
+    {
+     "name": "recover",
+     "start": 25,
+     "end": 34
+    }
+   ],
+   "contacts": [
+    {
+     "name": "BLADE_HEEL",
+     "start": 0,
+     "end": 3,
+     "kind": "slide"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 0,
+     "end": 34,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 0,
+     "end": 34,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_l",
+     "start": 0,
+     "end": 34,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_r",
+     "start": 0,
+     "end": 34,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_l",
+     "start": 0,
+     "end": 34,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_r",
+     "start": 0,
+     "end": 34,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_l",
+     "start": 0,
+     "end": 34,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_r",
+     "start": 0,
+     "end": 34,
+     "kind": "pin"
+    },
+    {
+     "name": "BLADE_HEEL",
+     "start": 16,
+     "end": 17,
+     "kind": "slide"
+    },
+    {
+     "name": "BLADE_HEEL",
+     "start": 31,
+     "end": 34,
+     "kind": "slide"
+    }
+   ],
+   "quality": "accepted",
+   "skeleton_hash": "58087d952b1022ad4c5bb400f685e55c459a36f2b5f3547e3feba861d1ca0003",
+   "helpers_hash": "1cc0779edbaa08e08967cbdcb15fab6ca8bbc299896a039c4fea1bc70a5f910c",
+   "stick_hash": "2491b6b1d87587492195fed911765309172341a0ae9b8bd2f63dcaffc10fecdd",
+   "source_hash": "02accf26aa2968f271d9da026dc99364fe3b0405ede2f9a13b7dc5bda0f1f75d",
+   "frames": 35,
+   "duration_s": 1.1333333333333333,
+   "root_motion_delta": {
+    "translation": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "yaw_deg": 0.0,
+    "speed_mps": 0.0
+   }
+  },
+  "knee_pass": {
+   "kind": "clip",
+   "length": 20,
+   "loop": false,
+   "root_motion": false,
+   "family": "possession",
+   "tier": 1,
+   "hub_start": "H_KNEE",
+   "hub_end": "H_KNEE",
+   "handedness": "L",
+   "events": [
+    {
+     "name": "release",
+     "frame": 9,
+     "time_s": 0.3
+    }
+   ],
+   "ranges": [
+    {
+     "name": "puck_attached",
+     "start": 0,
+     "end": 9
+    }
+   ],
+   "sections": [],
+   "contacts": [
+    {
+     "name": "BLADE_HEEL",
+     "start": 0,
+     "end": 20,
+     "kind": "slide"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 0,
+     "end": 20,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 0,
+     "end": 20,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_l",
+     "start": 0,
+     "end": 20,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_r",
+     "start": 0,
+     "end": 20,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_l",
+     "start": 0,
+     "end": 20,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_r",
+     "start": 0,
+     "end": 20,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_l",
+     "start": 0,
+     "end": 20,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_r",
+     "start": 0,
+     "end": 20,
+     "kind": "pin"
+    }
+   ],
+   "quality": "accepted",
+   "skeleton_hash": "58087d952b1022ad4c5bb400f685e55c459a36f2b5f3547e3feba861d1ca0003",
+   "helpers_hash": "1cc0779edbaa08e08967cbdcb15fab6ca8bbc299896a039c4fea1bc70a5f910c",
+   "stick_hash": "2491b6b1d87587492195fed911765309172341a0ae9b8bd2f63dcaffc10fecdd",
+   "source_hash": "8dca4d6c778b3fb57ebc96f5a0a0acb96698eca47877ab79627c74e8289171bc",
+   "frames": 21,
+   "duration_s": 0.6666666666666666,
+   "root_motion_delta": {
+    "translation": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "yaw_deg": 0.0,
+    "speed_mps": 0.0
+   }
+  },
+  "knee_pass_hard": {
+   "kind": "clip",
+   "length": 24,
+   "loop": false,
+   "root_motion": false,
+   "family": "shots",
+   "tier": 1,
+   "hub_start": "H_KNEE",
+   "hub_end": "H_KNEE",
+   "handedness": "L",
+   "events": [
+    {
+     "name": "release",
+     "frame": 11,
+     "time_s": 0.36666666666666664
+    },
+    {
+     "name": "interruptible",
+     "frame": 17,
+     "time_s": 0.5666666666666667
+    }
+   ],
+   "ranges": [
+    {
+     "name": "puck_attached",
+     "start": 0,
+     "end": 11
+    }
+   ],
+   "sections": [
+    {
+     "name": "load",
+     "start": 0,
+     "end": 7
+    },
+    {
+     "name": "drive",
+     "start": 7,
+     "end": 9
+    },
+    {
+     "name": "snap",
+     "start": 9,
+     "end": 11
+    },
+    {
+     "name": "follow",
+     "start": 11,
+     "end": 15
+    },
+    {
+     "name": "recover",
+     "start": 17,
+     "end": 24
+    }
+   ],
+   "contacts": [
+    {
+     "name": "BLADE_HEEL",
+     "start": 0,
+     "end": 11,
+     "kind": "slide"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 0,
+     "end": 24,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 0,
+     "end": 24,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_l",
+     "start": 0,
+     "end": 24,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_r",
+     "start": 0,
+     "end": 24,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_l",
+     "start": 0,
+     "end": 24,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_r",
+     "start": 0,
+     "end": 24,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_l",
+     "start": 0,
+     "end": 24,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_r",
+     "start": 0,
+     "end": 24,
+     "kind": "pin"
+    },
+    {
+     "name": "BLADE_HEEL",
+     "start": 22,
+     "end": 24,
+     "kind": "slide"
+    }
+   ],
+   "quality": "accepted",
+   "skeleton_hash": "58087d952b1022ad4c5bb400f685e55c459a36f2b5f3547e3feba861d1ca0003",
+   "helpers_hash": "1cc0779edbaa08e08967cbdcb15fab6ca8bbc299896a039c4fea1bc70a5f910c",
+   "stick_hash": "2491b6b1d87587492195fed911765309172341a0ae9b8bd2f63dcaffc10fecdd",
+   "source_hash": "02accf26aa2968f271d9da026dc99364fe3b0405ede2f9a13b7dc5bda0f1f75d",
+   "frames": 25,
+   "duration_s": 0.8,
+   "root_motion_delta": {
+    "translation": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "yaw_deg": 0.0,
+    "speed_mps": 0.0
+   }
+  },
+  "knee_receive_pass": {
+   "kind": "clip",
+   "length": 18,
+   "loop": false,
+   "root_motion": false,
+   "family": "possession",
+   "tier": 1,
+   "hub_start": "H_KNEE",
+   "hub_end": "H_KNEE",
+   "handedness": "L",
+   "events": [
+    {
+     "name": "puck_touch",
+     "frame": 6,
+     "time_s": 0.2
+    }
+   ],
+   "ranges": [
+    {
+     "name": "puck_attached",
+     "start": 6,
+     "end": 18
+    }
+   ],
+   "sections": [],
+   "contacts": [
+    {
+     "name": "BLADE_HEEL",
+     "start": 0,
+     "end": 18,
+     "kind": "slide"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 0,
+     "end": 18,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 0,
+     "end": 18,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_l",
+     "start": 0,
+     "end": 18,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_r",
+     "start": 0,
+     "end": 18,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_l",
+     "start": 0,
+     "end": 18,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_r",
+     "start": 0,
+     "end": 18,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_l",
+     "start": 0,
+     "end": 18,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_r",
+     "start": 0,
+     "end": 18,
+     "kind": "pin"
+    }
+   ],
+   "quality": "accepted",
+   "skeleton_hash": "58087d952b1022ad4c5bb400f685e55c459a36f2b5f3547e3feba861d1ca0003",
+   "helpers_hash": "1cc0779edbaa08e08967cbdcb15fab6ca8bbc299896a039c4fea1bc70a5f910c",
+   "stick_hash": "2491b6b1d87587492195fed911765309172341a0ae9b8bd2f63dcaffc10fecdd",
+   "source_hash": "8dca4d6c778b3fb57ebc96f5a0a0acb96698eca47877ab79627c74e8289171bc",
+   "frames": 19,
+   "duration_s": 0.6,
+   "root_motion_delta": {
+    "translation": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "yaw_deg": 0.0,
+    "speed_mps": 0.0
+   }
+  },
+  "knee_poke_check": {
+   "kind": "clip",
+   "length": 24,
+   "loop": false,
+   "root_motion": false,
+   "family": "strikes",
+   "tier": 1,
+   "hub_start": "H_KNEE",
+   "hub_end": "H_KNEE",
+   "handedness": "L",
+   "events": [
+    {
+     "name": "offhand_off",
+     "frame": 2,
+     "time_s": 0.06666666666666667
+    },
+    {
+     "name": "hit",
+     "frame": 10,
+     "time_s": 0.3333333333333333
+    },
+    {
+     "name": "interruptible",
+     "frame": 20,
+     "time_s": 0.6666666666666666
+    },
+    {
+     "name": "offhand_on",
+     "frame": 20,
+     "time_s": 0.6666666666666666
+    }
+   ],
+   "ranges": [
+    {
+     "name": "regrip_l",
+     "start": 0,
+     "end": 1
+    },
+    {
+     "name": "offhand_free",
+     "start": 2,
+     "end": 20
+    },
+    {
+     "name": "hit_window",
+     "start": 9,
+     "end": 11
+    },
+    {
+     "name": "regrip_l",
+     "start": 20,
+     "end": 22
+    }
+   ],
+   "sections": [
+    {
+     "name": "aim",
+     "start": 0,
+     "end": 6
+    },
+    {
+     "name": "thrust",
+     "start": 6,
+     "end": 10
+    },
+    {
+     "name": "recoil",
+     "start": 10,
+     "end": 12
+    },
+    {
+     "name": "recover",
+     "start": 12,
+     "end": 24
+    }
+   ],
+   "contacts": [
+    {
+     "name": "BLADE_HEEL",
+     "start": 0,
+     "end": 1,
+     "kind": "slide"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 0,
+     "end": 24,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 0,
+     "end": 24,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_l",
+     "start": 0,
+     "end": 24,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_r",
+     "start": 0,
+     "end": 24,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_l",
+     "start": 0,
+     "end": 24,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_r",
+     "start": 0,
+     "end": 24,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_l",
+     "start": 0,
+     "end": 24,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_r",
+     "start": 0,
+     "end": 24,
+     "kind": "pin"
+    },
+    {
+     "name": "BLADE_HEEL",
+     "start": 20,
+     "end": 24,
+     "kind": "slide"
+    }
+   ],
+   "quality": "accepted",
+   "skeleton_hash": "58087d952b1022ad4c5bb400f685e55c459a36f2b5f3547e3feba861d1ca0003",
+   "helpers_hash": "1cc0779edbaa08e08967cbdcb15fab6ca8bbc299896a039c4fea1bc70a5f910c",
+   "stick_hash": "2491b6b1d87587492195fed911765309172341a0ae9b8bd2f63dcaffc10fecdd",
+   "source_hash": "a254e53392ef048f53ef0165f1837cc54ea88ed12d23a547facca9535dceda14",
+   "frames": 25,
+   "duration_s": 0.8,
+   "root_motion_delta": {
+    "translation": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "yaw_deg": 0.0,
+    "speed_mps": 0.0
+   }
+  },
+  "knee_slash": {
+   "kind": "clip",
+   "length": 26,
+   "loop": false,
+   "root_motion": false,
+   "family": "strikes",
+   "tier": 1,
+   "hub_start": "H_KNEE",
+   "hub_end": "H_KNEE",
+   "handedness": "L",
+   "events": [
+    {
+     "name": "hit",
+     "frame": 14,
+     "time_s": 0.4666666666666667
+    },
+    {
+     "name": "interruptible",
+     "frame": 19,
+     "time_s": 0.6333333333333333
+    }
+   ],
+   "ranges": [
+    {
+     "name": "hit_window",
+     "start": 13,
+     "end": 15
+    }
+   ],
+   "sections": [
+    {
+     "name": "anticipation",
+     "start": 0,
+     "end": 2
+    },
+    {
+     "name": "wind_up",
+     "start": 2,
+     "end": 10
+    },
+    {
+     "name": "swing",
+     "start": 10,
+     "end": 14
+    },
+    {
+     "name": "recoil",
+     "start": 14,
+     "end": 16
+    },
+    {
+     "name": "recover",
+     "start": 16,
+     "end": 26
+    }
+   ],
+   "contacts": [
+    {
+     "name": "BLADE_HEEL",
+     "start": 0,
+     "end": 2,
+     "kind": "slide"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 0,
+     "end": 26,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 0,
+     "end": 26,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_l",
+     "start": 0,
+     "end": 26,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_r",
+     "start": 0,
+     "end": 26,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_l",
+     "start": 0,
+     "end": 26,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_r",
+     "start": 0,
+     "end": 26,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_l",
+     "start": 0,
+     "end": 26,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_r",
+     "start": 0,
+     "end": 26,
+     "kind": "pin"
+    },
+    {
+     "name": "BLADE_HEEL",
+     "start": 22,
+     "end": 26,
+     "kind": "slide"
+    }
+   ],
+   "quality": "accepted",
+   "skeleton_hash": "58087d952b1022ad4c5bb400f685e55c459a36f2b5f3547e3feba861d1ca0003",
+   "helpers_hash": "1cc0779edbaa08e08967cbdcb15fab6ca8bbc299896a039c4fea1bc70a5f910c",
+   "stick_hash": "2491b6b1d87587492195fed911765309172341a0ae9b8bd2f63dcaffc10fecdd",
+   "source_hash": "a254e53392ef048f53ef0165f1837cc54ea88ed12d23a547facca9535dceda14",
+   "frames": 27,
+   "duration_s": 0.8666666666666667,
+   "root_motion_delta": {
+    "translation": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "yaw_deg": 0.0,
+    "speed_mps": 0.0
+   }
+  },
+  "goalie_idle": {
+   "kind": "clip",
+   "length": 90,
+   "loop": true,
+   "root_motion": false,
+   "family": "goalie",
+   "tier": 1,
+   "hub_start": "H_BUTTERFLY",
+   "hub_end": "H_BUTTERFLY",
+   "handedness": "L",
+   "events": [],
+   "ranges": [
+    {
+     "name": "offhand_free",
+     "start": 0,
+     "end": 90
+    }
+   ],
+   "sections": [],
+   "contacts": [
+    {
+     "name": "BLADE_HEEL",
+     "start": 0,
+     "end": 90,
+     "kind": "slide"
+    },
+    {
+     "name": "BLADE_TOE",
+     "start": 0,
+     "end": 90,
+     "kind": "slide"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 0,
+     "end": 90,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 0,
+     "end": 90,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_l",
+     "start": 0,
+     "end": 90,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_r",
+     "start": 0,
+     "end": 90,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_l",
+     "start": 0,
+     "end": 90,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_r",
+     "start": 0,
+     "end": 90,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_l",
+     "start": 0,
+     "end": 90,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_r",
+     "start": 0,
+     "end": 90,
+     "kind": "pin"
+    }
+   ],
+   "quality": "accepted",
+   "skeleton_hash": "58087d952b1022ad4c5bb400f685e55c459a36f2b5f3547e3feba861d1ca0003",
+   "helpers_hash": "1cc0779edbaa08e08967cbdcb15fab6ca8bbc299896a039c4fea1bc70a5f910c",
+   "stick_hash": "2491b6b1d87587492195fed911765309172341a0ae9b8bd2f63dcaffc10fecdd",
+   "source_hash": "d7124b2ae660dc5ede594ae554f352e0fd0e5361bc47ce3f376b96c7e0f60abf",
+   "frames": 91,
+   "duration_s": 3.0,
+   "root_motion_delta": {
+    "translation": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "yaw_deg": 0.0,
+    "speed_mps": 0.0
+   }
+  },
+  "knee_to_butterfly": {
+   "kind": "clip",
+   "length": 10,
+   "loop": false,
+   "root_motion": false,
+   "family": "goalie",
+   "tier": 1,
+   "hub_start": "H_KNEE",
+   "hub_end": "H_BUTTERFLY",
+   "handedness": "L",
+   "events": [
+    {
+     "name": "slide_start",
+     "frame": 1,
+     "time_s": 0.03333333333333333
+    },
+    {
+     "name": "offhand_off",
+     "frame": 2,
+     "time_s": 0.06666666666666667
+    },
+    {
+     "name": "slide_end",
+     "frame": 6,
+     "time_s": 0.2
+    }
+   ],
+   "ranges": [
+    {
+     "name": "regrip_l",
+     "start": 0,
+     "end": 1
+    },
+    {
+     "name": "offhand_free",
+     "start": 2,
+     "end": 10
+    },
+    {
+     "name": "regrip_r",
+     "start": 3,
+     "end": 7
+    }
+   ],
+   "sections": [
+    {
+     "name": "anticipation",
+     "start": 0,
+     "end": 2
+    },
+    {
+     "name": "drop",
+     "start": 2,
+     "end": 7
+    },
+    {
+     "name": "settle",
+     "start": 7,
+     "end": 10
+    }
+   ],
+   "contacts": [
+    {
+     "name": "BLADE_HEEL",
+     "start": 0,
+     "end": 10,
+     "kind": "slide"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 0,
+     "end": 1,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 0,
+     "end": 2,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_l",
+     "start": 0,
+     "end": 1,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_r",
+     "start": 0,
+     "end": 2,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_l",
+     "start": 0,
+     "end": 1,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_r",
+     "start": 0,
+     "end": 2,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_l",
+     "start": 0,
+     "end": 1,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_r",
+     "start": 0,
+     "end": 2,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 1,
+     "end": 5,
+     "kind": "slide"
+    },
+    {
+     "name": "instep_l",
+     "start": 1,
+     "end": 5,
+     "kind": "slide"
+    },
+    {
+     "name": "knee_l",
+     "start": 1,
+     "end": 5,
+     "kind": "slide"
+    },
+    {
+     "name": "toe_l",
+     "start": 1,
+     "end": 5,
+     "kind": "slide"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 2,
+     "end": 6,
+     "kind": "slide"
+    },
+    {
+     "name": "instep_r",
+     "start": 2,
+     "end": 6,
+     "kind": "slide"
+    },
+    {
+     "name": "knee_r",
+     "start": 2,
+     "end": 6,
+     "kind": "slide"
+    },
+    {
+     "name": "toe_r",
+     "start": 2,
+     "end": 6,
+     "kind": "slide"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 5,
+     "end": 10,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_l",
+     "start": 5,
+     "end": 10,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_l",
+     "start": 5,
+     "end": 10,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_l",
+     "start": 5,
+     "end": 10,
+     "kind": "pin"
+    },
+    {
+     "name": "BLADE_TOE",
+     "start": 6,
+     "end": 10,
+     "kind": "slide"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 6,
+     "end": 10,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_r",
+     "start": 6,
+     "end": 10,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_r",
+     "start": 6,
+     "end": 10,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_r",
+     "start": 6,
+     "end": 10,
+     "kind": "pin"
+    }
+   ],
+   "quality": "accepted",
+   "skeleton_hash": "58087d952b1022ad4c5bb400f685e55c459a36f2b5f3547e3feba861d1ca0003",
+   "helpers_hash": "1cc0779edbaa08e08967cbdcb15fab6ca8bbc299896a039c4fea1bc70a5f910c",
+   "stick_hash": "2491b6b1d87587492195fed911765309172341a0ae9b8bd2f63dcaffc10fecdd",
+   "source_hash": "d7124b2ae660dc5ede594ae554f352e0fd0e5361bc47ce3f376b96c7e0f60abf",
+   "frames": 11,
+   "duration_s": 0.3333333333333333,
+   "root_motion_delta": {
+    "translation": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "yaw_deg": 0.0,
+    "speed_mps": 0.0
+   }
+  },
+  "butterfly_to_knee": {
+   "kind": "clip",
+   "length": 12,
+   "loop": false,
+   "root_motion": false,
+   "family": "goalie",
+   "tier": 1,
+   "hub_start": "H_BUTTERFLY",
+   "hub_end": "H_KNEE",
+   "handedness": "L",
+   "events": [
+    {
+     "name": "slide_start",
+     "frame": 2,
+     "time_s": 0.06666666666666667
+    },
+    {
+     "name": "slide_end",
+     "frame": 7,
+     "time_s": 0.23333333333333334
+    },
+    {
+     "name": "offhand_on",
+     "frame": 8,
+     "time_s": 0.26666666666666666
+    }
+   ],
+   "ranges": [
+    {
+     "name": "offhand_free",
+     "start": 0,
+     "end": 8
+    },
+    {
+     "name": "regrip_r",
+     "start": 3,
+     "end": 7
+    },
+    {
+     "name": "regrip_l",
+     "start": 8,
+     "end": 11
+    }
+   ],
+   "sections": [
+    {
+     "name": "anticipation",
+     "start": 0,
+     "end": 2
+    },
+    {
+     "name": "gather",
+     "start": 2,
+     "end": 8
+    },
+    {
+     "name": "settle",
+     "start": 8,
+     "end": 12
+    }
+   ],
+   "contacts": [
+    {
+     "name": "BLADE_HEEL",
+     "start": 0,
+     "end": 12,
+     "kind": "slide"
+    },
+    {
+     "name": "BLADE_TOE",
+     "start": 0,
+     "end": 4,
+     "kind": "slide"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 0,
+     "end": 3,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 0,
+     "end": 2,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_l",
+     "start": 0,
+     "end": 3,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_r",
+     "start": 0,
+     "end": 2,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_l",
+     "start": 0,
+     "end": 3,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_r",
+     "start": 0,
+     "end": 2,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_l",
+     "start": 0,
+     "end": 3,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_r",
+     "start": 0,
+     "end": 2,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 2,
+     "end": 6,
+     "kind": "slide"
+    },
+    {
+     "name": "instep_r",
+     "start": 2,
+     "end": 6,
+     "kind": "slide"
+    },
+    {
+     "name": "knee_r",
+     "start": 2,
+     "end": 6,
+     "kind": "slide"
+    },
+    {
+     "name": "toe_r",
+     "start": 2,
+     "end": 6,
+     "kind": "slide"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 3,
+     "end": 7,
+     "kind": "slide"
+    },
+    {
+     "name": "instep_l",
+     "start": 3,
+     "end": 7,
+     "kind": "slide"
+    },
+    {
+     "name": "knee_l",
+     "start": 3,
+     "end": 7,
+     "kind": "slide"
+    },
+    {
+     "name": "toe_l",
+     "start": 3,
+     "end": 7,
+     "kind": "slide"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 6,
+     "end": 12,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_r",
+     "start": 6,
+     "end": 12,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_r",
+     "start": 6,
+     "end": 12,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_r",
+     "start": 6,
+     "end": 12,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 7,
+     "end": 12,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_l",
+     "start": 7,
+     "end": 12,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_l",
+     "start": 7,
+     "end": 12,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_l",
+     "start": 7,
+     "end": 12,
+     "kind": "pin"
+    }
+   ],
+   "quality": "accepted",
+   "skeleton_hash": "58087d952b1022ad4c5bb400f685e55c459a36f2b5f3547e3feba861d1ca0003",
+   "helpers_hash": "1cc0779edbaa08e08967cbdcb15fab6ca8bbc299896a039c4fea1bc70a5f910c",
+   "stick_hash": "2491b6b1d87587492195fed911765309172341a0ae9b8bd2f63dcaffc10fecdd",
+   "source_hash": "d7124b2ae660dc5ede594ae554f352e0fd0e5361bc47ce3f376b96c7e0f60abf",
+   "frames": 13,
+   "duration_s": 0.4,
+   "root_motion_delta": {
+    "translation": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "yaw_deg": 0.0,
+    "speed_mps": 0.0
+   }
+  },
+  "knee_cross_check": {
+   "kind": "clip",
+   "length": 34,
+   "loop": false,
+   "root_motion": false,
+   "family": "contact",
+   "tier": 2,
+   "hub_start": "H_KNEE",
+   "hub_end": "H_KNEE",
+   "handedness": "L",
+   "events": [
+    {
+     "name": "hit",
+     "frame": 13,
+     "time_s": 0.43333333333333335
+    },
+    {
+     "name": "interruptible",
+     "frame": 26,
+     "time_s": 0.8666666666666667
+    }
+   ],
+   "ranges": [
+    {
+     "name": "hit_window",
+     "start": 12,
+     "end": 14
+    }
+   ],
+   "sections": [
+    {
+     "name": "rise",
+     "start": 0,
+     "end": 9
+    },
+    {
+     "name": "chamber",
+     "start": 9,
+     "end": 10
+    },
+    {
+     "name": "drive",
+     "start": 10,
+     "end": 13
+    },
+    {
+     "name": "lean",
+     "start": 13,
+     "end": 15
+    },
+    {
+     "name": "recoil",
+     "start": 15,
+     "end": 18
+    },
+    {
+     "name": "recover",
+     "start": 18,
+     "end": 34
+    }
+   ],
+   "contacts": [
+    {
+     "name": "BLADE_HEEL",
+     "start": 0,
+     "end": 2,
+     "kind": "slide"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 0,
+     "end": 34,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 0,
+     "end": 34,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_l",
+     "start": 0,
+     "end": 34,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_r",
+     "start": 0,
+     "end": 34,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_l",
+     "start": 0,
+     "end": 34,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_r",
+     "start": 0,
+     "end": 34,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_l",
+     "start": 0,
+     "end": 34,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_r",
+     "start": 0,
+     "end": 34,
+     "kind": "pin"
+    },
+    {
+     "name": "BLADE_HEEL",
+     "start": 25,
+     "end": 34,
+     "kind": "slide"
+    }
+   ],
+   "quality": "accepted",
+   "skeleton_hash": "58087d952b1022ad4c5bb400f685e55c459a36f2b5f3547e3feba861d1ca0003",
+   "helpers_hash": "1cc0779edbaa08e08967cbdcb15fab6ca8bbc299896a039c4fea1bc70a5f910c",
+   "stick_hash": "2491b6b1d87587492195fed911765309172341a0ae9b8bd2f63dcaffc10fecdd",
+   "source_hash": "6fd6b8194b72b566ff100d5577c2352330edacbb7e3f1c253de4889f86a82937",
+   "frames": 35,
+   "duration_s": 1.1333333333333333,
+   "root_motion_delta": {
+    "translation": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "yaw_deg": 0.0,
+    "speed_mps": 0.0
+   }
+  },
+  "knee_body_check_l": {
+   "kind": "clip",
+   "length": 36,
+   "loop": false,
+   "root_motion": true,
+   "family": "contact",
+   "tier": 2,
+   "hub_start": "H_KNEE",
+   "hub_end": "H_KNEE",
+   "handedness": "L",
+   "events": [
+    {
+     "name": "slide_start",
+     "frame": 6,
+     "time_s": 0.2
+    },
+    {
+     "name": "hit",
+     "frame": 12,
+     "time_s": 0.4
+    },
+    {
+     "name": "slide_end",
+     "frame": 15,
+     "time_s": 0.5
+    },
+    {
+     "name": "interruptible",
+     "frame": 29,
+     "time_s": 0.9666666666666667
+    }
+   ],
+   "ranges": [
+    {
+     "name": "hit_window",
+     "start": 11,
+     "end": 13
+    }
+   ],
+   "sections": [
+    {
+     "name": "load",
+     "start": 0,
+     "end": 6
+    },
+    {
+     "name": "drive",
+     "start": 6,
+     "end": 12
+    },
+    {
+     "name": "through",
+     "start": 12,
+     "end": 15
+    },
+    {
+     "name": "lean",
+     "start": 15,
+     "end": 18
+    },
+    {
+     "name": "recover",
+     "start": 18,
+     "end": 27
+    },
+    {
+     "name": "settle",
+     "start": 27,
+     "end": 36
+    }
+   ],
+   "contacts": [
+    {
+     "name": "BLADE_HEEL",
+     "start": 0,
+     "end": 1,
+     "kind": "slide"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 0,
+     "end": 3,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 0,
+     "end": 7,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_l",
+     "start": 0,
+     "end": 3,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_r",
+     "start": 0,
+     "end": 7,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_l",
+     "start": 0,
+     "end": 6,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_r",
+     "start": 0,
+     "end": 7,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_l",
+     "start": 0,
+     "end": 3,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_r",
+     "start": 0,
+     "end": 7,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 3,
+     "end": 15,
+     "kind": "slide"
+    },
+    {
+     "name": "instep_l",
+     "start": 3,
+     "end": 15,
+     "kind": "slide"
+    },
+    {
+     "name": "toe_l",
+     "start": 3,
+     "end": 15,
+     "kind": "slide"
+    },
+    {
+     "name": "knee_l",
+     "start": 6,
+     "end": 15,
+     "kind": "slide"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 7,
+     "end": 23,
+     "kind": "slide"
+    },
+    {
+     "name": "instep_r",
+     "start": 7,
+     "end": 23,
+     "kind": "slide"
+    },
+    {
+     "name": "knee_r",
+     "start": 7,
+     "end": 12,
+     "kind": "slide"
+    },
+    {
+     "name": "toe_r",
+     "start": 7,
+     "end": 23,
+     "kind": "slide"
+    },
+    {
+     "name": "knee_r",
+     "start": 12,
+     "end": 36,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 15,
+     "end": 36,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_l",
+     "start": 15,
+     "end": 36,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_l",
+     "start": 15,
+     "end": 36,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_l",
+     "start": 15,
+     "end": 36,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 23,
+     "end": 36,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_r",
+     "start": 23,
+     "end": 36,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_r",
+     "start": 23,
+     "end": 36,
+     "kind": "pin"
+    },
+    {
+     "name": "BLADE_HEEL",
+     "start": 27,
+     "end": 36,
+     "kind": "slide"
+    }
+   ],
+   "quality": "accepted",
+   "skeleton_hash": "58087d952b1022ad4c5bb400f685e55c459a36f2b5f3547e3feba861d1ca0003",
+   "helpers_hash": "1cc0779edbaa08e08967cbdcb15fab6ca8bbc299896a039c4fea1bc70a5f910c",
+   "stick_hash": "2491b6b1d87587492195fed911765309172341a0ae9b8bd2f63dcaffc10fecdd",
+   "source_hash": "6fd6b8194b72b566ff100d5577c2352330edacbb7e3f1c253de4889f86a82937",
+   "frames": 37,
+   "duration_s": 1.2,
+   "root_motion_delta": {
+    "translation": [
+     0.25,
+     0.0,
+     0.0
+    ],
+    "yaw_deg": 0.0,
+    "speed_mps": 0.20833333333333334
+   }
+  },
+  "knee_body_check_r": {
+   "kind": "clip",
+   "length": 36,
+   "loop": false,
+   "root_motion": true,
+   "family": "contact",
+   "tier": 2,
+   "hub_start": "H_KNEE",
+   "hub_end": "H_KNEE",
+   "handedness": "L",
+   "events": [
+    {
+     "name": "slide_start",
+     "frame": 6,
+     "time_s": 0.2
+    },
+    {
+     "name": "hit",
+     "frame": 12,
+     "time_s": 0.4
+    },
+    {
+     "name": "slide_end",
+     "frame": 15,
+     "time_s": 0.5
+    },
+    {
+     "name": "interruptible",
+     "frame": 29,
+     "time_s": 0.9666666666666667
+    }
+   ],
+   "ranges": [
+    {
+     "name": "hit_window",
+     "start": 11,
+     "end": 13
+    }
+   ],
+   "sections": [
+    {
+     "name": "load",
+     "start": 0,
+     "end": 6
+    },
+    {
+     "name": "drive",
+     "start": 6,
+     "end": 12
+    },
+    {
+     "name": "through",
+     "start": 12,
+     "end": 15
+    },
+    {
+     "name": "lean",
+     "start": 15,
+     "end": 18
+    },
+    {
+     "name": "recover",
+     "start": 18,
+     "end": 27
+    },
+    {
+     "name": "settle",
+     "start": 27,
+     "end": 36
+    }
+   ],
+   "contacts": [
+    {
+     "name": "BLADE_HEEL",
+     "start": 0,
+     "end": 1,
+     "kind": "slide"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 0,
+     "end": 7,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 0,
+     "end": 3,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_l",
+     "start": 0,
+     "end": 7,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_r",
+     "start": 0,
+     "end": 3,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_l",
+     "start": 0,
+     "end": 7,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_r",
+     "start": 0,
+     "end": 6,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_l",
+     "start": 0,
+     "end": 7,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_r",
+     "start": 0,
+     "end": 3,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 3,
+     "end": 15,
+     "kind": "slide"
+    },
+    {
+     "name": "instep_r",
+     "start": 3,
+     "end": 15,
+     "kind": "slide"
+    },
+    {
+     "name": "toe_r",
+     "start": 3,
+     "end": 15,
+     "kind": "slide"
+    },
+    {
+     "name": "knee_r",
+     "start": 6,
+     "end": 15,
+     "kind": "slide"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 7,
+     "end": 23,
+     "kind": "slide"
+    },
+    {
+     "name": "instep_l",
+     "start": 7,
+     "end": 23,
+     "kind": "slide"
+    },
+    {
+     "name": "knee_l",
+     "start": 7,
+     "end": 12,
+     "kind": "slide"
+    },
+    {
+     "name": "toe_l",
+     "start": 7,
+     "end": 23,
+     "kind": "slide"
+    },
+    {
+     "name": "knee_l",
+     "start": 12,
+     "end": 36,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 15,
+     "end": 36,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_r",
+     "start": 15,
+     "end": 36,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_r",
+     "start": 15,
+     "end": 36,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_r",
+     "start": 15,
+     "end": 36,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 23,
+     "end": 36,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_l",
+     "start": 23,
+     "end": 36,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_l",
+     "start": 23,
+     "end": 36,
+     "kind": "pin"
+    },
+    {
+     "name": "BLADE_HEEL",
+     "start": 27,
+     "end": 36,
+     "kind": "slide"
+    }
+   ],
+   "quality": "accepted",
+   "skeleton_hash": "58087d952b1022ad4c5bb400f685e55c459a36f2b5f3547e3feba861d1ca0003",
+   "helpers_hash": "1cc0779edbaa08e08967cbdcb15fab6ca8bbc299896a039c4fea1bc70a5f910c",
+   "stick_hash": "2491b6b1d87587492195fed911765309172341a0ae9b8bd2f63dcaffc10fecdd",
+   "source_hash": "6fd6b8194b72b566ff100d5577c2352330edacbb7e3f1c253de4889f86a82937",
+   "frames": 37,
+   "duration_s": 1.2,
+   "root_motion_delta": {
+    "translation": [
+     -0.25,
+     0.0,
+     0.0
+    ],
+    "yaw_deg": 0.0,
+    "speed_mps": 0.20833333333333334
+   }
+  },
+  "knee_punch_head": {
+   "kind": "clip",
+   "length": 30,
+   "loop": false,
+   "root_motion": false,
+   "family": "contact",
+   "tier": 2,
+   "hub_start": "H_KNEE",
+   "hub_end": "H_KNEE",
+   "handedness": "L",
+   "events": [
+    {
+     "name": "offhand_off",
+     "frame": 3,
+     "time_s": 0.1
+    },
+    {
+     "name": "hit",
+     "frame": 12,
+     "time_s": 0.4
+    },
+    {
+     "name": "offhand_on",
+     "frame": 23,
+     "time_s": 0.7666666666666667
+    },
+    {
+     "name": "interruptible",
+     "frame": 24,
+     "time_s": 0.8
+    }
+   ],
+   "ranges": [
+    {
+     "name": "regrip_l",
+     "start": 0,
+     "end": 2
+    },
+    {
+     "name": "offhand_free",
+     "start": 3,
+     "end": 23
+    },
+    {
+     "name": "hit_window",
+     "start": 11,
+     "end": 13
+    },
+    {
+     "name": "regrip_l",
+     "start": 23,
+     "end": 25
+    }
+   ],
+   "sections": [
+    {
+     "name": "let_go",
+     "start": 0,
+     "end": 3
+    },
+    {
+     "name": "cock",
+     "start": 3,
+     "end": 9
+    },
+    {
+     "name": "punch",
+     "start": 9,
+     "end": 12
+    },
+    {
+     "name": "retract",
+     "start": 12,
+     "end": 16
+    },
+    {
+     "name": "recover",
+     "start": 16,
+     "end": 30
+    }
+   ],
+   "contacts": [
+    {
+     "name": "BLADE_HEEL",
+     "start": 0,
+     "end": 2,
+     "kind": "slide"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 0,
+     "end": 30,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 0,
+     "end": 30,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_l",
+     "start": 0,
+     "end": 30,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_r",
+     "start": 0,
+     "end": 30,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_l",
+     "start": 0,
+     "end": 30,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_r",
+     "start": 0,
+     "end": 30,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_l",
+     "start": 0,
+     "end": 30,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_r",
+     "start": 0,
+     "end": 30,
+     "kind": "pin"
+    },
+    {
+     "name": "BLADE_HEEL",
+     "start": 22,
+     "end": 30,
+     "kind": "slide"
+    }
+   ],
+   "quality": "accepted",
+   "skeleton_hash": "58087d952b1022ad4c5bb400f685e55c459a36f2b5f3547e3feba861d1ca0003",
+   "helpers_hash": "1cc0779edbaa08e08967cbdcb15fab6ca8bbc299896a039c4fea1bc70a5f910c",
+   "stick_hash": "2491b6b1d87587492195fed911765309172341a0ae9b8bd2f63dcaffc10fecdd",
+   "source_hash": "6fd6b8194b72b566ff100d5577c2352330edacbb7e3f1c253de4889f86a82937",
+   "frames": 31,
+   "duration_s": 1.0,
+   "root_motion_delta": {
+    "translation": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "yaw_deg": 0.0,
+    "speed_mps": 0.0
+   }
+  },
+  "knee_punch_stomach": {
+   "kind": "clip",
+   "length": 32,
+   "loop": false,
+   "root_motion": false,
+   "family": "contact",
+   "tier": 2,
+   "hub_start": "H_KNEE",
+   "hub_end": "H_KNEE",
+   "handedness": "L",
+   "events": [
+    {
+     "name": "offhand_off",
+     "frame": 3,
+     "time_s": 0.1
+    },
+    {
+     "name": "hit",
+     "frame": 13,
+     "time_s": 0.43333333333333335
+    },
+    {
+     "name": "offhand_on",
+     "frame": 25,
+     "time_s": 0.8333333333333334
+    },
+    {
+     "name": "interruptible",
+     "frame": 26,
+     "time_s": 0.8666666666666667
+    }
+   ],
+   "ranges": [
+    {
+     "name": "regrip_l",
+     "start": 0,
+     "end": 2
+    },
+    {
+     "name": "offhand_free",
+     "start": 3,
+     "end": 25
+    },
+    {
+     "name": "hit_window",
+     "start": 12,
+     "end": 14
+    },
+    {
+     "name": "regrip_l",
+     "start": 25,
+     "end": 27
+    }
+   ],
+   "sections": [
+    {
+     "name": "let_go",
+     "start": 0,
+     "end": 3
+    },
+    {
+     "name": "dip",
+     "start": 3,
+     "end": 9
+    },
+    {
+     "name": "hook",
+     "start": 9,
+     "end": 13
+    },
+    {
+     "name": "dig",
+     "start": 13,
+     "end": 15
+    },
+    {
+     "name": "retract",
+     "start": 15,
+     "end": 18
+    },
+    {
+     "name": "recover",
+     "start": 18,
+     "end": 32
+    }
+   ],
+   "contacts": [
+    {
+     "name": "BLADE_HEEL",
+     "start": 0,
+     "end": 2,
+     "kind": "slide"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 0,
+     "end": 32,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 0,
+     "end": 32,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_l",
+     "start": 0,
+     "end": 32,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_r",
+     "start": 0,
+     "end": 32,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_l",
+     "start": 0,
+     "end": 32,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_r",
+     "start": 0,
+     "end": 32,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_l",
+     "start": 0,
+     "end": 32,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_r",
+     "start": 0,
+     "end": 32,
+     "kind": "pin"
+    },
+    {
+     "name": "BLADE_HEEL",
+     "start": 24,
+     "end": 32,
+     "kind": "slide"
+    }
+   ],
+   "quality": "accepted",
+   "skeleton_hash": "58087d952b1022ad4c5bb400f685e55c459a36f2b5f3547e3feba861d1ca0003",
+   "helpers_hash": "1cc0779edbaa08e08967cbdcb15fab6ca8bbc299896a039c4fea1bc70a5f910c",
+   "stick_hash": "2491b6b1d87587492195fed911765309172341a0ae9b8bd2f63dcaffc10fecdd",
+   "source_hash": "6fd6b8194b72b566ff100d5577c2352330edacbb7e3f1c253de4889f86a82937",
+   "frames": 33,
+   "duration_s": 1.0666666666666667,
+   "root_motion_delta": {
+    "translation": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "yaw_deg": 0.0,
+    "speed_mps": 0.0
+   }
+  },
+  "react_cross_checked": {
+   "kind": "clip",
+   "length": 40,
+   "loop": false,
+   "root_motion": true,
+   "family": "reactions",
+   "tier": 2,
+   "hub_start": "H_KNEE",
+   "hub_end": "H_KNEE",
+   "handedness": "L",
+   "events": [
+    {
+     "name": "impact",
+     "frame": 0,
+     "time_s": 0.0
+    },
+    {
+     "name": "slide_start",
+     "frame": 1,
+     "time_s": 0.03333333333333333
+    },
+    {
+     "name": "slide_end",
+     "frame": 9,
+     "time_s": 0.3
+    },
+    {
+     "name": "interruptible",
+     "frame": 30,
+     "time_s": 1.0
+    }
+   ],
+   "ranges": [],
+   "sections": [
+    {
+     "name": "blow",
+     "start": 0,
+     "end": 3
+    },
+    {
+     "name": "rock_back",
+     "start": 3,
+     "end": 8
+    },
+    {
+     "name": "hang",
+     "start": 8,
+     "end": 12
+    },
+    {
+     "name": "forward",
+     "start": 12,
+     "end": 20
+    },
+    {
+     "name": "rock",
+     "start": 20,
+     "end": 30
+    },
+    {
+     "name": "settle",
+     "start": 30,
+     "end": 40
+    }
+   ],
+   "contacts": [
+    {
+     "name": "BLADE_HEEL",
+     "start": 0,
+     "end": 1,
+     "kind": "slide"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 0,
+     "end": 9,
+     "kind": "slide"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 0,
+     "end": 9,
+     "kind": "slide"
+    },
+    {
+     "name": "instep_l",
+     "start": 0,
+     "end": 9,
+     "kind": "slide"
+    },
+    {
+     "name": "instep_r",
+     "start": 0,
+     "end": 9,
+     "kind": "slide"
+    },
+    {
+     "name": "knee_l",
+     "start": 0,
+     "end": 9,
+     "kind": "slide"
+    },
+    {
+     "name": "knee_r",
+     "start": 0,
+     "end": 9,
+     "kind": "slide"
+    },
+    {
+     "name": "toe_l",
+     "start": 0,
+     "end": 9,
+     "kind": "slide"
+    },
+    {
+     "name": "toe_r",
+     "start": 0,
+     "end": 9,
+     "kind": "slide"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 9,
+     "end": 40,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 9,
+     "end": 40,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_l",
+     "start": 9,
+     "end": 40,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_r",
+     "start": 9,
+     "end": 40,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_l",
+     "start": 9,
+     "end": 40,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_r",
+     "start": 9,
+     "end": 40,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_l",
+     "start": 9,
+     "end": 40,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_r",
+     "start": 9,
+     "end": 40,
+     "kind": "pin"
+    },
+    {
+     "name": "BLADE_HEEL",
+     "start": 17,
+     "end": 31,
+     "kind": "slide"
+    },
+    {
+     "name": "BLADE_HEEL",
+     "start": 31,
+     "end": 40,
+     "kind": "pin"
+    }
+   ],
+   "quality": "accepted",
+   "skeleton_hash": "58087d952b1022ad4c5bb400f685e55c459a36f2b5f3547e3feba861d1ca0003",
+   "helpers_hash": "1cc0779edbaa08e08967cbdcb15fab6ca8bbc299896a039c4fea1bc70a5f910c",
+   "stick_hash": "2491b6b1d87587492195fed911765309172341a0ae9b8bd2f63dcaffc10fecdd",
+   "source_hash": "5aadbd9fea99b57b7729fa0ab91dd6ff43312a3d8e7048af0e1e98951e33ba02",
+   "frames": 41,
+   "duration_s": 1.3333333333333333,
+   "root_motion_delta": {
+    "translation": [
+     0.0,
+     0.0,
+     -0.15
+    ],
+    "yaw_deg": 0.0,
+    "speed_mps": 0.1125
+   }
+  },
+  "react_body_checked_l": {
+   "kind": "clip",
+   "length": 44,
+   "loop": false,
+   "root_motion": true,
+   "family": "reactions",
+   "tier": 2,
+   "hub_start": "H_KNEE",
+   "hub_end": "H_KNEE",
+   "handedness": "L",
+   "events": [
+    {
+     "name": "impact",
+     "frame": 0,
+     "time_s": 0.0
+    },
+    {
+     "name": "slide_start",
+     "frame": 1,
+     "time_s": 0.03333333333333333
+    },
+    {
+     "name": "offhand_off",
+     "frame": 4,
+     "time_s": 0.13333333333333333
+    },
+    {
+     "name": "slide_end",
+     "frame": 10,
+     "time_s": 0.3333333333333333
+    },
+    {
+     "name": "stick_down",
+     "frame": 10,
+     "time_s": 0.3333333333333333
+    },
+    {
+     "name": "offhand_on",
+     "frame": 30,
+     "time_s": 1.0
+    },
+    {
+     "name": "interruptible",
+     "frame": 34,
+     "time_s": 1.1333333333333333
+    }
+   ],
+   "ranges": [
+    {
+     "name": "regrip_l",
+     "start": 1,
+     "end": 3
+    },
+    {
+     "name": "offhand_free",
+     "start": 4,
+     "end": 30
+    },
+    {
+     "name": "regrip_l",
+     "start": 30,
+     "end": 32
+    }
+   ],
+   "sections": [
+    {
+     "name": "blow",
+     "start": 0,
+     "end": 3
+    },
+    {
+     "name": "tip",
+     "start": 3,
+     "end": 10
+    },
+    {
+     "name": "prop",
+     "start": 10,
+     "end": 15
+    },
+    {
+     "name": "push",
+     "start": 15,
+     "end": 24
+    },
+    {
+     "name": "regrip",
+     "start": 24,
+     "end": 32
+    },
+    {
+     "name": "settle",
+     "start": 32,
+     "end": 44
+    }
+   ],
+   "contacts": [
+    {
+     "name": "BLADE_HEEL",
+     "start": 0,
+     "end": 1,
+     "kind": "slide"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 0,
+     "end": 20,
+     "kind": "slide"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 0,
+     "end": 10,
+     "kind": "slide"
+    },
+    {
+     "name": "instep_l",
+     "start": 0,
+     "end": 20,
+     "kind": "slide"
+    },
+    {
+     "name": "instep_r",
+     "start": 0,
+     "end": 10,
+     "kind": "slide"
+    },
+    {
+     "name": "knee_l",
+     "start": 0,
+     "end": 10,
+     "kind": "slide"
+    },
+    {
+     "name": "knee_r",
+     "start": 0,
+     "end": 10,
+     "kind": "slide"
+    },
+    {
+     "name": "toe_l",
+     "start": 0,
+     "end": 20,
+     "kind": "slide"
+    },
+    {
+     "name": "toe_r",
+     "start": 0,
+     "end": 10,
+     "kind": "slide"
+    },
+    {
+     "name": "BLADE_HEEL",
+     "start": 10,
+     "end": 15,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 10,
+     "end": 44,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_r",
+     "start": 10,
+     "end": 44,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_l",
+     "start": 10,
+     "end": 44,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_r",
+     "start": 10,
+     "end": 44,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_r",
+     "start": 10,
+     "end": 44,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 20,
+     "end": 44,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_l",
+     "start": 20,
+     "end": 44,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_l",
+     "start": 20,
+     "end": 44,
+     "kind": "pin"
+    },
+    {
+     "name": "BLADE_HEEL",
+     "start": 26,
+     "end": 33,
+     "kind": "slide"
+    },
+    {
+     "name": "BLADE_HEEL",
+     "start": 33,
+     "end": 44,
+     "kind": "pin"
+    }
+   ],
+   "quality": "accepted",
+   "skeleton_hash": "58087d952b1022ad4c5bb400f685e55c459a36f2b5f3547e3feba861d1ca0003",
+   "helpers_hash": "1cc0779edbaa08e08967cbdcb15fab6ca8bbc299896a039c4fea1bc70a5f910c",
+   "stick_hash": "2491b6b1d87587492195fed911765309172341a0ae9b8bd2f63dcaffc10fecdd",
+   "source_hash": "5aadbd9fea99b57b7729fa0ab91dd6ff43312a3d8e7048af0e1e98951e33ba02",
+   "frames": 45,
+   "duration_s": 1.4666666666666666,
+   "root_motion_delta": {
+    "translation": [
+     -0.2,
+     0.0,
+     0.0
+    ],
+    "yaw_deg": 0.0,
+    "speed_mps": 0.13636363636363638
+   }
+  },
+  "react_body_checked_r": {
+   "kind": "clip",
+   "length": 44,
+   "loop": false,
+   "root_motion": true,
+   "family": "reactions",
+   "tier": 2,
+   "hub_start": "H_KNEE",
+   "hub_end": "H_KNEE",
+   "handedness": "L",
+   "events": [
+    {
+     "name": "impact",
+     "frame": 0,
+     "time_s": 0.0
+    },
+    {
+     "name": "slide_start",
+     "frame": 1,
+     "time_s": 0.03333333333333333
+    },
+    {
+     "name": "offhand_off",
+     "frame": 4,
+     "time_s": 0.13333333333333333
+    },
+    {
+     "name": "slide_end",
+     "frame": 9,
+     "time_s": 0.3
+    },
+    {
+     "name": "hand_down",
+     "frame": 10,
+     "time_s": 0.3333333333333333
+    },
+    {
+     "name": "offhand_on",
+     "frame": 30,
+     "time_s": 1.0
+    },
+    {
+     "name": "interruptible",
+     "frame": 34,
+     "time_s": 1.1333333333333333
+    }
+   ],
+   "ranges": [
+    {
+     "name": "regrip_l",
+     "start": 1,
+     "end": 3
+    },
+    {
+     "name": "offhand_free",
+     "start": 4,
+     "end": 30
+    },
+    {
+     "name": "regrip_l",
+     "start": 30,
+     "end": 32
+    }
+   ],
+   "sections": [
+    {
+     "name": "blow",
+     "start": 0,
+     "end": 3
+    },
+    {
+     "name": "tip",
+     "start": 3,
+     "end": 10
+    },
+    {
+     "name": "on_the_hand",
+     "start": 10,
+     "end": 14
+    },
+    {
+     "name": "push",
+     "start": 14,
+     "end": 22
+    },
+    {
+     "name": "regrip",
+     "start": 22,
+     "end": 32
+    },
+    {
+     "name": "settle",
+     "start": 32,
+     "end": 44
+    }
+   ],
+   "contacts": [
+    {
+     "name": "BLADE_HEEL",
+     "start": 0,
+     "end": 2,
+     "kind": "slide"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 0,
+     "end": 9,
+     "kind": "slide"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 0,
+     "end": 9,
+     "kind": "slide"
+    },
+    {
+     "name": "instep_l",
+     "start": 0,
+     "end": 9,
+     "kind": "slide"
+    },
+    {
+     "name": "instep_r",
+     "start": 0,
+     "end": 9,
+     "kind": "slide"
+    },
+    {
+     "name": "knee_l",
+     "start": 0,
+     "end": 9,
+     "kind": "slide"
+    },
+    {
+     "name": "knee_r",
+     "start": 0,
+     "end": 9,
+     "kind": "slide"
+    },
+    {
+     "name": "toe_l",
+     "start": 0,
+     "end": 9,
+     "kind": "slide"
+    },
+    {
+     "name": "toe_r",
+     "start": 0,
+     "end": 9,
+     "kind": "slide"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 9,
+     "end": 44,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 9,
+     "end": 44,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_l",
+     "start": 9,
+     "end": 44,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_r",
+     "start": 9,
+     "end": 44,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_l",
+     "start": 9,
+     "end": 44,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_r",
+     "start": 9,
+     "end": 44,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_l",
+     "start": 9,
+     "end": 44,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_r",
+     "start": 9,
+     "end": 44,
+     "kind": "pin"
+    },
+    {
+     "name": "hand_l",
+     "start": 10,
+     "end": 16,
+     "kind": "pin"
+    },
+    {
+     "name": "BLADE_HEEL",
+     "start": 26,
+     "end": 33,
+     "kind": "slide"
+    },
+    {
+     "name": "BLADE_HEEL",
+     "start": 33,
+     "end": 44,
+     "kind": "pin"
+    }
+   ],
+   "quality": "accepted",
+   "skeleton_hash": "58087d952b1022ad4c5bb400f685e55c459a36f2b5f3547e3feba861d1ca0003",
+   "helpers_hash": "1cc0779edbaa08e08967cbdcb15fab6ca8bbc299896a039c4fea1bc70a5f910c",
+   "stick_hash": "2491b6b1d87587492195fed911765309172341a0ae9b8bd2f63dcaffc10fecdd",
+   "source_hash": "5aadbd9fea99b57b7729fa0ab91dd6ff43312a3d8e7048af0e1e98951e33ba02",
+   "frames": 45,
+   "duration_s": 1.4666666666666666,
+   "root_motion_delta": {
+    "translation": [
+     0.2,
+     0.0,
+     0.0
+    ],
+    "yaw_deg": 0.0,
+    "speed_mps": 0.13636363636363638
+   }
+  },
+  "react_slashed_stick": {
+   "kind": "clip",
+   "length": 32,
+   "loop": false,
+   "root_motion": false,
+   "family": "reactions",
+   "tier": 2,
+   "hub_start": "H_KNEE",
+   "hub_end": "H_KNEE",
+   "handedness": "L",
+   "events": [
+    {
+     "name": "impact",
+     "frame": 0,
+     "time_s": 0.0
+    },
+    {
+     "name": "offhand_off",
+     "frame": 1,
+     "time_s": 0.03333333333333333
+    },
+    {
+     "name": "offhand_on",
+     "frame": 22,
+     "time_s": 0.7333333333333333
+    },
+    {
+     "name": "interruptible",
+     "frame": 24,
+     "time_s": 0.8
+    }
+   ],
+   "ranges": [
+    {
+     "name": "offhand_free",
+     "start": 1,
+     "end": 22
+    },
+    {
+     "name": "regrip_l",
+     "start": 22,
+     "end": 24
+    }
+   ],
+   "sections": [
+    {
+     "name": "knock",
+     "start": 0,
+     "end": 2
+    },
+    {
+     "name": "swing_out",
+     "start": 2,
+     "end": 8
+    },
+    {
+     "name": "shake",
+     "start": 8,
+     "end": 15
+    },
+    {
+     "name": "regrip",
+     "start": 15,
+     "end": 24
+    },
+    {
+     "name": "settle",
+     "start": 24,
+     "end": 32
+    }
+   ],
+   "contacts": [
+    {
+     "name": "BLADE_HEEL",
+     "start": 0,
+     "end": 2,
+     "kind": "slide"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 0,
+     "end": 32,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 0,
+     "end": 32,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_l",
+     "start": 0,
+     "end": 32,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_r",
+     "start": 0,
+     "end": 32,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_l",
+     "start": 0,
+     "end": 32,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_r",
+     "start": 0,
+     "end": 32,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_l",
+     "start": 0,
+     "end": 32,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_r",
+     "start": 0,
+     "end": 32,
+     "kind": "pin"
+    },
+    {
+     "name": "BLADE_HEEL",
+     "start": 16,
+     "end": 22,
+     "kind": "slide"
+    },
+    {
+     "name": "BLADE_HEEL",
+     "start": 22,
+     "end": 32,
+     "kind": "pin"
+    }
+   ],
+   "quality": "accepted",
+   "skeleton_hash": "58087d952b1022ad4c5bb400f685e55c459a36f2b5f3547e3feba861d1ca0003",
+   "helpers_hash": "1cc0779edbaa08e08967cbdcb15fab6ca8bbc299896a039c4fea1bc70a5f910c",
+   "stick_hash": "2491b6b1d87587492195fed911765309172341a0ae9b8bd2f63dcaffc10fecdd",
+   "source_hash": "5aadbd9fea99b57b7729fa0ab91dd6ff43312a3d8e7048af0e1e98951e33ba02",
+   "frames": 33,
+   "duration_s": 1.0666666666666667,
+   "root_motion_delta": {
+    "translation": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "yaw_deg": 0.0,
+    "speed_mps": 0.0
+   }
+  },
+  "react_slashed_face": {
+   "kind": "clip",
+   "length": 56,
+   "loop": false,
+   "root_motion": false,
+   "family": "reactions",
+   "tier": 2,
+   "hub_start": "H_KNEE",
+   "hub_end": "H_KNEE",
+   "handedness": "L",
+   "events": [
+    {
+     "name": "impact",
+     "frame": 0,
+     "time_s": 0.0
+    },
+    {
+     "name": "offhand_off",
+     "frame": 3,
+     "time_s": 0.1
+    },
+    {
+     "name": "offhand_on",
+     "frame": 44,
+     "time_s": 1.4666666666666666
+    },
+    {
+     "name": "interruptible",
+     "frame": 46,
+     "time_s": 1.5333333333333334
+    }
+   ],
+   "ranges": [
+    {
+     "name": "regrip_l",
+     "start": 0,
+     "end": 2
+    },
+    {
+     "name": "offhand_free",
+     "start": 3,
+     "end": 44
+    },
+    {
+     "name": "regrip_l",
+     "start": 44,
+     "end": 46
+    }
+   ],
+   "sections": [
+    {
+     "name": "snap",
+     "start": 0,
+     "end": 3
+    },
+    {
+     "name": "cover",
+     "start": 3,
+     "end": 9
+    },
+    {
+     "name": "hold",
+     "start": 9,
+     "end": 28
+    },
+    {
+     "name": "look",
+     "start": 28,
+     "end": 36
+    },
+    {
+     "name": "regrip",
+     "start": 36,
+     "end": 46
+    },
+    {
+     "name": "settle",
+     "start": 46,
+     "end": 56
+    }
+   ],
+   "contacts": [
+    {
+     "name": "BLADE_HEEL",
+     "start": 0,
+     "end": 44,
+     "kind": "slide"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 0,
+     "end": 56,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 0,
+     "end": 56,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_l",
+     "start": 0,
+     "end": 56,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_r",
+     "start": 0,
+     "end": 56,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_l",
+     "start": 0,
+     "end": 56,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_r",
+     "start": 0,
+     "end": 56,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_l",
+     "start": 0,
+     "end": 56,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_r",
+     "start": 0,
+     "end": 56,
+     "kind": "pin"
+    },
+    {
+     "name": "BLADE_HEEL",
+     "start": 44,
+     "end": 56,
+     "kind": "pin"
+    }
+   ],
+   "quality": "accepted",
+   "skeleton_hash": "58087d952b1022ad4c5bb400f685e55c459a36f2b5f3547e3feba861d1ca0003",
+   "helpers_hash": "1cc0779edbaa08e08967cbdcb15fab6ca8bbc299896a039c4fea1bc70a5f910c",
+   "stick_hash": "2491b6b1d87587492195fed911765309172341a0ae9b8bd2f63dcaffc10fecdd",
+   "source_hash": "5aadbd9fea99b57b7729fa0ab91dd6ff43312a3d8e7048af0e1e98951e33ba02",
+   "frames": 57,
+   "duration_s": 1.8666666666666667,
+   "root_motion_delta": {
+    "translation": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "yaw_deg": 0.0,
+    "speed_mps": 0.0
+   }
+  },
+  "react_punched_head": {
+   "kind": "clip",
+   "length": 42,
+   "loop": false,
+   "root_motion": false,
+   "family": "reactions",
+   "tier": 2,
+   "hub_start": "H_KNEE",
+   "hub_end": "H_KNEE",
+   "handedness": "L",
+   "events": [
+    {
+     "name": "impact",
+     "frame": 0,
+     "time_s": 0.0
+    },
+    {
+     "name": "offhand_off",
+     "frame": 3,
+     "time_s": 0.1
+    },
+    {
+     "name": "offhand_on",
+     "frame": 30,
+     "time_s": 1.0
+    },
+    {
+     "name": "interruptible",
+     "frame": 32,
+     "time_s": 1.0666666666666667
+    }
+   ],
+   "ranges": [
+    {
+     "name": "regrip_l",
+     "start": 0,
+     "end": 2
+    },
+    {
+     "name": "offhand_free",
+     "start": 3,
+     "end": 30
+    },
+    {
+     "name": "regrip_l",
+     "start": 30,
+     "end": 32
+    }
+   ],
+   "sections": [
+    {
+     "name": "snap",
+     "start": 0,
+     "end": 2
+    },
+    {
+     "name": "reel",
+     "start": 2,
+     "end": 8
+    },
+    {
+     "name": "hang",
+     "start": 8,
+     "end": 12
+    },
+    {
+     "name": "daze",
+     "start": 12,
+     "end": 22
+    },
+    {
+     "name": "shake",
+     "start": 22,
+     "end": 28
+    },
+    {
+     "name": "regrip",
+     "start": 28,
+     "end": 32
+    },
+    {
+     "name": "settle",
+     "start": 32,
+     "end": 42
+    }
+   ],
+   "contacts": [
+    {
+     "name": "BLADE_HEEL",
+     "start": 0,
+     "end": 2,
+     "kind": "slide"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 0,
+     "end": 42,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 0,
+     "end": 42,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_l",
+     "start": 0,
+     "end": 42,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_r",
+     "start": 0,
+     "end": 42,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_l",
+     "start": 0,
+     "end": 42,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_r",
+     "start": 0,
+     "end": 42,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_l",
+     "start": 0,
+     "end": 42,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_r",
+     "start": 0,
+     "end": 42,
+     "kind": "pin"
+    },
+    {
+     "name": "BLADE_HEEL",
+     "start": 15,
+     "end": 36,
+     "kind": "slide"
+    },
+    {
+     "name": "BLADE_HEEL",
+     "start": 36,
+     "end": 42,
+     "kind": "pin"
+    }
+   ],
+   "quality": "accepted",
+   "skeleton_hash": "58087d952b1022ad4c5bb400f685e55c459a36f2b5f3547e3feba861d1ca0003",
+   "helpers_hash": "1cc0779edbaa08e08967cbdcb15fab6ca8bbc299896a039c4fea1bc70a5f910c",
+   "stick_hash": "2491b6b1d87587492195fed911765309172341a0ae9b8bd2f63dcaffc10fecdd",
+   "source_hash": "5aadbd9fea99b57b7729fa0ab91dd6ff43312a3d8e7048af0e1e98951e33ba02",
+   "frames": 43,
+   "duration_s": 1.4,
+   "root_motion_delta": {
+    "translation": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "yaw_deg": 0.0,
+    "speed_mps": 0.0
+   }
+  },
+  "react_punched_stomach": {
+   "kind": "clip",
+   "length": 54,
+   "loop": false,
+   "root_motion": false,
+   "family": "reactions",
+   "tier": 2,
+   "hub_start": "H_KNEE",
+   "hub_end": "H_KNEE",
+   "handedness": "L",
+   "events": [
+    {
+     "name": "impact",
+     "frame": 0,
+     "time_s": 0.0
+    },
+    {
+     "name": "offhand_off",
+     "frame": 4,
+     "time_s": 0.13333333333333333
+    },
+    {
+     "name": "offhand_on",
+     "frame": 42,
+     "time_s": 1.4
+    },
+    {
+     "name": "interruptible",
+     "frame": 44,
+     "time_s": 1.4666666666666666
+    }
+   ],
+   "ranges": [
+    {
+     "name": "regrip_l",
+     "start": 1,
+     "end": 3
+    },
+    {
+     "name": "offhand_free",
+     "start": 4,
+     "end": 42
+    },
+    {
+     "name": "regrip_l",
+     "start": 42,
+     "end": 44
+    }
+   ],
+   "sections": [
+    {
+     "name": "blow",
+     "start": 0,
+     "end": 3
+    },
+    {
+     "name": "fold",
+     "start": 3,
+     "end": 10
+    },
+    {
+     "name": "folded",
+     "start": 10,
+     "end": 26
+    },
+    {
+     "name": "rise",
+     "start": 26,
+     "end": 36
+    },
+    {
+     "name": "regrip",
+     "start": 36,
+     "end": 44
+    },
+    {
+     "name": "settle",
+     "start": 44,
+     "end": 54
+    }
+   ],
+   "contacts": [
+    {
+     "name": "BLADE_HEEL",
+     "start": 0,
+     "end": 46,
+     "kind": "slide"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 0,
+     "end": 54,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 0,
+     "end": 54,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_l",
+     "start": 0,
+     "end": 54,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_r",
+     "start": 0,
+     "end": 54,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_l",
+     "start": 0,
+     "end": 54,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_r",
+     "start": 0,
+     "end": 54,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_l",
+     "start": 0,
+     "end": 54,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_r",
+     "start": 0,
+     "end": 54,
+     "kind": "pin"
+    },
+    {
+     "name": "BLADE_HEEL",
+     "start": 46,
+     "end": 54,
+     "kind": "pin"
+    }
+   ],
+   "quality": "accepted",
+   "skeleton_hash": "58087d952b1022ad4c5bb400f685e55c459a36f2b5f3547e3feba861d1ca0003",
+   "helpers_hash": "1cc0779edbaa08e08967cbdcb15fab6ca8bbc299896a039c4fea1bc70a5f910c",
+   "stick_hash": "2491b6b1d87587492195fed911765309172341a0ae9b8bd2f63dcaffc10fecdd",
+   "source_hash": "5aadbd9fea99b57b7729fa0ab91dd6ff43312a3d8e7048af0e1e98951e33ba02",
+   "frames": 55,
+   "duration_s": 1.8,
+   "root_motion_delta": {
+    "translation": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "yaw_deg": 0.0,
+    "speed_mps": 0.0
+   }
+  },
+  "react_fall": {
+   "kind": "clip",
+   "length": 26,
+   "loop": false,
+   "root_motion": true,
+   "family": "floor",
+   "tier": 2,
+   "hub_start": "H_KNEE",
+   "hub_end": "H_DOWN_L",
+   "handedness": "L",
+   "events": [
+    {
+     "name": "knee_up_r",
+     "frame": 0,
+     "time_s": 0.0
+    },
+    {
+     "name": "offhand_off",
+     "frame": 1,
+     "time_s": 0.03333333333333333
+    },
+    {
+     "name": "hand_down",
+     "frame": 8,
+     "time_s": 0.26666666666666666
+    },
+    {
+     "name": "body_down",
+     "frame": 14,
+     "time_s": 0.4666666666666667
+    },
+    {
+     "name": "stick_down",
+     "frame": 18,
+     "time_s": 0.6
+    },
+    {
+     "name": "interruptible",
+     "frame": 22,
+     "time_s": 0.7333333333333333
+    }
+   ],
+   "ranges": [
+    {
+     "name": "offhand_free",
+     "start": 1,
+     "end": 26
+    }
+   ],
+   "sections": [],
+   "contacts": [
+    {
+     "name": "BLADE_HEEL",
+     "start": 0,
+     "end": 0,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 0,
+     "end": 0,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 0,
+     "end": 0,
+     "kind": "pin"
+    },
+    {
+     "name": "calf_l",
+     "start": 0,
+     "end": 26,
+     "kind": "slide"
+    },
+    {
+     "name": "instep_l",
+     "start": 0,
+     "end": 0,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_r",
+     "start": 0,
+     "end": 0,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_l",
+     "start": 0,
+     "end": 0,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_r",
+     "start": 0,
+     "end": 0,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_l",
+     "start": 0,
+     "end": 0,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_r",
+     "start": 0,
+     "end": 0,
+     "kind": "pin"
+    },
+    {
+     "name": "hand_l",
+     "start": 8,
+     "end": 14,
+     "kind": "slide"
+    },
+    {
+     "name": "elbow_l",
+     "start": 11,
+     "end": 26,
+     "kind": "slide"
+    },
+    {
+     "name": "hip_l",
+     "start": 14,
+     "end": 26,
+     "kind": "slide"
+    },
+    {
+     "name": "hand_l",
+     "start": 15,
+     "end": 26,
+     "kind": "pin"
+    },
+    {
+     "name": "BLADE_HEEL",
+     "start": 18,
+     "end": 26,
+     "kind": "pin"
+    }
+   ],
+   "quality": "accepted",
+   "skeleton_hash": "58087d952b1022ad4c5bb400f685e55c459a36f2b5f3547e3feba861d1ca0003",
+   "helpers_hash": "1cc0779edbaa08e08967cbdcb15fab6ca8bbc299896a039c4fea1bc70a5f910c",
+   "stick_hash": "2491b6b1d87587492195fed911765309172341a0ae9b8bd2f63dcaffc10fecdd",
+   "source_hash": "eca42e357820882b12bf30de675f8d5eedfc9b33f6f872dd025aa095f910b961",
+   "frames": 27,
+   "duration_s": 0.8666666666666667,
+   "root_motion_delta": {
+    "translation": [
+     0.10601054162712245,
+     0.0,
+     -0.04926926744649751
+    ],
+    "yaw_deg": 0.0,
+    "speed_mps": 0.13488503808641256
+   }
+  },
+  "react_getup": {
+   "kind": "clip",
+   "length": 34,
+   "loop": false,
+   "root_motion": true,
+   "family": "floor",
+   "tier": 2,
+   "hub_start": "H_DOWN_L",
+   "hub_end": "H_KNEE",
+   "handedness": "L",
+   "events": [
+    {
+     "name": "knee_down_r",
+     "frame": 26,
+     "time_s": 0.8666666666666667
+    },
+    {
+     "name": "offhand_on",
+     "frame": 29,
+     "time_s": 0.9666666666666667
+    },
+    {
+     "name": "interruptible",
+     "frame": 31,
+     "time_s": 1.0333333333333334
+    }
+   ],
+   "ranges": [
+    {
+     "name": "offhand_free",
+     "start": 0,
+     "end": 29
+    },
+    {
+     "name": "regrip_l",
+     "start": 29,
+     "end": 31
+    }
+   ],
+   "sections": [],
+   "contacts": [
+    {
+     "name": "BLADE_HEEL",
+     "start": 0,
+     "end": 0,
+     "kind": "pin"
+    },
+    {
+     "name": "calf_l",
+     "start": 0,
+     "end": 34,
+     "kind": "slide"
+    },
+    {
+     "name": "elbow_l",
+     "start": 0,
+     "end": 4,
+     "kind": "slide"
+    },
+    {
+     "name": "hand_l",
+     "start": 0,
+     "end": 8,
+     "kind": "slide"
+    },
+    {
+     "name": "hip_l",
+     "start": 0,
+     "end": 1,
+     "kind": "slide"
+    },
+    {
+     "name": "hand_l",
+     "start": 13,
+     "end": 16,
+     "kind": "slide"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 26,
+     "end": 34,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 26,
+     "end": 34,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_l",
+     "start": 26,
+     "end": 34,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_r",
+     "start": 26,
+     "end": 34,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_l",
+     "start": 26,
+     "end": 34,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_r",
+     "start": 26,
+     "end": 34,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_l",
+     "start": 26,
+     "end": 34,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_r",
+     "start": 26,
+     "end": 34,
+     "kind": "pin"
+    },
+    {
+     "name": "BLADE_HEEL",
+     "start": 28,
+     "end": 34,
+     "kind": "pin"
+    }
+   ],
+   "quality": "accepted",
+   "skeleton_hash": "58087d952b1022ad4c5bb400f685e55c459a36f2b5f3547e3feba861d1ca0003",
+   "helpers_hash": "1cc0779edbaa08e08967cbdcb15fab6ca8bbc299896a039c4fea1bc70a5f910c",
+   "stick_hash": "2491b6b1d87587492195fed911765309172341a0ae9b8bd2f63dcaffc10fecdd",
+   "source_hash": "eca42e357820882b12bf30de675f8d5eedfc9b33f6f872dd025aa095f910b961",
+   "frames": 35,
+   "duration_s": 1.1333333333333333,
+   "root_motion_delta": {
+    "translation": [
+     -0.10601054162712245,
+     0.0,
+     0.049269267446497456
+    ],
+    "yaw_deg": 0.0,
+    "speed_mps": 0.10314738206608016
+   }
+  },
+  "knee_dive_poke": {
+   "kind": "clip",
+   "length": 30,
+   "loop": false,
+   "root_motion": true,
+   "family": "floor",
+   "tier": 2,
+   "hub_start": "H_KNEE",
+   "hub_end": "H_PRONE",
+   "handedness": "L",
+   "events": [
+    {
+     "name": "offhand_off",
+     "frame": 1,
+     "time_s": 0.03333333333333333
+    },
+    {
+     "name": "slide_start",
+     "frame": 10,
+     "time_s": 0.3333333333333333
+    },
+    {
+     "name": "hit",
+     "frame": 11,
+     "time_s": 0.36666666666666664
+    },
+    {
+     "name": "hand_down",
+     "frame": 13,
+     "time_s": 0.43333333333333335
+    },
+    {
+     "name": "body_down",
+     "frame": 18,
+     "time_s": 0.6
+    },
+    {
+     "name": "stick_down",
+     "frame": 19,
+     "time_s": 0.6333333333333333
+    },
+    {
+     "name": "slide_end",
+     "frame": 22,
+     "time_s": 0.7333333333333333
+    },
+    {
+     "name": "interruptible",
+     "frame": 26,
+     "time_s": 0.8666666666666667
+    }
+   ],
+   "ranges": [
+    {
+     "name": "offhand_free",
+     "start": 1,
+     "end": 30
+    },
+    {
+     "name": "hit_window",
+     "start": 10,
+     "end": 13
+    }
+   ],
+   "sections": [],
+   "contacts": [
+    {
+     "name": "BLADE_HEEL",
+     "start": 0,
+     "end": 0,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 0,
+     "end": 0,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 0,
+     "end": 0,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_l",
+     "start": 0,
+     "end": 0,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_r",
+     "start": 0,
+     "end": 0,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_l",
+     "start": 0,
+     "end": 10,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_r",
+     "start": 0,
+     "end": 10,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_l",
+     "start": 0,
+     "end": 0,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_r",
+     "start": 0,
+     "end": 0,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 1,
+     "end": 22,
+     "kind": "slide"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 1,
+     "end": 22,
+     "kind": "slide"
+    },
+    {
+     "name": "instep_l",
+     "start": 1,
+     "end": 22,
+     "kind": "slide"
+    },
+    {
+     "name": "instep_r",
+     "start": 1,
+     "end": 22,
+     "kind": "slide"
+    },
+    {
+     "name": "toe_l",
+     "start": 1,
+     "end": 22,
+     "kind": "slide"
+    },
+    {
+     "name": "toe_r",
+     "start": 1,
+     "end": 22,
+     "kind": "slide"
+    },
+    {
+     "name": "knee_l",
+     "start": 11,
+     "end": 22,
+     "kind": "slide"
+    },
+    {
+     "name": "knee_r",
+     "start": 11,
+     "end": 22,
+     "kind": "slide"
+    },
+    {
+     "name": "hand_l",
+     "start": 13,
+     "end": 22,
+     "kind": "slide"
+    },
+    {
+     "name": "chest",
+     "start": 18,
+     "end": 22,
+     "kind": "slide"
+    },
+    {
+     "name": "elbow_l",
+     "start": 18,
+     "end": 22,
+     "kind": "slide"
+    },
+    {
+     "name": "BLADE_HEEL",
+     "start": 19,
+     "end": 22,
+     "kind": "slide"
+    },
+    {
+     "name": "BLADE_TOE",
+     "start": 19,
+     "end": 22,
+     "kind": "slide"
+    },
+    {
+     "name": "BLADE_HEEL",
+     "start": 23,
+     "end": 30,
+     "kind": "pin"
+    },
+    {
+     "name": "BLADE_TOE",
+     "start": 23,
+     "end": 30,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 23,
+     "end": 30,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 23,
+     "end": 30,
+     "kind": "pin"
+    },
+    {
+     "name": "chest",
+     "start": 23,
+     "end": 30,
+     "kind": "pin"
+    },
+    {
+     "name": "elbow_l",
+     "start": 23,
+     "end": 30,
+     "kind": "pin"
+    },
+    {
+     "name": "hand_l",
+     "start": 23,
+     "end": 30,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_l",
+     "start": 23,
+     "end": 30,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_r",
+     "start": 23,
+     "end": 30,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_l",
+     "start": 23,
+     "end": 30,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_r",
+     "start": 23,
+     "end": 30,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_l",
+     "start": 23,
+     "end": 30,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_r",
+     "start": 23,
+     "end": 30,
+     "kind": "pin"
+    }
+   ],
+   "quality": "accepted",
+   "skeleton_hash": "58087d952b1022ad4c5bb400f685e55c459a36f2b5f3547e3feba861d1ca0003",
+   "helpers_hash": "1cc0779edbaa08e08967cbdcb15fab6ca8bbc299896a039c4fea1bc70a5f910c",
+   "stick_hash": "2491b6b1d87587492195fed911765309172341a0ae9b8bd2f63dcaffc10fecdd",
+   "source_hash": "eca42e357820882b12bf30de675f8d5eedfc9b33f6f872dd025aa095f910b961",
+   "frames": 31,
+   "duration_s": 1.0,
+   "root_motion_delta": {
+    "translation": [
+     0.0,
+     0.0,
+     0.3
+    ],
+    "yaw_deg": 0.0,
+    "speed_mps": 0.3
+   }
+  },
+  "prone_getup": {
+   "kind": "clip",
+   "length": 36,
+   "loop": false,
+   "root_motion": false,
+   "family": "floor",
+   "tier": 2,
+   "hub_start": "H_PRONE",
+   "hub_end": "H_KNEE",
+   "handedness": "L",
+   "events": [
+    {
+     "name": "offhand_on",
+     "frame": 31,
+     "time_s": 1.0333333333333334
+    },
+    {
+     "name": "interruptible",
+     "frame": 33,
+     "time_s": 1.1
+    }
+   ],
+   "ranges": [
+    {
+     "name": "offhand_free",
+     "start": 0,
+     "end": 31
+    },
+    {
+     "name": "regrip_l",
+     "start": 31,
+     "end": 33
+    }
+   ],
+   "sections": [],
+   "contacts": [
+    {
+     "name": "BLADE_HEEL",
+     "start": 0,
+     "end": 0,
+     "kind": "pin"
+    },
+    {
+     "name": "BLADE_TOE",
+     "start": 0,
+     "end": 0,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 0,
+     "end": 0,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 0,
+     "end": 0,
+     "kind": "pin"
+    },
+    {
+     "name": "hand_l",
+     "start": 0,
+     "end": 1,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_l",
+     "start": 0,
+     "end": 0,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_r",
+     "start": 0,
+     "end": 0,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_l",
+     "start": 0,
+     "end": 12,
+     "kind": "slide"
+    },
+    {
+     "name": "knee_r",
+     "start": 0,
+     "end": 12,
+     "kind": "slide"
+    },
+    {
+     "name": "toe_l",
+     "start": 0,
+     "end": 0,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_r",
+     "start": 0,
+     "end": 0,
+     "kind": "pin"
+    },
+    {
+     "name": "BLADE_HEEL",
+     "start": 1,
+     "end": 13,
+     "kind": "slide"
+    },
+    {
+     "name": "BLADE_TOE",
+     "start": 1,
+     "end": 13,
+     "kind": "slide"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 1,
+     "end": 32,
+     "kind": "slide"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 1,
+     "end": 32,
+     "kind": "slide"
+    },
+    {
+     "name": "instep_l",
+     "start": 1,
+     "end": 32,
+     "kind": "slide"
+    },
+    {
+     "name": "instep_r",
+     "start": 1,
+     "end": 32,
+     "kind": "slide"
+    },
+    {
+     "name": "toe_l",
+     "start": 1,
+     "end": 32,
+     "kind": "slide"
+    },
+    {
+     "name": "toe_r",
+     "start": 1,
+     "end": 32,
+     "kind": "slide"
+    },
+    {
+     "name": "hand_l",
+     "start": 6,
+     "end": 13,
+     "kind": "slide"
+    },
+    {
+     "name": "knee_l",
+     "start": 13,
+     "end": 36,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_r",
+     "start": 13,
+     "end": 36,
+     "kind": "pin"
+    },
+    {
+     "name": "hand_l",
+     "start": 19,
+     "end": 22,
+     "kind": "slide"
+    },
+    {
+     "name": "BLADE_HEEL",
+     "start": 30,
+     "end": 36,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 33,
+     "end": 36,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 33,
+     "end": 36,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_l",
+     "start": 33,
+     "end": 36,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_r",
+     "start": 33,
+     "end": 36,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_l",
+     "start": 33,
+     "end": 36,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_r",
+     "start": 33,
+     "end": 36,
+     "kind": "pin"
+    }
+   ],
+   "quality": "accepted",
+   "skeleton_hash": "58087d952b1022ad4c5bb400f685e55c459a36f2b5f3547e3feba861d1ca0003",
+   "helpers_hash": "1cc0779edbaa08e08967cbdcb15fab6ca8bbc299896a039c4fea1bc70a5f910c",
+   "stick_hash": "2491b6b1d87587492195fed911765309172341a0ae9b8bd2f63dcaffc10fecdd",
+   "source_hash": "eca42e357820882b12bf30de675f8d5eedfc9b33f6f872dd025aa095f910b961",
+   "frames": 37,
+   "duration_s": 1.2,
+   "root_motion_delta": {
+    "translation": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "yaw_deg": 0.0,
+    "speed_mps": 0.0
+   }
+  },
+  "knee_turn_l_90": {
+   "kind": "clip",
+   "length": 24,
+   "loop": false,
+   "root_motion": true,
+   "family": "turns",
+   "tier": 2,
+   "hub_start": "H_KNEE",
+   "hub_end": "H_KNEE",
+   "handedness": "L",
+   "events": [
+    {
+     "name": "knee_up_r",
+     "frame": 3,
+     "time_s": 0.1
+    },
+    {
+     "name": "knee_down_r",
+     "frame": 11,
+     "time_s": 0.36666666666666664
+    },
+    {
+     "name": "knee_up_l",
+     "frame": 11,
+     "time_s": 0.36666666666666664
+    },
+    {
+     "name": "knee_down_l",
+     "frame": 19,
+     "time_s": 0.6333333333333333
+    },
+    {
+     "name": "interruptible",
+     "frame": 20,
+     "time_s": 0.6666666666666666
+    },
+    {
+     "name": "stick_down",
+     "frame": 21,
+     "time_s": 0.7
+    }
+   ],
+   "ranges": [],
+   "sections": [
+    {
+     "name": "lead",
+     "start": 0,
+     "end": 3
+    },
+    {
+     "name": "step_1",
+     "start": 3,
+     "end": 11
+    },
+    {
+     "name": "step_2",
+     "start": 11,
+     "end": 19
+    },
+    {
+     "name": "settle",
+     "start": 19,
+     "end": 24
+    }
+   ],
+   "contacts": [
+    {
+     "name": "BLADE_HEEL",
+     "start": 0,
+     "end": 2,
+     "kind": "slide"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 0,
+     "end": 3,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 0,
+     "end": 3,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_l",
+     "start": 0,
+     "end": 3,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_r",
+     "start": 0,
+     "end": 3,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_l",
+     "start": 0,
+     "end": 11,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_r",
+     "start": 0,
+     "end": 3,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_l",
+     "start": 0,
+     "end": 3,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_r",
+     "start": 0,
+     "end": 3,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 3,
+     "end": 19,
+     "kind": "slide"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 3,
+     "end": 19,
+     "kind": "slide"
+    },
+    {
+     "name": "instep_l",
+     "start": 3,
+     "end": 19,
+     "kind": "slide"
+    },
+    {
+     "name": "instep_r",
+     "start": 3,
+     "end": 19,
+     "kind": "slide"
+    },
+    {
+     "name": "toe_l",
+     "start": 3,
+     "end": 19,
+     "kind": "slide"
+    },
+    {
+     "name": "toe_r",
+     "start": 3,
+     "end": 19,
+     "kind": "slide"
+    },
+    {
+     "name": "knee_r",
+     "start": 11,
+     "end": 24,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 19,
+     "end": 24,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 19,
+     "end": 24,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_l",
+     "start": 19,
+     "end": 24,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_r",
+     "start": 19,
+     "end": 24,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_l",
+     "start": 19,
+     "end": 24,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_l",
+     "start": 19,
+     "end": 24,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_r",
+     "start": 19,
+     "end": 24,
+     "kind": "pin"
+    },
+    {
+     "name": "BLADE_HEEL",
+     "start": 21,
+     "end": 24,
+     "kind": "slide"
+    }
+   ],
+   "quality": "accepted",
+   "skeleton_hash": "58087d952b1022ad4c5bb400f685e55c459a36f2b5f3547e3feba861d1ca0003",
+   "helpers_hash": "1cc0779edbaa08e08967cbdcb15fab6ca8bbc299896a039c4fea1bc70a5f910c",
+   "stick_hash": "2491b6b1d87587492195fed911765309172341a0ae9b8bd2f63dcaffc10fecdd",
+   "source_hash": "5169e6355baf23469c33db8159f8f2a785a2c450bb7d230d46938e502d2c6653",
+   "frames": 25,
+   "duration_s": 0.8,
+   "root_motion_delta": {
+    "translation": [
+     0.0,
+     0.0,
+     -0.0
+    ],
+    "yaw_deg": 90.0,
+    "speed_mps": 0.0
+   }
+  },
+  "knee_turn_r_90": {
+   "kind": "clip",
+   "length": 24,
+   "loop": false,
+   "root_motion": true,
+   "family": "turns",
+   "tier": 2,
+   "hub_start": "H_KNEE",
+   "hub_end": "H_KNEE",
+   "handedness": "L",
+   "events": [
+    {
+     "name": "knee_up_l",
+     "frame": 3,
+     "time_s": 0.1
+    },
+    {
+     "name": "knee_down_l",
+     "frame": 11,
+     "time_s": 0.36666666666666664
+    },
+    {
+     "name": "knee_up_r",
+     "frame": 11,
+     "time_s": 0.36666666666666664
+    },
+    {
+     "name": "knee_down_r",
+     "frame": 19,
+     "time_s": 0.6333333333333333
+    },
+    {
+     "name": "interruptible",
+     "frame": 20,
+     "time_s": 0.6666666666666666
+    },
+    {
+     "name": "stick_down",
+     "frame": 21,
+     "time_s": 0.7
+    }
+   ],
+   "ranges": [],
+   "sections": [
+    {
+     "name": "lead",
+     "start": 0,
+     "end": 3
+    },
+    {
+     "name": "step_1",
+     "start": 3,
+     "end": 11
+    },
+    {
+     "name": "step_2",
+     "start": 11,
+     "end": 19
+    },
+    {
+     "name": "settle",
+     "start": 19,
+     "end": 24
+    }
+   ],
+   "contacts": [
+    {
+     "name": "BLADE_HEEL",
+     "start": 0,
+     "end": 2,
+     "kind": "slide"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 0,
+     "end": 3,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 0,
+     "end": 3,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_l",
+     "start": 0,
+     "end": 3,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_r",
+     "start": 0,
+     "end": 3,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_l",
+     "start": 0,
+     "end": 3,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_r",
+     "start": 0,
+     "end": 11,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_l",
+     "start": 0,
+     "end": 3,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_r",
+     "start": 0,
+     "end": 3,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 3,
+     "end": 19,
+     "kind": "slide"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 3,
+     "end": 19,
+     "kind": "slide"
+    },
+    {
+     "name": "instep_l",
+     "start": 3,
+     "end": 19,
+     "kind": "slide"
+    },
+    {
+     "name": "instep_r",
+     "start": 3,
+     "end": 19,
+     "kind": "slide"
+    },
+    {
+     "name": "toe_l",
+     "start": 3,
+     "end": 19,
+     "kind": "slide"
+    },
+    {
+     "name": "toe_r",
+     "start": 3,
+     "end": 19,
+     "kind": "slide"
+    },
+    {
+     "name": "knee_l",
+     "start": 11,
+     "end": 24,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 19,
+     "end": 24,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 19,
+     "end": 24,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_l",
+     "start": 19,
+     "end": 24,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_r",
+     "start": 19,
+     "end": 24,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_r",
+     "start": 19,
+     "end": 24,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_l",
+     "start": 19,
+     "end": 24,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_r",
+     "start": 19,
+     "end": 24,
+     "kind": "pin"
+    },
+    {
+     "name": "BLADE_HEEL",
+     "start": 21,
+     "end": 24,
+     "kind": "slide"
+    }
+   ],
+   "quality": "accepted",
+   "skeleton_hash": "58087d952b1022ad4c5bb400f685e55c459a36f2b5f3547e3feba861d1ca0003",
+   "helpers_hash": "1cc0779edbaa08e08967cbdcb15fab6ca8bbc299896a039c4fea1bc70a5f910c",
+   "stick_hash": "2491b6b1d87587492195fed911765309172341a0ae9b8bd2f63dcaffc10fecdd",
+   "source_hash": "5169e6355baf23469c33db8159f8f2a785a2c450bb7d230d46938e502d2c6653",
+   "frames": 25,
+   "duration_s": 0.8,
+   "root_motion_delta": {
+    "translation": [
+     0.0,
+     0.0,
+     -0.0
+    ],
+    "yaw_deg": -90.0,
+    "speed_mps": 0.0
+   }
+  },
+  "knee_backhand_shot": {
+   "kind": "clip",
+   "length": 46,
+   "loop": false,
+   "root_motion": false,
+   "family": "backhand",
+   "tier": 2,
+   "hub_start": "H_KNEE",
+   "hub_end": "H_KNEE",
+   "handedness": "L",
+   "events": [
+    {
+     "name": "offhand_off",
+     "frame": 2,
+     "time_s": 0.06666666666666667
+    },
+    {
+     "name": "puck_touch",
+     "frame": 18,
+     "time_s": 0.6
+    },
+    {
+     "name": "release",
+     "frame": 24,
+     "time_s": 0.8
+    },
+    {
+     "name": "interruptible",
+     "frame": 30,
+     "time_s": 1.0
+    },
+    {
+     "name": "offhand_on",
+     "frame": 43,
+     "time_s": 1.4333333333333333
+    }
+   ],
+   "ranges": [
+    {
+     "name": "puck_attached",
+     "start": 0,
+     "end": 12
+    },
+    {
+     "name": "regrip_l",
+     "start": 0,
+     "end": 1
+    },
+    {
+     "name": "offhand_free",
+     "start": 2,
+     "end": 43
+    },
+    {
+     "name": "puck_attached",
+     "start": 18,
+     "end": 24
+    },
+    {
+     "name": "regrip_l",
+     "start": 43,
+     "end": 45
+    }
+   ],
+   "sections": [
+    {
+     "name": "carry",
+     "start": 0,
+     "end": 12
+    },
+    {
+     "name": "over",
+     "start": 12,
+     "end": 18
+    },
+    {
+     "name": "load",
+     "start": 18,
+     "end": 19
+    },
+    {
+     "name": "sweep",
+     "start": 19,
+     "end": 24
+    },
+    {
+     "name": "follow",
+     "start": 24,
+     "end": 28
+    },
+    {
+     "name": "hold",
+     "start": 28,
+     "end": 30
+    },
+    {
+     "name": "recover",
+     "start": 30,
+     "end": 46
+    }
+   ],
+   "contacts": [
+    {
+     "name": "BLADE_HEEL",
+     "start": 0,
+     "end": 12,
+     "kind": "slide"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 0,
+     "end": 46,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 0,
+     "end": 46,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_l",
+     "start": 0,
+     "end": 46,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_r",
+     "start": 0,
+     "end": 46,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_l",
+     "start": 0,
+     "end": 46,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_r",
+     "start": 0,
+     "end": 46,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_l",
+     "start": 0,
+     "end": 46,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_r",
+     "start": 0,
+     "end": 46,
+     "kind": "pin"
+    },
+    {
+     "name": "BLADE_HEEL",
+     "start": 17,
+     "end": 24,
+     "kind": "slide"
+    },
+    {
+     "name": "BLADE_HEEL",
+     "start": 43,
+     "end": 46,
+     "kind": "slide"
+    }
+   ],
+   "quality": "accepted",
+   "skeleton_hash": "58087d952b1022ad4c5bb400f685e55c459a36f2b5f3547e3feba861d1ca0003",
+   "helpers_hash": "1cc0779edbaa08e08967cbdcb15fab6ca8bbc299896a039c4fea1bc70a5f910c",
+   "stick_hash": "2491b6b1d87587492195fed911765309172341a0ae9b8bd2f63dcaffc10fecdd",
+   "source_hash": "c03bd3a8bf89bc7afea78ac3c65e8dc0bf707af2913387a6b0de916ec8db0bc7",
+   "frames": 47,
+   "duration_s": 1.5333333333333334,
+   "root_motion_delta": {
+    "translation": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "yaw_deg": 0.0,
+    "speed_mps": 0.0
+   }
+  },
+  "knee_pass_backhand": {
+   "kind": "clip",
+   "length": 40,
+   "loop": false,
+   "root_motion": false,
+   "family": "backhand",
+   "tier": 2,
+   "hub_start": "H_KNEE",
+   "hub_end": "H_KNEE",
+   "handedness": "L",
+   "events": [
+    {
+     "name": "offhand_off",
+     "frame": 2,
+     "time_s": 0.06666666666666667
+    },
+    {
+     "name": "puck_touch",
+     "frame": 15,
+     "time_s": 0.5
+    },
+    {
+     "name": "release",
+     "frame": 19,
+     "time_s": 0.6333333333333333
+    },
+    {
+     "name": "interruptible",
+     "frame": 24,
+     "time_s": 0.8
+    },
+    {
+     "name": "offhand_on",
+     "frame": 37,
+     "time_s": 1.2333333333333334
+    }
+   ],
+   "ranges": [
+    {
+     "name": "puck_attached",
+     "start": 0,
+     "end": 11
+    },
+    {
+     "name": "regrip_l",
+     "start": 0,
+     "end": 1
+    },
+    {
+     "name": "offhand_free",
+     "start": 2,
+     "end": 37
+    },
+    {
+     "name": "puck_attached",
+     "start": 15,
+     "end": 19
+    },
+    {
+     "name": "regrip_l",
+     "start": 37,
+     "end": 39
+    }
+   ],
+   "sections": [
+    {
+     "name": "carry",
+     "start": 0,
+     "end": 11
+    },
+    {
+     "name": "over",
+     "start": 11,
+     "end": 15
+    },
+    {
+     "name": "load",
+     "start": 15,
+     "end": 16
+    },
+    {
+     "name": "sweep",
+     "start": 16,
+     "end": 19
+    },
+    {
+     "name": "follow",
+     "start": 19,
+     "end": 22
+    },
+    {
+     "name": "hold",
+     "start": 22,
+     "end": 24
+    },
+    {
+     "name": "recover",
+     "start": 24,
+     "end": 40
+    }
+   ],
+   "contacts": [
+    {
+     "name": "BLADE_HEEL",
+     "start": 0,
+     "end": 11,
+     "kind": "slide"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 0,
+     "end": 40,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 0,
+     "end": 40,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_l",
+     "start": 0,
+     "end": 40,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_r",
+     "start": 0,
+     "end": 40,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_l",
+     "start": 0,
+     "end": 40,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_r",
+     "start": 0,
+     "end": 40,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_l",
+     "start": 0,
+     "end": 40,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_r",
+     "start": 0,
+     "end": 40,
+     "kind": "pin"
+    },
+    {
+     "name": "BLADE_HEEL",
+     "start": 14,
+     "end": 19,
+     "kind": "slide"
+    },
+    {
+     "name": "BLADE_HEEL",
+     "start": 37,
+     "end": 40,
+     "kind": "slide"
+    }
+   ],
+   "quality": "accepted",
+   "skeleton_hash": "58087d952b1022ad4c5bb400f685e55c459a36f2b5f3547e3feba861d1ca0003",
+   "helpers_hash": "1cc0779edbaa08e08967cbdcb15fab6ca8bbc299896a039c4fea1bc70a5f910c",
+   "stick_hash": "2491b6b1d87587492195fed911765309172341a0ae9b8bd2f63dcaffc10fecdd",
+   "source_hash": "c03bd3a8bf89bc7afea78ac3c65e8dc0bf707af2913387a6b0de916ec8db0bc7",
+   "frames": 41,
+   "duration_s": 1.3333333333333333,
+   "root_motion_delta": {
+    "translation": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "yaw_deg": 0.0,
+    "speed_mps": 0.0
+   }
+  },
+  "emote_goal_celebrate": {
+   "kind": "clip",
+   "length": 84,
+   "loop": false,
+   "root_motion": false,
+   "family": "emotes",
+   "tier": 2,
+   "hub_start": "H_KNEE",
+   "hub_end": "H_KNEE",
+   "handedness": "L",
+   "events": [
+    {
+     "name": "peak",
+     "frame": 14,
+     "time_s": 0.4666666666666667
+    },
+    {
+     "name": "stick_down",
+     "frame": 69,
+     "time_s": 2.3
+    },
+    {
+     "name": "interruptible",
+     "frame": 74,
+     "time_s": 2.466666666666667
+    }
+   ],
+   "ranges": [],
+   "sections": [
+    {
+     "name": "dip",
+     "start": 0,
+     "end": 4
+    },
+    {
+     "name": "throw",
+     "start": 4,
+     "end": 14
+    },
+    {
+     "name": "top",
+     "start": 14,
+     "end": 22
+    },
+    {
+     "name": "pumps",
+     "start": 22,
+     "end": 47
+    },
+    {
+     "name": "last_top",
+     "start": 47,
+     "end": 56
+    },
+    {
+     "name": "down",
+     "start": 56,
+     "end": 69
+    },
+    {
+     "name": "settle",
+     "start": 69,
+     "end": 84
+    }
+   ],
+   "contacts": [
+    {
+     "name": "BLADE_HEEL",
+     "start": 0,
+     "end": 4,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 0,
+     "end": 84,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 0,
+     "end": 84,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_l",
+     "start": 0,
+     "end": 84,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_r",
+     "start": 0,
+     "end": 84,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_l",
+     "start": 0,
+     "end": 84,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_r",
+     "start": 0,
+     "end": 84,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_l",
+     "start": 0,
+     "end": 84,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_r",
+     "start": 0,
+     "end": 84,
+     "kind": "pin"
+    },
+    {
+     "name": "BLADE_HEEL",
+     "start": 69,
+     "end": 84,
+     "kind": "pin"
+    }
+   ],
+   "quality": "accepted",
+   "skeleton_hash": "58087d952b1022ad4c5bb400f685e55c459a36f2b5f3547e3feba861d1ca0003",
+   "helpers_hash": "1cc0779edbaa08e08967cbdcb15fab6ca8bbc299896a039c4fea1bc70a5f910c",
+   "stick_hash": "2491b6b1d87587492195fed911765309172341a0ae9b8bd2f63dcaffc10fecdd",
+   "source_hash": "db26fb632c85cc9dbc3248f0f0d01e4b208fdd794c26d1ea27f0aca93decd237",
+   "frames": 85,
+   "duration_s": 2.8,
+   "root_motion_delta": {
+    "translation": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "yaw_deg": 0.0,
+    "speed_mps": 0.0
+   }
+  },
+  "emote_fist_pump": {
+   "kind": "clip",
+   "length": 32,
+   "loop": false,
+   "root_motion": false,
+   "family": "emotes",
+   "tier": 2,
+   "hub_start": "H_KNEE",
+   "hub_end": "H_KNEE",
+   "handedness": "L",
+   "events": [
+    {
+     "name": "offhand_off",
+     "frame": 3,
+     "time_s": 0.1
+    },
+    {
+     "name": "peak",
+     "frame": 14,
+     "time_s": 0.4666666666666667
+    },
+    {
+     "name": "offhand_on",
+     "frame": 24,
+     "time_s": 0.8
+    },
+    {
+     "name": "interruptible",
+     "frame": 26,
+     "time_s": 0.8666666666666667
+    }
+   ],
+   "ranges": [
+    {
+     "name": "regrip_l",
+     "start": 0,
+     "end": 2
+    },
+    {
+     "name": "offhand_free",
+     "start": 3,
+     "end": 24
+    },
+    {
+     "name": "regrip_l",
+     "start": 24,
+     "end": 26
+    }
+   ],
+   "sections": [
+    {
+     "name": "let_go",
+     "start": 0,
+     "end": 3
+    },
+    {
+     "name": "cock",
+     "start": 3,
+     "end": 10
+    },
+    {
+     "name": "drive",
+     "start": 10,
+     "end": 14
+    },
+    {
+     "name": "held",
+     "start": 14,
+     "end": 18
+    },
+    {
+     "name": "regrip",
+     "start": 18,
+     "end": 32
+    }
+   ],
+   "contacts": [
+    {
+     "name": "BLADE_HEEL",
+     "start": 0,
+     "end": 32,
+     "kind": "slide"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 0,
+     "end": 32,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 0,
+     "end": 32,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_l",
+     "start": 0,
+     "end": 32,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_r",
+     "start": 0,
+     "end": 32,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_l",
+     "start": 0,
+     "end": 32,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_r",
+     "start": 0,
+     "end": 32,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_l",
+     "start": 0,
+     "end": 32,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_r",
+     "start": 0,
+     "end": 32,
+     "kind": "pin"
+    }
+   ],
+   "quality": "accepted",
+   "skeleton_hash": "58087d952b1022ad4c5bb400f685e55c459a36f2b5f3547e3feba861d1ca0003",
+   "helpers_hash": "1cc0779edbaa08e08967cbdcb15fab6ca8bbc299896a039c4fea1bc70a5f910c",
+   "stick_hash": "2491b6b1d87587492195fed911765309172341a0ae9b8bd2f63dcaffc10fecdd",
+   "source_hash": "db26fb632c85cc9dbc3248f0f0d01e4b208fdd794c26d1ea27f0aca93decd237",
+   "frames": 33,
+   "duration_s": 1.0666666666666667,
+   "root_motion_delta": {
+    "translation": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "yaw_deg": 0.0,
+    "speed_mps": 0.0
+   }
+  },
+  "emote_stick_tap": {
+   "kind": "clip",
+   "length": 24,
+   "loop": false,
+   "root_motion": false,
+   "family": "emotes",
+   "tier": 2,
+   "hub_start": "H_KNEE",
+   "hub_end": "H_KNEE",
+   "handedness": "L",
+   "events": [
+    {
+     "name": "stick_tap",
+     "frame": 9,
+     "time_s": 0.3
+    },
+    {
+     "name": "stick_tap",
+     "frame": 16,
+     "time_s": 0.5333333333333333
+    },
+    {
+     "name": "interruptible",
+     "frame": 18,
+     "time_s": 0.6
+    }
+   ],
+   "ranges": [],
+   "sections": [
+    {
+     "name": "lift",
+     "start": 0,
+     "end": 6
+    },
+    {
+     "name": "tap",
+     "start": 6,
+     "end": 9
+    },
+    {
+     "name": "bounce",
+     "start": 9,
+     "end": 16
+    },
+    {
+     "name": "settle",
+     "start": 16,
+     "end": 24
+    }
+   ],
+   "contacts": [
+    {
+     "name": "BLADE_HEEL",
+     "start": 0,
+     "end": 0,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 0,
+     "end": 24,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 0,
+     "end": 24,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_l",
+     "start": 0,
+     "end": 24,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_r",
+     "start": 0,
+     "end": 24,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_l",
+     "start": 0,
+     "end": 24,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_r",
+     "start": 0,
+     "end": 24,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_l",
+     "start": 0,
+     "end": 24,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_r",
+     "start": 0,
+     "end": 24,
+     "kind": "pin"
+    },
+    {
+     "name": "BLADE_HEEL",
+     "start": 9,
+     "end": 9,
+     "kind": "pin"
+    },
+    {
+     "name": "BLADE_HEEL",
+     "start": 16,
+     "end": 24,
+     "kind": "pin"
+    }
+   ],
+   "quality": "accepted",
+   "skeleton_hash": "58087d952b1022ad4c5bb400f685e55c459a36f2b5f3547e3feba861d1ca0003",
+   "helpers_hash": "1cc0779edbaa08e08967cbdcb15fab6ca8bbc299896a039c4fea1bc70a5f910c",
+   "stick_hash": "2491b6b1d87587492195fed911765309172341a0ae9b8bd2f63dcaffc10fecdd",
+   "source_hash": "db26fb632c85cc9dbc3248f0f0d01e4b208fdd794c26d1ea27f0aca93decd237",
+   "frames": 25,
+   "duration_s": 0.8,
+   "root_motion_delta": {
+    "translation": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "yaw_deg": 0.0,
+    "speed_mps": 0.0
+   }
+  },
+  "goalie_slide_l": {
+   "kind": "clip",
+   "length": 16,
+   "loop": false,
+   "root_motion": true,
+   "family": "goalie_moves",
+   "tier": 2,
+   "hub_start": "H_BUTTERFLY",
+   "hub_end": "H_BUTTERFLY",
+   "handedness": "L",
+   "events": [
+    {
+     "name": "slide_start",
+     "frame": 3,
+     "time_s": 0.1
+    },
+    {
+     "name": "interruptible",
+     "frame": 13,
+     "time_s": 0.43333333333333335
+    },
+    {
+     "name": "slide_end",
+     "frame": 13,
+     "time_s": 0.43333333333333335
+    }
+   ],
+   "ranges": [
+    {
+     "name": "offhand_free",
+     "start": 0,
+     "end": 16
+    }
+   ],
+   "sections": [
+    {
+     "name": "load",
+     "start": 0,
+     "end": 3
+    },
+    {
+     "name": "push",
+     "start": 3,
+     "end": 7
+    },
+    {
+     "name": "glide",
+     "start": 7,
+     "end": 11
+    },
+    {
+     "name": "gather",
+     "start": 11,
+     "end": 13
+    },
+    {
+     "name": "settle",
+     "start": 13,
+     "end": 16
+    }
+   ],
+   "contacts": [
+    {
+     "name": "BLADE_HEEL",
+     "start": 0,
+     "end": 16,
+     "kind": "slide"
+    },
+    {
+     "name": "BLADE_TOE",
+     "start": 0,
+     "end": 16,
+     "kind": "slide"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 0,
+     "end": 3,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 0,
+     "end": 3,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_l",
+     "start": 0,
+     "end": 3,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_r",
+     "start": 0,
+     "end": 3,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_l",
+     "start": 0,
+     "end": 3,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_r",
+     "start": 0,
+     "end": 6,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_l",
+     "start": 0,
+     "end": 3,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_r",
+     "start": 0,
+     "end": 3,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 3,
+     "end": 11,
+     "kind": "slide"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 3,
+     "end": 13,
+     "kind": "slide"
+    },
+    {
+     "name": "instep_l",
+     "start": 3,
+     "end": 11,
+     "kind": "slide"
+    },
+    {
+     "name": "instep_r",
+     "start": 3,
+     "end": 13,
+     "kind": "slide"
+    },
+    {
+     "name": "knee_l",
+     "start": 3,
+     "end": 11,
+     "kind": "slide"
+    },
+    {
+     "name": "toe_l",
+     "start": 3,
+     "end": 11,
+     "kind": "slide"
+    },
+    {
+     "name": "toe_r",
+     "start": 3,
+     "end": 13,
+     "kind": "slide"
+    },
+    {
+     "name": "knee_r",
+     "start": 6,
+     "end": 13,
+     "kind": "slide"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 11,
+     "end": 16,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_l",
+     "start": 11,
+     "end": 16,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_l",
+     "start": 11,
+     "end": 16,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_l",
+     "start": 11,
+     "end": 16,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 13,
+     "end": 16,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_r",
+     "start": 13,
+     "end": 16,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_r",
+     "start": 13,
+     "end": 16,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_r",
+     "start": 13,
+     "end": 16,
+     "kind": "pin"
+    }
+   ],
+   "quality": "accepted",
+   "skeleton_hash": "58087d952b1022ad4c5bb400f685e55c459a36f2b5f3547e3feba861d1ca0003",
+   "helpers_hash": "1cc0779edbaa08e08967cbdcb15fab6ca8bbc299896a039c4fea1bc70a5f910c",
+   "stick_hash": "2491b6b1d87587492195fed911765309172341a0ae9b8bd2f63dcaffc10fecdd",
+   "source_hash": "f02e74cd710d7a1d6e29ad2980f0b34cc6d073a0eac15f3d93faf40be330a6b9",
+   "frames": 17,
+   "duration_s": 0.5333333333333333,
+   "root_motion_delta": {
+    "translation": [
+     0.3,
+     0.0,
+     0.0
+    ],
+    "yaw_deg": 0.0,
+    "speed_mps": 0.5625
+   }
+  },
+  "goalie_slide_r": {
+   "kind": "clip",
+   "length": 16,
+   "loop": false,
+   "root_motion": true,
+   "family": "goalie_moves",
+   "tier": 2,
+   "hub_start": "H_BUTTERFLY",
+   "hub_end": "H_BUTTERFLY",
+   "handedness": "L",
+   "events": [
+    {
+     "name": "slide_start",
+     "frame": 3,
+     "time_s": 0.1
+    },
+    {
+     "name": "interruptible",
+     "frame": 13,
+     "time_s": 0.43333333333333335
+    },
+    {
+     "name": "slide_end",
+     "frame": 13,
+     "time_s": 0.43333333333333335
+    }
+   ],
+   "ranges": [
+    {
+     "name": "offhand_free",
+     "start": 0,
+     "end": 16
+    }
+   ],
+   "sections": [
+    {
+     "name": "load",
+     "start": 0,
+     "end": 3
+    },
+    {
+     "name": "push",
+     "start": 3,
+     "end": 7
+    },
+    {
+     "name": "glide",
+     "start": 7,
+     "end": 11
+    },
+    {
+     "name": "gather",
+     "start": 11,
+     "end": 13
+    },
+    {
+     "name": "settle",
+     "start": 13,
+     "end": 16
+    }
+   ],
+   "contacts": [
+    {
+     "name": "BLADE_HEEL",
+     "start": 0,
+     "end": 16,
+     "kind": "slide"
+    },
+    {
+     "name": "BLADE_TOE",
+     "start": 0,
+     "end": 16,
+     "kind": "slide"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 0,
+     "end": 3,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 0,
+     "end": 3,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_l",
+     "start": 0,
+     "end": 3,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_r",
+     "start": 0,
+     "end": 3,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_l",
+     "start": 0,
+     "end": 6,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_r",
+     "start": 0,
+     "end": 3,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_l",
+     "start": 0,
+     "end": 3,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_r",
+     "start": 0,
+     "end": 3,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 3,
+     "end": 13,
+     "kind": "slide"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 3,
+     "end": 11,
+     "kind": "slide"
+    },
+    {
+     "name": "instep_l",
+     "start": 3,
+     "end": 13,
+     "kind": "slide"
+    },
+    {
+     "name": "instep_r",
+     "start": 3,
+     "end": 11,
+     "kind": "slide"
+    },
+    {
+     "name": "knee_r",
+     "start": 3,
+     "end": 11,
+     "kind": "slide"
+    },
+    {
+     "name": "toe_l",
+     "start": 3,
+     "end": 13,
+     "kind": "slide"
+    },
+    {
+     "name": "toe_r",
+     "start": 3,
+     "end": 11,
+     "kind": "slide"
+    },
+    {
+     "name": "knee_l",
+     "start": 6,
+     "end": 13,
+     "kind": "slide"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 11,
+     "end": 16,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_r",
+     "start": 11,
+     "end": 16,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_r",
+     "start": 11,
+     "end": 16,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_r",
+     "start": 11,
+     "end": 16,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 13,
+     "end": 16,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_l",
+     "start": 13,
+     "end": 16,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_l",
+     "start": 13,
+     "end": 16,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_l",
+     "start": 13,
+     "end": 16,
+     "kind": "pin"
+    }
+   ],
+   "quality": "accepted",
+   "skeleton_hash": "58087d952b1022ad4c5bb400f685e55c459a36f2b5f3547e3feba861d1ca0003",
+   "helpers_hash": "1cc0779edbaa08e08967cbdcb15fab6ca8bbc299896a039c4fea1bc70a5f910c",
+   "stick_hash": "2491b6b1d87587492195fed911765309172341a0ae9b8bd2f63dcaffc10fecdd",
+   "source_hash": "f02e74cd710d7a1d6e29ad2980f0b34cc6d073a0eac15f3d93faf40be330a6b9",
+   "frames": 17,
+   "duration_s": 0.5333333333333333,
+   "root_motion_delta": {
+    "translation": [
+     -0.3,
+     0.0,
+     0.0
+    ],
+    "yaw_deg": 0.0,
+    "speed_mps": 0.5625
+   }
+  },
+  "goalie_glove_save": {
+   "kind": "clip",
+   "length": 22,
+   "loop": false,
+   "root_motion": false,
+   "family": "goalie_moves",
+   "tier": 2,
+   "hub_start": "H_BUTTERFLY",
+   "hub_end": "H_BALL",
+   "handedness": "L",
+   "events": [
+    {
+     "name": "save_contact",
+     "frame": 8,
+     "time_s": 0.26666666666666666
+    },
+    {
+     "name": "interruptible",
+     "frame": 18,
+     "time_s": 0.6
+    }
+   ],
+   "ranges": [
+    {
+     "name": "offhand_free",
+     "start": 0,
+     "end": 22
+    },
+    {
+     "name": "ball_in_hand",
+     "start": 8,
+     "end": 22
+    }
+   ],
+   "sections": [
+    {
+     "name": "anticipation",
+     "start": 0,
+     "end": 2
+    },
+    {
+     "name": "reach",
+     "start": 2,
+     "end": 8
+    },
+    {
+     "name": "give",
+     "start": 8,
+     "end": 10
+    },
+    {
+     "name": "bring_down",
+     "start": 10,
+     "end": 19
+    },
+    {
+     "name": "settle",
+     "start": 19,
+     "end": 22
+    }
+   ],
+   "contacts": [
+    {
+     "name": "BLADE_HEEL",
+     "start": 0,
+     "end": 4,
+     "kind": "slide"
+    },
+    {
+     "name": "BLADE_TOE",
+     "start": 0,
+     "end": 22,
+     "kind": "slide"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 0,
+     "end": 22,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 0,
+     "end": 22,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_l",
+     "start": 0,
+     "end": 22,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_r",
+     "start": 0,
+     "end": 22,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_l",
+     "start": 0,
+     "end": 22,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_r",
+     "start": 0,
+     "end": 22,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_l",
+     "start": 0,
+     "end": 22,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_r",
+     "start": 0,
+     "end": 22,
+     "kind": "pin"
+    },
+    {
+     "name": "BLADE_HEEL",
+     "start": 16,
+     "end": 22,
+     "kind": "slide"
+    }
+   ],
+   "quality": "accepted",
+   "skeleton_hash": "58087d952b1022ad4c5bb400f685e55c459a36f2b5f3547e3feba861d1ca0003",
+   "helpers_hash": "1cc0779edbaa08e08967cbdcb15fab6ca8bbc299896a039c4fea1bc70a5f910c",
+   "stick_hash": "2491b6b1d87587492195fed911765309172341a0ae9b8bd2f63dcaffc10fecdd",
+   "source_hash": "f02e74cd710d7a1d6e29ad2980f0b34cc6d073a0eac15f3d93faf40be330a6b9",
+   "frames": 23,
+   "duration_s": 0.7333333333333333,
+   "root_motion_delta": {
+    "translation": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "yaw_deg": 0.0,
+    "speed_mps": 0.0
+   }
+  },
+  "goalie_blocker_save": {
+   "kind": "clip",
+   "length": 20,
+   "loop": false,
+   "root_motion": false,
+   "family": "goalie_moves",
+   "tier": 2,
+   "hub_start": "H_BUTTERFLY",
+   "hub_end": "H_BUTTERFLY",
+   "handedness": "L",
+   "events": [
+    {
+     "name": "save_contact",
+     "frame": 6,
+     "time_s": 0.2
+    },
+    {
+     "name": "stick_down",
+     "frame": 15,
+     "time_s": 0.5
+    },
+    {
+     "name": "interruptible",
+     "frame": 16,
+     "time_s": 0.5333333333333333
+    }
+   ],
+   "ranges": [
+    {
+     "name": "offhand_free",
+     "start": 0,
+     "end": 20
+    }
+   ],
+   "sections": [
+    {
+     "name": "anticipation",
+     "start": 0,
+     "end": 2
+    },
+    {
+     "name": "punch",
+     "start": 2,
+     "end": 6
+    },
+    {
+     "name": "through",
+     "start": 6,
+     "end": 9
+    },
+    {
+     "name": "recover",
+     "start": 9,
+     "end": 15
+    },
+    {
+     "name": "settle",
+     "start": 15,
+     "end": 20
+    }
+   ],
+   "contacts": [
+    {
+     "name": "BLADE_HEEL",
+     "start": 0,
+     "end": 2,
+     "kind": "slide"
+    },
+    {
+     "name": "BLADE_TOE",
+     "start": 0,
+     "end": 2,
+     "kind": "slide"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 0,
+     "end": 20,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 0,
+     "end": 20,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_l",
+     "start": 0,
+     "end": 20,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_r",
+     "start": 0,
+     "end": 20,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_l",
+     "start": 0,
+     "end": 20,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_r",
+     "start": 0,
+     "end": 20,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_l",
+     "start": 0,
+     "end": 20,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_r",
+     "start": 0,
+     "end": 20,
+     "kind": "pin"
+    },
+    {
+     "name": "BLADE_HEEL",
+     "start": 15,
+     "end": 20,
+     "kind": "slide"
+    },
+    {
+     "name": "BLADE_TOE",
+     "start": 15,
+     "end": 20,
+     "kind": "slide"
+    }
+   ],
+   "quality": "accepted",
+   "skeleton_hash": "58087d952b1022ad4c5bb400f685e55c459a36f2b5f3547e3feba861d1ca0003",
+   "helpers_hash": "1cc0779edbaa08e08967cbdcb15fab6ca8bbc299896a039c4fea1bc70a5f910c",
+   "stick_hash": "2491b6b1d87587492195fed911765309172341a0ae9b8bd2f63dcaffc10fecdd",
+   "source_hash": "f02e74cd710d7a1d6e29ad2980f0b34cc6d073a0eac15f3d93faf40be330a6b9",
+   "frames": 21,
+   "duration_s": 0.6666666666666666,
+   "root_motion_delta": {
+    "translation": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "yaw_deg": 0.0,
+    "speed_mps": 0.0
+   }
+  },
+  "goalie_dive_l": {
+   "kind": "clip",
+   "length": 24,
+   "loop": false,
+   "root_motion": true,
+   "family": "goalie_dives",
+   "tier": 2,
+   "hub_start": "H_BUTTERFLY",
+   "hub_end": "H_LAYOUT_L",
+   "handedness": "L",
+   "events": [
+    {
+     "name": "knee_up_l",
+     "frame": 5,
+     "time_s": 0.16666666666666666
+    },
+    {
+     "name": "knee_up_r",
+     "frame": 8,
+     "time_s": 0.26666666666666666
+    },
+    {
+     "name": "save_contact",
+     "frame": 11,
+     "time_s": 0.36666666666666664
+    },
+    {
+     "name": "hand_down",
+     "frame": 13,
+     "time_s": 0.43333333333333335
+    },
+    {
+     "name": "body_down",
+     "frame": 15,
+     "time_s": 0.5
+    },
+    {
+     "name": "slide_start",
+     "frame": 15,
+     "time_s": 0.5
+    },
+    {
+     "name": "slide_end",
+     "frame": 19,
+     "time_s": 0.6333333333333333
+    },
+    {
+     "name": "interruptible",
+     "frame": 22,
+     "time_s": 0.7333333333333333
+    }
+   ],
+   "ranges": [
+    {
+     "name": "offhand_free",
+     "start": 0,
+     "end": 24
+    },
+    {
+     "name": "airborne",
+     "start": 9,
+     "end": 12
+    }
+   ],
+   "sections": [],
+   "contacts": [
+    {
+     "name": "BLADE_HEEL",
+     "start": 0,
+     "end": 0,
+     "kind": "pin"
+    },
+    {
+     "name": "BLADE_TOE",
+     "start": 0,
+     "end": 0,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 0,
+     "end": 0,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 0,
+     "end": 0,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_l",
+     "start": 0,
+     "end": 0,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_r",
+     "start": 0,
+     "end": 0,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_l",
+     "start": 0,
+     "end": 5,
+     "kind": "slide"
+    },
+    {
+     "name": "knee_r",
+     "start": 0,
+     "end": 8,
+     "kind": "slide"
+    },
+    {
+     "name": "toe_l",
+     "start": 0,
+     "end": 0,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_r",
+     "start": 0,
+     "end": 0,
+     "kind": "pin"
+    },
+    {
+     "name": "hand_l",
+     "start": 13,
+     "end": 24,
+     "kind": "slide"
+    },
+    {
+     "name": "calf_l",
+     "start": 15,
+     "end": 24,
+     "kind": "slide"
+    },
+    {
+     "name": "elbow_l",
+     "start": 15,
+     "end": 24,
+     "kind": "slide"
+    },
+    {
+     "name": "hip_l",
+     "start": 15,
+     "end": 24,
+     "kind": "slide"
+    },
+    {
+     "name": "BLADE_HEEL",
+     "start": 20,
+     "end": 24,
+     "kind": "pin"
+    },
+    {
+     "name": "BLADE_TOE",
+     "start": 20,
+     "end": 24,
+     "kind": "pin"
+    }
+   ],
+   "quality": "accepted",
+   "skeleton_hash": "58087d952b1022ad4c5bb400f685e55c459a36f2b5f3547e3feba861d1ca0003",
+   "helpers_hash": "1cc0779edbaa08e08967cbdcb15fab6ca8bbc299896a039c4fea1bc70a5f910c",
+   "stick_hash": "2491b6b1d87587492195fed911765309172341a0ae9b8bd2f63dcaffc10fecdd",
+   "source_hash": "d3cef322c4656ca666d77fc5bd96250ee3d392fa93dd1b5739066090f7a37d45",
+   "frames": 25,
+   "duration_s": 0.8,
+   "root_motion_delta": {
+    "translation": [
+     0.45,
+     0.0,
+     0.0
+    ],
+    "yaw_deg": 0.0,
+    "speed_mps": 0.5625
+   }
+  },
+  "goalie_dive_r": {
+   "kind": "clip",
+   "length": 24,
+   "loop": false,
+   "root_motion": true,
+   "family": "goalie_dives",
+   "tier": 2,
+   "hub_start": "H_BUTTERFLY",
+   "hub_end": "H_LAYOUT_R",
+   "handedness": "L",
+   "events": [
+    {
+     "name": "knee_up_r",
+     "frame": 5,
+     "time_s": 0.16666666666666666
+    },
+    {
+     "name": "knee_up_l",
+     "frame": 8,
+     "time_s": 0.26666666666666666
+    },
+    {
+     "name": "save_contact",
+     "frame": 12,
+     "time_s": 0.4
+    },
+    {
+     "name": "stick_down",
+     "frame": 12,
+     "time_s": 0.4
+    },
+    {
+     "name": "hand_down",
+     "frame": 13,
+     "time_s": 0.43333333333333335
+    },
+    {
+     "name": "body_down",
+     "frame": 15,
+     "time_s": 0.5
+    },
+    {
+     "name": "slide_start",
+     "frame": 15,
+     "time_s": 0.5
+    },
+    {
+     "name": "slide_end",
+     "frame": 19,
+     "time_s": 0.6333333333333333
+    },
+    {
+     "name": "interruptible",
+     "frame": 22,
+     "time_s": 0.7333333333333333
+    }
+   ],
+   "ranges": [
+    {
+     "name": "offhand_free",
+     "start": 0,
+     "end": 24
+    },
+    {
+     "name": "regrip_r",
+     "start": 1,
+     "end": 3
+    },
+    {
+     "name": "airborne",
+     "start": 9,
+     "end": 12
+    }
+   ],
+   "sections": [],
+   "contacts": [
+    {
+     "name": "BLADE_HEEL",
+     "start": 0,
+     "end": 6,
+     "kind": "slide"
+    },
+    {
+     "name": "BLADE_TOE",
+     "start": 0,
+     "end": 6,
+     "kind": "slide"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 0,
+     "end": 0,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 0,
+     "end": 0,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_l",
+     "start": 0,
+     "end": 0,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_r",
+     "start": 0,
+     "end": 0,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_l",
+     "start": 0,
+     "end": 8,
+     "kind": "slide"
+    },
+    {
+     "name": "knee_r",
+     "start": 0,
+     "end": 5,
+     "kind": "slide"
+    },
+    {
+     "name": "toe_l",
+     "start": 0,
+     "end": 0,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_r",
+     "start": 0,
+     "end": 0,
+     "kind": "pin"
+    },
+    {
+     "name": "BLADE_HEEL",
+     "start": 12,
+     "end": 24,
+     "kind": "slide"
+    },
+    {
+     "name": "BLADE_TOE",
+     "start": 12,
+     "end": 24,
+     "kind": "slide"
+    },
+    {
+     "name": "hand_r",
+     "start": 13,
+     "end": 24,
+     "kind": "slide"
+    },
+    {
+     "name": "calf_r",
+     "start": 15,
+     "end": 24,
+     "kind": "slide"
+    },
+    {
+     "name": "hip_r",
+     "start": 15,
+     "end": 24,
+     "kind": "slide"
+    }
+   ],
+   "quality": "accepted",
+   "skeleton_hash": "58087d952b1022ad4c5bb400f685e55c459a36f2b5f3547e3feba861d1ca0003",
+   "helpers_hash": "1cc0779edbaa08e08967cbdcb15fab6ca8bbc299896a039c4fea1bc70a5f910c",
+   "stick_hash": "2491b6b1d87587492195fed911765309172341a0ae9b8bd2f63dcaffc10fecdd",
+   "source_hash": "d3cef322c4656ca666d77fc5bd96250ee3d392fa93dd1b5739066090f7a37d45",
+   "frames": 25,
+   "duration_s": 0.8,
+   "root_motion_delta": {
+    "translation": [
+     -0.45,
+     0.0,
+     0.0
+    ],
+    "yaw_deg": 0.0,
+    "speed_mps": 0.5625
+   }
+  },
+  "goalie_dive_recover_l": {
+   "kind": "clip",
+   "length": 34,
+   "loop": false,
+   "root_motion": true,
+   "family": "goalie_dives",
+   "tier": 2,
+   "hub_start": "H_LAYOUT_L",
+   "hub_end": "H_BUTTERFLY",
+   "handedness": "L",
+   "events": [
+    {
+     "name": "knee_down_r",
+     "frame": 25,
+     "time_s": 0.8333333333333334
+    },
+    {
+     "name": "interruptible",
+     "frame": 31,
+     "time_s": 1.0333333333333334
+    }
+   ],
+   "ranges": [
+    {
+     "name": "offhand_free",
+     "start": 0,
+     "end": 34
+    }
+   ],
+   "sections": [],
+   "contacts": [
+    {
+     "name": "BLADE_HEEL",
+     "start": 0,
+     "end": 0,
+     "kind": "pin"
+    },
+    {
+     "name": "BLADE_TOE",
+     "start": 0,
+     "end": 0,
+     "kind": "pin"
+    },
+    {
+     "name": "elbow_l",
+     "start": 0,
+     "end": 9,
+     "kind": "slide"
+    },
+    {
+     "name": "hand_l",
+     "start": 0,
+     "end": 0,
+     "kind": "pin"
+    },
+    {
+     "name": "hip_l",
+     "start": 0,
+     "end": 9,
+     "kind": "slide"
+    },
+    {
+     "name": "hand_l",
+     "start": 8,
+     "end": 13,
+     "kind": "slide"
+    },
+    {
+     "name": "knee_l",
+     "start": 11,
+     "end": 34,
+     "kind": "slide"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 25,
+     "end": 34,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 25,
+     "end": 34,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_l",
+     "start": 25,
+     "end": 34,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_r",
+     "start": 25,
+     "end": 34,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_r",
+     "start": 25,
+     "end": 34,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_l",
+     "start": 25,
+     "end": 34,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_r",
+     "start": 25,
+     "end": 34,
+     "kind": "pin"
+    },
+    {
+     "name": "BLADE_HEEL",
+     "start": 30,
+     "end": 34,
+     "kind": "pin"
+    },
+    {
+     "name": "BLADE_TOE",
+     "start": 30,
+     "end": 34,
+     "kind": "pin"
+    }
+   ],
+   "quality": "accepted",
+   "skeleton_hash": "58087d952b1022ad4c5bb400f685e55c459a36f2b5f3547e3feba861d1ca0003",
+   "helpers_hash": "1cc0779edbaa08e08967cbdcb15fab6ca8bbc299896a039c4fea1bc70a5f910c",
+   "stick_hash": "2491b6b1d87587492195fed911765309172341a0ae9b8bd2f63dcaffc10fecdd",
+   "source_hash": "d3cef322c4656ca666d77fc5bd96250ee3d392fa93dd1b5739066090f7a37d45",
+   "frames": 35,
+   "duration_s": 1.1333333333333333,
+   "root_motion_delta": {
+    "translation": [
+     -0.07261958120305868,
+     0.0,
+     0.03345818363299226
+    ],
+    "yaw_deg": 0.0,
+    "speed_mps": 0.07054991768523002
+   }
+  },
+  "goalie_dive_recover_r": {
+   "kind": "clip",
+   "length": 34,
+   "loop": false,
+   "root_motion": true,
+   "family": "goalie_dives",
+   "tier": 2,
+   "hub_start": "H_LAYOUT_R",
+   "hub_end": "H_BUTTERFLY",
+   "handedness": "L",
+   "events": [
+    {
+     "name": "knee_down_l",
+     "frame": 25,
+     "time_s": 0.8333333333333334
+    },
+    {
+     "name": "interruptible",
+     "frame": 31,
+     "time_s": 1.0333333333333334
+    }
+   ],
+   "ranges": [
+    {
+     "name": "offhand_free",
+     "start": 0,
+     "end": 34
+    },
+    {
+     "name": "regrip_r",
+     "start": 24,
+     "end": 26
+    }
+   ],
+   "sections": [],
+   "contacts": [
+    {
+     "name": "BLADE_HEEL",
+     "start": 0,
+     "end": 11,
+     "kind": "slide"
+    },
+    {
+     "name": "BLADE_TOE",
+     "start": 0,
+     "end": 11,
+     "kind": "slide"
+    },
+    {
+     "name": "calf_r",
+     "start": 0,
+     "end": 8,
+     "kind": "slide"
+    },
+    {
+     "name": "hand_r",
+     "start": 0,
+     "end": 11,
+     "kind": "slide"
+    },
+    {
+     "name": "hip_r",
+     "start": 0,
+     "end": 10,
+     "kind": "slide"
+    },
+    {
+     "name": "knee_r",
+     "start": 11,
+     "end": 34,
+     "kind": "slide"
+    },
+    {
+     "name": "BLADE_HEEL",
+     "start": 16,
+     "end": 34,
+     "kind": "slide"
+    },
+    {
+     "name": "BLADE_TOE",
+     "start": 16,
+     "end": 34,
+     "kind": "slide"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 25,
+     "end": 34,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 25,
+     "end": 34,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_l",
+     "start": 25,
+     "end": 34,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_r",
+     "start": 25,
+     "end": 34,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_l",
+     "start": 25,
+     "end": 34,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_l",
+     "start": 25,
+     "end": 34,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_r",
+     "start": 25,
+     "end": 34,
+     "kind": "pin"
+    }
+   ],
+   "quality": "accepted",
+   "skeleton_hash": "58087d952b1022ad4c5bb400f685e55c459a36f2b5f3547e3feba861d1ca0003",
+   "helpers_hash": "1cc0779edbaa08e08967cbdcb15fab6ca8bbc299896a039c4fea1bc70a5f910c",
+   "stick_hash": "2491b6b1d87587492195fed911765309172341a0ae9b8bd2f63dcaffc10fecdd",
+   "source_hash": "d3cef322c4656ca666d77fc5bd96250ee3d392fa93dd1b5739066090f7a37d45",
+   "frames": 35,
+   "duration_s": 1.1333333333333333,
+   "root_motion_delta": {
+    "translation": [
+     0.07067670772060948,
+     0.0,
+     0.017085327842770448
+    ],
+    "yaw_deg": 0.0,
+    "speed_mps": 0.06415807479883005
+   }
+  },
+  "goalie_cover": {
+   "kind": "clip",
+   "length": 14,
+   "loop": false,
+   "root_motion": false,
+   "family": "goalie_ball",
+   "tier": 2,
+   "hub_start": "H_BUTTERFLY",
+   "hub_end": "H_COVER",
+   "handedness": "L",
+   "events": [
+    {
+     "name": "cover_contact",
+     "frame": 8,
+     "time_s": 0.26666666666666666
+    },
+    {
+     "name": "hand_down",
+     "frame": 8,
+     "time_s": 0.26666666666666666
+    },
+    {
+     "name": "interruptible",
+     "frame": 12,
+     "time_s": 0.4
+    }
+   ],
+   "ranges": [
+    {
+     "name": "offhand_free",
+     "start": 0,
+     "end": 14
+    }
+   ],
+   "sections": [],
+   "contacts": [
+    {
+     "name": "BLADE_HEEL",
+     "start": 0,
+     "end": 14,
+     "kind": "slide"
+    },
+    {
+     "name": "BLADE_TOE",
+     "start": 0,
+     "end": 14,
+     "kind": "slide"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 0,
+     "end": 14,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 0,
+     "end": 14,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_l",
+     "start": 0,
+     "end": 14,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_r",
+     "start": 0,
+     "end": 14,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_l",
+     "start": 0,
+     "end": 14,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_r",
+     "start": 0,
+     "end": 14,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_l",
+     "start": 0,
+     "end": 14,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_r",
+     "start": 0,
+     "end": 14,
+     "kind": "pin"
+    },
+    {
+     "name": "hand_l",
+     "start": 8,
+     "end": 14,
+     "kind": "pin"
+    }
+   ],
+   "quality": "accepted",
+   "skeleton_hash": "58087d952b1022ad4c5bb400f685e55c459a36f2b5f3547e3feba861d1ca0003",
+   "helpers_hash": "1cc0779edbaa08e08967cbdcb15fab6ca8bbc299896a039c4fea1bc70a5f910c",
+   "stick_hash": "2491b6b1d87587492195fed911765309172341a0ae9b8bd2f63dcaffc10fecdd",
+   "source_hash": "9a373d009b0bc53be7bed501abb8eb36564c3b9caddbc3f358e085da2f1fa272",
+   "frames": 15,
+   "duration_s": 0.4666666666666667,
+   "root_motion_delta": {
+    "translation": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "yaw_deg": 0.0,
+    "speed_mps": 0.0
+   }
+  },
+  "goalie_cover_idle": {
+   "kind": "clip",
+   "length": 60,
+   "loop": true,
+   "root_motion": false,
+   "family": "goalie_ball",
+   "tier": 2,
+   "hub_start": "H_COVER",
+   "hub_end": "H_COVER",
+   "handedness": "L",
+   "events": [],
+   "ranges": [
+    {
+     "name": "offhand_free",
+     "start": 0,
+     "end": 60
+    }
+   ],
+   "sections": [],
+   "contacts": [
+    {
+     "name": "BLADE_HEEL",
+     "start": 0,
+     "end": 60,
+     "kind": "slide"
+    },
+    {
+     "name": "BLADE_TOE",
+     "start": 0,
+     "end": 60,
+     "kind": "slide"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 0,
+     "end": 60,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 0,
+     "end": 60,
+     "kind": "pin"
+    },
+    {
+     "name": "hand_l",
+     "start": 0,
+     "end": 60,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_l",
+     "start": 0,
+     "end": 60,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_r",
+     "start": 0,
+     "end": 60,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_l",
+     "start": 0,
+     "end": 60,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_r",
+     "start": 0,
+     "end": 60,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_l",
+     "start": 0,
+     "end": 60,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_r",
+     "start": 0,
+     "end": 60,
+     "kind": "pin"
+    }
+   ],
+   "quality": "accepted",
+   "skeleton_hash": "58087d952b1022ad4c5bb400f685e55c459a36f2b5f3547e3feba861d1ca0003",
+   "helpers_hash": "1cc0779edbaa08e08967cbdcb15fab6ca8bbc299896a039c4fea1bc70a5f910c",
+   "stick_hash": "2491b6b1d87587492195fed911765309172341a0ae9b8bd2f63dcaffc10fecdd",
+   "source_hash": "9a373d009b0bc53be7bed501abb8eb36564c3b9caddbc3f358e085da2f1fa272",
+   "frames": 61,
+   "duration_s": 2.0,
+   "root_motion_delta": {
+    "translation": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "yaw_deg": 0.0,
+    "speed_mps": 0.0
+   }
+  },
+  "goalie_pick_up": {
+   "kind": "clip",
+   "length": 20,
+   "loop": false,
+   "root_motion": false,
+   "family": "goalie_ball",
+   "tier": 2,
+   "hub_start": "H_COVER",
+   "hub_end": "H_BALL",
+   "handedness": "L",
+   "events": [
+    {
+     "name": "puck_touch",
+     "frame": 3,
+     "time_s": 0.1
+    },
+    {
+     "name": "interruptible",
+     "frame": 16,
+     "time_s": 0.5333333333333333
+    }
+   ],
+   "ranges": [
+    {
+     "name": "offhand_free",
+     "start": 0,
+     "end": 20
+    },
+    {
+     "name": "ball_in_hand",
+     "start": 5,
+     "end": 20
+    }
+   ],
+   "sections": [],
+   "contacts": [
+    {
+     "name": "BLADE_HEEL",
+     "start": 0,
+     "end": 20,
+     "kind": "slide"
+    },
+    {
+     "name": "BLADE_TOE",
+     "start": 0,
+     "end": 20,
+     "kind": "slide"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 0,
+     "end": 20,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 0,
+     "end": 20,
+     "kind": "pin"
+    },
+    {
+     "name": "hand_l",
+     "start": 0,
+     "end": 3,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_l",
+     "start": 0,
+     "end": 20,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_r",
+     "start": 0,
+     "end": 20,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_l",
+     "start": 0,
+     "end": 20,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_r",
+     "start": 0,
+     "end": 20,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_l",
+     "start": 0,
+     "end": 20,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_r",
+     "start": 0,
+     "end": 20,
+     "kind": "pin"
+    }
+   ],
+   "quality": "accepted",
+   "skeleton_hash": "58087d952b1022ad4c5bb400f685e55c459a36f2b5f3547e3feba861d1ca0003",
+   "helpers_hash": "1cc0779edbaa08e08967cbdcb15fab6ca8bbc299896a039c4fea1bc70a5f910c",
+   "stick_hash": "2491b6b1d87587492195fed911765309172341a0ae9b8bd2f63dcaffc10fecdd",
+   "source_hash": "9a373d009b0bc53be7bed501abb8eb36564c3b9caddbc3f358e085da2f1fa272",
+   "frames": 21,
+   "duration_s": 0.6666666666666666,
+   "root_motion_delta": {
+    "translation": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "yaw_deg": 0.0,
+    "speed_mps": 0.0
+   }
+  },
+  "goalie_ball_idle": {
+   "kind": "clip",
+   "length": 60,
+   "loop": true,
+   "root_motion": false,
+   "family": "goalie_ball",
+   "tier": 2,
+   "hub_start": "H_BALL",
+   "hub_end": "H_BALL",
+   "handedness": "L",
+   "events": [],
+   "ranges": [
+    {
+     "name": "ball_in_hand",
+     "start": 0,
+     "end": 60
+    },
+    {
+     "name": "offhand_free",
+     "start": 0,
+     "end": 60
+    }
+   ],
+   "sections": [],
+   "contacts": [
+    {
+     "name": "BLADE_HEEL",
+     "start": 0,
+     "end": 60,
+     "kind": "slide"
+    },
+    {
+     "name": "BLADE_TOE",
+     "start": 0,
+     "end": 60,
+     "kind": "slide"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 0,
+     "end": 60,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 0,
+     "end": 60,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_l",
+     "start": 0,
+     "end": 60,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_r",
+     "start": 0,
+     "end": 60,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_l",
+     "start": 0,
+     "end": 60,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_r",
+     "start": 0,
+     "end": 60,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_l",
+     "start": 0,
+     "end": 60,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_r",
+     "start": 0,
+     "end": 60,
+     "kind": "pin"
+    }
+   ],
+   "quality": "accepted",
+   "skeleton_hash": "58087d952b1022ad4c5bb400f685e55c459a36f2b5f3547e3feba861d1ca0003",
+   "helpers_hash": "1cc0779edbaa08e08967cbdcb15fab6ca8bbc299896a039c4fea1bc70a5f910c",
+   "stick_hash": "2491b6b1d87587492195fed911765309172341a0ae9b8bd2f63dcaffc10fecdd",
+   "source_hash": "9a373d009b0bc53be7bed501abb8eb36564c3b9caddbc3f358e085da2f1fa272",
+   "frames": 61,
+   "duration_s": 2.0,
+   "root_motion_delta": {
+    "translation": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "yaw_deg": 0.0,
+    "speed_mps": 0.0
+   }
+  },
+  "goalie_throw": {
+   "kind": "clip",
+   "length": 30,
+   "loop": false,
+   "root_motion": false,
+   "family": "goalie_ball",
+   "tier": 2,
+   "hub_start": "H_BALL",
+   "hub_end": "H_BUTTERFLY",
+   "handedness": "L",
+   "events": [
+    {
+     "name": "release",
+     "frame": 16,
+     "time_s": 0.5333333333333333
+    },
+    {
+     "name": "interruptible",
+     "frame": 24,
+     "time_s": 0.8
+    }
+   ],
+   "ranges": [
+    {
+     "name": "ball_in_hand",
+     "start": 0,
+     "end": 16
+    },
+    {
+     "name": "offhand_free",
+     "start": 0,
+     "end": 30
+    }
+   ],
+   "sections": [],
+   "contacts": [
+    {
+     "name": "BLADE_HEEL",
+     "start": 0,
+     "end": 30,
+     "kind": "slide"
+    },
+    {
+     "name": "BLADE_TOE",
+     "start": 0,
+     "end": 30,
+     "kind": "slide"
+    },
+    {
+     "name": "ankle_front_l",
+     "start": 0,
+     "end": 30,
+     "kind": "pin"
+    },
+    {
+     "name": "ankle_front_r",
+     "start": 0,
+     "end": 30,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_l",
+     "start": 0,
+     "end": 30,
+     "kind": "pin"
+    },
+    {
+     "name": "instep_r",
+     "start": 0,
+     "end": 30,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_l",
+     "start": 0,
+     "end": 30,
+     "kind": "pin"
+    },
+    {
+     "name": "knee_r",
+     "start": 0,
+     "end": 30,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_l",
+     "start": 0,
+     "end": 30,
+     "kind": "pin"
+    },
+    {
+     "name": "toe_r",
+     "start": 0,
+     "end": 30,
+     "kind": "pin"
+    }
+   ],
+   "quality": "accepted",
+   "skeleton_hash": "58087d952b1022ad4c5bb400f685e55c459a36f2b5f3547e3feba861d1ca0003",
+   "helpers_hash": "1cc0779edbaa08e08967cbdcb15fab6ca8bbc299896a039c4fea1bc70a5f910c",
+   "stick_hash": "2491b6b1d87587492195fed911765309172341a0ae9b8bd2f63dcaffc10fecdd",
+   "source_hash": "9a373d009b0bc53be7bed501abb8eb36564c3b9caddbc3f358e085da2f1fa272",
+   "frames": 31,
+   "duration_s": 1.0,
+   "root_motion_delta": {
+    "translation": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "yaw_deg": 0.0,
+    "speed_mps": 0.0
+   }
+  }
+ }
+}

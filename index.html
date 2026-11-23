@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Ministicks | Rink Tour</title>
+  <link rel="stylesheet" href="rink-tour.css">
+  <link rel="stylesheet" href="credits-roll.css">
+  <script type="importmap">{"imports":{"three":"./viewer/node_modules/three/build/three.module.js","three/addons/":"./viewer/node_modules/three/examples/jsm/"}}</script>
+  <script src="credits-roll.js" defer></script>
+  <script src="./dist/customizer_data.js" defer></script>
+  <script src="rink-tour.js" type="module"></script>
+</head>
+<body>
+  <header class="top"><button data-page="home" class="brand">MINISTICKS</button><nav aria-label="Game menu"><button data-page="tour">Campaign</button><button data-page="profile">Profile</button><button data-page="results">Stats &amp; standings</button><button data-page="credits" id="creditsButton" hidden>Credits &amp; credibility</button></nav></header>
+  <main>
+    <section id="home" class="page hero">
+      <div class="home-foreground"><p class="eyebrow">Mini Sticks League</p><h1>Rink Tour</h1>
+      <div class="buttons"><button class="primary" data-page="tour">Campaign</button><button data-start="single">Single player</button><button data-start="local">Local multiplayer</button><button data-start="training">Training</button></div></div>
+      <div class="viewport hero-preview" id="homePreview"></div>
+      <div class="reel-overlay"><span id="reelCaption">League highlights</span><button id="reelPause" type="button">Pause highlights</button></div>
+    </section>
+    <section id="tour" class="page" hidden>
+      <header class="section-title"><div><p class="eyebrow">Campaign</p><h1>World tour</h1></div><div class="buttons"><output id="tourProgress"></output><button data-page="home">Close tour</button></div></header>
+      <div class="tour-grid"><div id="stops" class="stops"></div><article class="panel">
+        <div class="buttons map-controls" role="group" aria-label="Map view"><button id="worldMapButton" aria-pressed="true">World map</button><button id="satelliteButton" aria-pressed="false">Satellite</button><button id="mapZoomOut" aria-label="Zoom out" hidden>−</button><button id="mapZoomIn" aria-label="Zoom in" hidden>+</button></div>
+        <div id="tourMap" class="tour-map"></div><p id="mapCaption" class="map-caption" role="status"></p>
+        <p class="eyebrow" id="venueCity"></p><h2 id="venueName"></h2>
+        <div class="tour-opponent"><img id="tourClubEmblem" class="club-emblem" alt=""><div><small>Opponent</small><strong id="tourClubName"></strong></div></div>
+        <button id="enterVenue" class="primary">Visit city</button>
+      </article></div>
+    </section>
+    <section id="district" class="page" hidden>
+      <header class="section-title"><div><p class="eyebrow">Campaign</p><h1 id="districtName"></h1></div><button data-page="tour">World map</button></header>
+      <div class="rink-screen viewport" id="districtPreview"><svg id="districtMap" viewBox="0 0 120 90" aria-label="District minimap" role="img">
+        <rect x="45" y="7" width="30" height="20" rx="3" class="mini-building"/><path d="M0 58H120" class="mini-road"/>
+        <circle cx="70" cy="41" r="4" class="mini-coach"><title>Coach</title></circle>
+        <circle cx="49" cy="37" r="3" class="mini-coach"><title>Arena staff</title></circle>
+        <circle id="districtDot" cx="60" cy="77" r="4" class="mini-player"><title>You</title></circle>
+      </svg></div>
+      <div class="buttons district-actions"><button id="interact" class="primary" disabled>Interact · E</button><span id="districtHint" role="status"></span></div>
+      <p class="controls">WASD or arrows to walk · E to talk or enter the arena</p>
+    </section>
+    <section id="rink" class="page" hidden>
+      <header class="section-title"><div><p class="eyebrow" id="modeName"></p><h1 id="rinkName"></h1></div><div class="buttons"><button id="commentaryToggle" aria-pressed="false">Commentary off</button><button id="pause">Pause</button></div></header>
+      <div class="rink-screen viewport" id="playPreview"><div class="rink-hud">
+        <div class="rink-score"><img id="scoreHomeEmblem" class="club-emblem" alt=""><strong id="score"></strong><img id="scoreAwayEmblem" class="club-emblem" alt=""></div>
+        <span id="attempts"></span>
+      </div></div>
+      <div id="matchSetup" class="match-setup panel">
+        <h2>Match setup</h2>
+        <div class="match-clubs">
+          <label><img id="setupHomeEmblem" class="club-emblem" alt="">Home club<select id="homeClub"></select></label>
+          <label><img id="setupAwayEmblem" class="club-emblem" alt="">Away club<select id="awayClub"></select></label>
+        </div>
+        <label>Surface<select id="rinkSurface"><option value="carpet">Carpet</option><option value="plastic">Plastic</option></select></label>
+        <button id="startChallenge" class="primary">Start match</button>
+      </div>
+      <div id="matchPrompt" class="match-prompt panel" hidden><strong id="promptTitle"></strong><progress id="promptMeter" max="1"></progress><span id="promptHelp"></span></div>
+      <div id="commentaryCaption" class="commentary-caption" hidden><small>Rinkside commentary</small><span id="commentaryText"></span></div>
+      <p id="feedback" role="status"></p>
+      <p class="controls">P1 · WASD move · Mouse aim · Click or Space shoot · Right-click or E pass / poke · Tab or Q switch · Shift stand · T timeout</p>
+      <p class="controls" id="localControls" hidden>P2 · Arrows move · K / L aim · Enter shoot · O pass / poke · U switch · Right Shift stand · P timeout</p>
+    </section>
+    <section id="profile" class="page profile-page" hidden>
+      <nav class="profile-nav" aria-label="Profile navigation"><button class="profile-red" data-profile-back aria-label="Back">←</button><button class="profile-red profile-close" data-page="home" aria-label="Close profile">×</button></nav>
+      <header class="panel profile-cover"><div class="profile-avatar"><span id="profileMascot">🏒</span><button id="editProfile" aria-label="Edit profile">✎</button></div><div>
+        <h1 id="displayHandle"></h1><p id="displayName"></p>
+        <div class="profile-counts">
+          <details><summary><strong id="friendsCount">0</strong> Friends</summary><div id="friendsList"></div></details>
+          <details><summary><strong id="followersCount">0</strong> Followers</summary><div id="followersList"></div></details>
+          <details><summary><strong id="followingCount">0</strong> Following</summary><div id="followingList"></div></details>
+        </div>
+        <p id="displayBio"></p><a id="youtubeLink" target="_blank" rel="noreferrer" hidden>YouTube channel ↗</a><p id="levelTitle" class="eyebrow"></p>
+      </div></header>
+      <article class="panel"><div class="section-title"><h2>3D character</h2><button data-page="studio">Open Character Studio</button></div><div class="viewport profile-preview" id="profilePreview"></div></article>
+      <article class="panel profile-panels">
+        <div class="buttons" id="profileTabs" role="group" aria-label="Profile sections"><button data-profile-tab="summary" aria-pressed="true">Stats</button><button data-profile-tab="items">Items</button><button data-profile-tab="progress">Campaign</button><button data-profile-tab="gallery">Recordings</button></div>
+        <div id="profileTabContent"></div>
+        <footer class="profile-level"><progress id="xpBar"></progress><span id="xpProgress"></span></footer>
+      </article>
+    </section>
+    <section id="studio" class="page" hidden>
+      <header class="section-title"><h1>Character Studio</h1><button data-page="profile">Back to profile</button></header>
+      <div class="tour-grid"><div class="viewport hero-preview" id="studioPreview"></div>
+        <form class="panel" id="studioForm">
+          <label>Jersey colour <input id="kitColor" type="color"></label>
+          <label>Jersey number <input id="kitNumber" type="number" min="0" max="99" required></label>
+          <label>Jersey name <input id="kitName" maxlength="18"></label>
+          <label>Height <input id="playerHeight" type="number" min="150" max="205" required></label>
+          <label>Build <input id="playerBuild" type="range" min="-1" max="1" step="0.1"></label>
+          <label>Preview pose <select id="studioPose"><option value="knee_idle">Ready</option><option value="knee_stickhandle">Stickhandling</option><option value="goalie_idle">Goalie</option><option value="emote_goal_celebrate">Celebration</option></select></label>
+          <button class="primary">Save character</button><p id="studioStatus" role="status"></p>
+        </form>
+      </div>
+    </section>
+    <section id="results" class="page" hidden><h1>Stats &amp; standings</h1>
+      <div class="record-toolbar"><div class="buttons" id="recordTabs" role="group" aria-label="Results views"><button data-record-tab="standings" aria-pressed="true">Teams</button><button data-record-tab="individual">Runners</button><button data-record-tab="goalies">Goalies</button></div><label><span id="recordFilterLabel">Division</span><select id="recordFilter"></select></label></div>
+      <article class="panel results-panel"><h2 id="recordsTitle"></h2><div class="table-scroll"><table><thead id="recordsHead"></thead><tbody id="recordsBody"></tbody></table></div><p id="noRecords"></p></article>
+    </section>
+    <section id="credits" class="page" hidden><header class="section-title"><h1>Credits &amp; credibility</h1><button data-page="home">Close</button></header><div id="creditsFilm" class="credits-film"><div data-credits-roll tabindex="0" aria-label="Scrolling credits"></div><figure><img data-credits-image alt=""><figcaption data-credits-caption></figcaption><div class="credits-actions"><button data-credits-pause>Pause</button><button data-credits-next>Next still</button></div></figure></div></section>
+  </main>
+  <dialog id="profileEditor"><form id="profileForm"><header class="section-title"><h2>Edit profile</h2><button id="closeProfileEditor" type="button" aria-label="Close editor">×</button></header><fieldset><legend>Profile mascot</legend><div id="mascotOptions"></div></fieldset><label>Username <small>Change once every seven days</small><input id="playerHandle" required maxlength="64"></label><label>Display name <input id="playerName" required maxlength="64"></label><label>Bio <textarea id="bio" maxlength="1000" rows="4"></textarea></label><label>YouTube channel <input id="youtube" type="url" maxlength="256"></label><button class="primary">Save changes</button><p id="savedProfile" role="status"></p></form></dialog>
+  <dialog id="conversation"><h2 id="npcName"></h2><p id="npcLine"></p><div class="buttons"><button id="npcFollow">Follow</button><button id="npcClose" class="primary">Back</button></div></dialog>
+  <dialog id="pauseMenu"><h2>Paused</h2><div class="buttons"><button id="resume" class="primary">Resume</button><button id="leaveRink">Leave rink</button></div></dialog>
+  <dialog id="matchResult"><p class="eyebrow" id="resultLabel"></p><h2 id="resultTitle"></h2><p id="resultDetail"></p><div class="buttons"><button id="resultContinue" class="primary">Continue</button><button id="resultCredits" hidden>View credits</button></div></dialog>
+</body>
+</html>

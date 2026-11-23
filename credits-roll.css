@@ -1,0 +1,12 @@
+.credits-film { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1rem; align-items:start; }
+.credits-film [data-credits-roll] { height:clamp(15rem,45vh,24rem); overflow:auto; scrollbar-width:thin; padding:1.25rem; background:#ffffff06; border-radius:.5rem; }
+.credits-film h3 { margin:0 0 1rem; font-size:1rem; }
+.credits-film dl { display:grid; grid-template-columns:1fr 1.15fr; gap:.6rem 1rem; margin:0 0 1.5rem; }
+.credits-film dt { text-align:right; color:inherit; opacity:.75; }
+.credits-film dd { margin:0; font-weight:750; overflow-wrap:anywhere; }
+.credits-film figure { margin:0; min-width:0; }
+.credits-film img { display:block; width:100%; aspect-ratio:16/10; object-fit:cover; border-radius:.5rem; background:#141b23; }
+.credits-film img[hidden] { display:none; }
+.credits-film figcaption { margin:.6rem 0; }
+.credits-film .credits-actions { display:flex; flex-wrap:wrap; gap:.5rem; }
+@media(max-width:680px){.credits-film{grid-template-columns:1fr;}}
