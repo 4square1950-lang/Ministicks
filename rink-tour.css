@@ -50,6 +50,13 @@ body[data-game-page=home] .top{position:fixed;inset:0 0 auto;z-index:3;backgroun
 .district-tools{display:flex;flex-wrap:wrap;gap:.45rem;align-items:center;justify-content:flex-end}
 .district-tools select{width:auto;pointer-events:auto}.district-tools small:empty{display:none}
 #npcGreeting{color:#aebfca}
+body:is([data-game-page=profile],[data-game-page=studio],[data-game-page=settings]) .top{display:none}
+body:is([data-game-page=profile],[data-game-page=studio],[data-game-page=settings]) main{max-width:none;width:100%;padding:0}
+body[data-game-page=profile]{background:#141915}
+#studioPreview{position:absolute;inset:0}
+#studioForm .sport-options label{display:grid;gap:.5rem;margin-bottom:1rem}
+#studioStatus:empty{display:none}
+#profileEditor.sport-editor{width:min(32rem,calc(100vw - 1.5rem));max-height:92dvh}
 .match-setup,.match-prompt{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(25rem,90%);max-height:70dvh;overflow:auto;z-index:2;background:#152431f5;box-shadow:0 1rem 4rem #050b11b3}
 .match-prompt{width:min(24rem,88%);text-align:center;display:grid;gap:.55rem;pointer-events:none}
 .match-prompt span{font-size:.82rem;color:#d2dfe8}

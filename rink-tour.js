@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { settingsView } from './sport-settings.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { clone } from 'three/addons/utils/SkeletonUtils.js';
 
@@ -89,6 +90,10 @@ const venueDetails = [basement, recCentre, gym, hall, championship];
 const ball = new THREE.Mesh(new THREE.SphereGeometry(.045, 24, 14), new THREE.MeshStandardMaterial({color: 0xffb147, emissive: 0x653300, emissiveIntensity: .33}));
 const target = new THREE.Mesh(new THREE.RingGeometry(.108, .133, 30), new THREE.MeshBasicMaterial({ color: 0xffd985, side: THREE.DoubleSide }));
 scene.add(ball, target);
+const previewPlinth = new THREE.Mesh(new THREE.CylinderGeometry(1.04,1.09,.12,64),
+  new THREE.MeshStandardMaterial({color:0x434f53,roughness:.87}));
+previewPlinth.position.set(0,-.061,.23);
+scene.add(previewPlinth);
 
 
 
@@ -105,6 +110,9 @@ const mascots = ['🦊','🐼','🐯','🦁','🐸','🐷','🐨','🐰','🐲',
 const career = { name: 'Player', handle: 'player', bio: '', youtube: '', mascot: -1, nameChanged: 0, xp: 0,
   wins: [], matches: [], photos: [], champion: false, following: [], encountered: [], kit: { color: '#37688f', number: 9, name: 'PLAYER', height: 183, build: 0 } };
 try { Object.assign(career, JSON.parse(localStorage.getItem(key) || '{}')); } catch {}
+const preferenceDefaults={surface:'carpet',camera:'broadcast',commentary:false,voiceVolume:75,stillHome:matchMedia('(prefers-reduced-motion: reduce)').matches};
+const preferences={...preferenceDefaults,...career.preferences};
+career.preferences=preferences;
 function save() {
   try { localStorage.setItem(key, JSON.stringify(career)); }
   catch { $('feedback').textContent = 'Storage is full. Progress may be lost when you close the page.'; }
@@ -125,8 +133,8 @@ const npcColors = [0x354c69, 0xe1b77b, 0xdd835f, 0x477864, 0xb05d58, 0xb98b50, 0
 const floorTextures = renderer ? makeSurface(renderer) : {};
 const broadcast = buildBroadcastSet(world);
 const reel = buildHighlightReel();
-let reelTime=0, reelPaused=matchMedia('(prefers-reduced-motion: reduce)').matches, floorKey;
-let commentary=false, heardEvent=0, commentaryUntil=0, crowdUntil=0;
+let reelTime=0, reelPaused=preferences.stillHome, floorKey;
+let commentary=preferences.commentary, heardEvent=0, commentaryUntil=0, crowdUntil=0;
 const trackers = [0x80d8ff, 0xff8c65].map((color) => {
   const ring = new THREE.Mesh(new THREE.RingGeometry(.37,.43,36),new THREE.MeshBasicMaterial({color,side:THREE.DoubleSide}));
   ring.rotation.x = -Math.PI / 2;
@@ -448,8 +456,12 @@ function show(next) {
   const host = { home:'homePreview', district:'districtPreview', rink:'playPreview', profile:'profilePreview', studio:'studioPreview' }[next];
   if (renderer && host) $(host).append(renderer.domElement);
   if (next === 'tour') selectCity(selected);
-  if (next === 'profile') renderProfile();
+  if (next === 'profile') {
+    if(actors[0]){actors[0].mixer.stopAllAction();actors[0].clip='';actors[0].action=null;}
+    renderProfile();
+  }
   if (next === 'studio') openStudio();
+  if (next === 'settings') openSettings();
   if (next === 'results') renderRecords();
   if (next === 'credits') window.bindCreditsRoll($('creditsFilm'), { photos: career.photos,
     actual: [['Player and animation assets','Ministicks-Player project'], ['3D renderer','Three.js contributors'], ['World outlines','Natural Earth']] });
@@ -562,7 +574,7 @@ function openRink(nextMode) {
   $('commentaryCaption').hidden=true;
   $('homeClub').value=clubFor(career.club)?.name ?? defaultClub;
   $('awayClub').value=mode==='campaign'?cityOpponents[selected]:'Minnesota Stars';
-  $('rinkSurface').value=mode==='campaign'&&selected%2?'plastic':'carpet';
+  $('rinkSurface').value=mode==='campaign'?(selected%2?'plastic':'carpet'):preferences.surface;
   updateClubSetup();
   $('score').textContent = 'Ready';
   $('attempts').textContent = '2 skaters + 1 goalie per side';
@@ -765,7 +777,7 @@ function updatePresentation() {
       $('commentaryText').textContent=line;
       commentaryUntil=now+4800;
       if(window.speechSynthesis && typeof SpeechSynthesisUtterance==='function'){
-        const speech=new SpeechSynthesisUtterance(line); speech.rate=1.12;
+        const speech=new SpeechSynthesisUtterance(line); speech.rate=1.12; speech.volume=preferences.voiceVolume/100;
         const voices=window.speechSynthesis.getVoices().filter(voice=>voice.lang.startsWith('en'));
         if(voices.length)speech.voice=voices[event.id%Math.min(2,voices.length)];
         try { window.speechSynthesis.speak(speech); } catch {}
@@ -872,9 +884,12 @@ function frame(time) {
     renderer.setSize(parent.clientWidth,parent.clientHeight,false);
     camera.aspect=parent.clientWidth/parent.clientHeight; camera.updateProjectionMatrix();
   }
-  street.visible = page === 'district'; world.visible = !street.visible;
+  const characterView=page==='profile'||page==='studio';
+  street.visible = page === 'district';
+  world.visible = !street.visible&&!characterView;
+  previewPlinth.visible=characterView;
   if (!scene.background) scene.background = new THREE.Color();
-  scene.background.set(street.visible ? 0x8eabb9 : 0x222b36);
+  scene.background.set(street.visible ? 0x8eabb9 : page==='profile'?0x26312c:page==='studio'?0x141d2e:0x222b36);
   scene.fog.color.copy(scene.background);
   const rinkStyle = page === 'rink' && mode === 'campaign' ? selected % venueDetails.length : 0;
   if(page==='home' && !reelPaused)reelTime=(reelTime+realDt)%120;
@@ -964,7 +979,8 @@ function frame(time) {
       $('reelCaption').textContent=highlight.label;
       camera.position.set(...highlight.camera[0]); camera.lookAt(...highlight.camera[1]);
     } else {
-      camera.position.set(0,8.8,-12.6); camera.lookAt(0,.05,.4);
+      const zoom=preferences.camera==='close'?.88:1;
+      camera.position.set(0,8.8*zoom,-12.6*zoom); camera.lookAt(0,.05,.4);
     }
     if (!highlight && match) {
       ball.position.set(match.ball.x,match.ball.y+.019,match.ball.z);
@@ -975,10 +991,19 @@ function frame(time) {
     const who=actors[0];
     if (who) {
       who.model.position.set(0,0,.25); who.model.rotation.y=page==='studio' ? studioYaw : 0;
-      pose(who,page==='studio' ? $('studioPose').value : 'knee_idle');
-      who.mixer.update(dt);
+      if(page==='studio'){
+        if(studioRotate)studioYaw+=dt*.55;
+        if(studioAutoplay && time>=studioNext){
+          const choices=$('studioPose');
+          choices.selectedIndex=(choices.selectedIndex+1)%choices.length;
+          studioNext=time+4100;
+        }
+        pose(who,$('studioPose').value);
+      } else pose(who,'knee_idle');
+      who.mixer.update(page==='studio'?dt:0);
     }
-    camera.position.set(1.15,1.37,3.4); camera.lookAt(0,.65,.25);
+    const fit=Math.max(1,.72/camera.aspect);
+    camera.position.set(.47,1.25,2.95*fit); camera.lookAt(0,.66,.25);
   }
   renderer.render(scene,camera);
 }
@@ -1063,13 +1088,15 @@ function levelAt(total) {
 }
 function renderProfile() {
   const info=levelAt(career.xp);
-  $('displayHandle').textContent=career.handle;
+  $('displayHandle').textContent='@'+career.handle;
+  $('profileKitName').textContent=career.kit.name || career.name;
   $('displayName').textContent=career.name;
   $('displayBio').textContent=career.bio;
   $('profileMascot').textContent=mascots[career.mascot] || '🏒';
   $('youtubeLink').hidden=!career.youtube;
   if (career.youtube) $('youtubeLink').href=career.youtube;
   $('levelTitle').textContent='Level ' + info.level;
+  $('xpLevel').textContent='Level ' + info.level;
   $('xpBar').max=info.next; $('xpBar').value=info.total;
   $('xpProgress').textContent=info.total+' / '+info.next+' XP';
   const following=cities.filter((item)=>career.following.includes(item.id));
@@ -1101,8 +1128,7 @@ function renderProfileTab() {
       const card=document.createElement('div'); const dt=document.createElement('dt'); const dd=document.createElement('dd');
       dt.textContent=label;dd.textContent=value;card.append(dt,dd);list.append(card);
     }
-    content.append(list);
-  } else if(profileTab==='items') {
+    const title=document.createElement('h3');title.textContent='Trophy case';
     const trophies=document.createElement('ul'); trophies.className='profile-stat-grid';
     for (const [label,earned] of [
       ['First win',career.matches.some(match=>match.scores[0]>match.scores[1])],['Road win',career.wins.length>0],['Tour champion',career.wins.length===cities.length],
@@ -1111,7 +1137,13 @@ function renderProfileTab() {
       if(!earned)item.setAttribute('data-locked','');
       trophies.append(item);
     }
-    content.append(trophies);
+    content.append(list,title,trophies);
+  } else if(profileTab==='items') {
+    const kit=document.createElement('p');kit.textContent='Equipped jersey · '+(career.kit.name||career.name)+' #'+career.kit.number;
+    content.append(kit);
+  } else if(profileTab==='marketplace') {
+    const empty=document.createElement('p');empty.textContent='No marketplace activity.';
+    content.append(empty);
   } else if(profileTab==='progress') {
     const note=document.createElement('p'); note.textContent=career.wins.length+' of '+cities.length+' cities won';
     const button=document.createElement('button'); button.textContent='Open world tour'; button.className='primary';
@@ -1155,11 +1187,15 @@ function saveProfile(event) {
   if(changed)career.nameChanged=Date.now();
   save();$('profileEditor').close();renderProfile();
 }
-let studioYaw=0;
+let studioYaw=0,studioAutoplay=true,studioRotate=false,studioNext=0;
 function openStudio() {
   kitDraft={...career.kit}; studioYaw=0;
   for (const [id,key] of [['kitColor','color'],['kitNumber','number'],['kitName','name'],['playerHeight','height'],['playerBuild','build']]) $(id).value=kitDraft[key];
-  $('studioPose').value='knee_idle'; $('studioStatus').textContent='Drag to rotate your player.';
+  studioAutoplay=!matchMedia('(prefers-reduced-motion: reduce)').matches;
+  studioRotate=false;studioNext=performance.now()+4100;
+  $('studioPose').value='knee_idle'; $('studioStatus').textContent='';
+  $('studioAutoPlay').setAttribute('aria-pressed',String(studioAutoplay));
+  $('studioAutoRotate').setAttribute('aria-pressed','false');
 }
 function updateStudio() {
   kitDraft={color:$('kitColor').value, number:cap($('kitNumber').valueAsNumber||0,0,99),
@@ -1169,6 +1205,19 @@ function updateStudio() {
 
 function openPause() {
   if(page==='rink'&&!$('pauseMenu').open&&!$('matchResult').open){keys.clear();$('pauseMenu').showModal();}
+}
+function openSettings() {
+  $('settings').replaceChildren(settingsView([
+    {title:'Gameplay',rows:[{key:'surface',title:'Default surface',help:'The surface selected when a match opens.',options:[['carpet','Carpet'],['plastic','Plastic']]}]},
+    {title:'Camera & display',rows:[{key:'camera',title:'Match camera',help:'Change how closely you view the rink.',options:[['broadcast','Broadcast'],['close','Close']]}]},
+    {title:'Audio',rows:[{key:'commentary',title:'Commentary',help:'Play voice commentary on goals, saves, and calls.'},{key:'voiceVolume',title:'Commentary volume',help:'Set the volume of the announcer.',range:true}]},
+    {title:'Accessibility',rows:[{key:'stillHome',title:'Pause home highlights',help:'Keep the main menu background still.'}]},
+  ],preferences,(key,value)=>{
+    preferences[key]=value;
+    if(key==='commentary')commentary=value;
+    if(key==='stillHome')reelPaused=value;
+    updatePresentationButtons();save();
+  },()=>show('home'),preferenceDefaults));
 }
 document.querySelectorAll('[data-page]').forEach((button)=>button.onclick=()=>{
   if(page==='rink' && match && !match.ended){openPause();return;}
@@ -1213,6 +1262,18 @@ $('npcFollow').onclick=()=>{
 };
 $('editProfile').onclick=editProfile;$('closeProfileEditor').onclick=()=>$('profileEditor').close();$('profileForm').onsubmit=saveProfile;
 $('studioForm').oninput=updateStudio;
+$('studioPose').onchange=()=>{studioAutoplay=false;$('studioAutoPlay').setAttribute('aria-pressed','false');};
+$('studioAutoPlay').onclick=()=>{
+  studioAutoplay=!studioAutoplay;studioNext=performance.now()+4100;
+  $('studioAutoPlay').setAttribute('aria-pressed',String(studioAutoplay));
+};
+$('studioAutoRotate').onclick=()=>{
+  studioRotate=!studioRotate;$('studioAutoRotate').setAttribute('aria-pressed',String(studioRotate));
+};
+document.querySelectorAll('[data-kit-tab]').forEach((button)=>button.onclick=()=>{
+  document.querySelectorAll('[data-kit-tab]').forEach(item=>item.setAttribute('aria-pressed',String(item===button)));
+  document.querySelectorAll('[data-kit-panel]').forEach(item=>{item.hidden=item.dataset.kitPanel!==button.dataset.kitTab;});
+});
 $('studioForm').onsubmit=(event)=>{event.preventDefault();updateStudio();career.kit={...kitDraft};save();$('studioStatus').textContent='Character saved.';};
 let drag;
 $('studioPreview').onpointerdown=(event)=>{drag=event.clientX;$('studioPreview').setPointerCapture(event.pointerId);};
@@ -1223,14 +1284,17 @@ $('homeClub').onchange=updateClubSetup;
 $('awayClub').onchange=updateClubSetup;
 $('reelPause').onclick=()=>{
   reelPaused=!reelPaused;
-  $('reelPause').textContent=reelPaused?'Play highlights':'Pause highlights';
+  preferences.stillHome=reelPaused;updatePresentationButtons();save();
 };
-$('reelPause').textContent=reelPaused?'Play highlights':'Pause highlights';
-$('commentaryToggle').onclick=()=>{
-  commentary=!commentary;
+function updatePresentationButtons(){
+  $('reelPause').textContent=reelPaused?'Play highlights':'Pause highlights';
   $('commentaryToggle').setAttribute('aria-pressed',String(commentary));
   $('commentaryToggle').textContent=commentary?'Commentary on':'Commentary off';
   if(!commentary){window.speechSynthesis?.cancel();$('commentaryCaption').hidden=true;}
+}
+updatePresentationButtons();
+$('commentaryToggle').onclick=()=>{
+  commentary=!commentary;preferences.commentary=commentary;updatePresentationButtons();save();
 };
 $('resume').onclick=()=>$('pauseMenu').close();
 const returnFromRink=()=>show(mode==='campaign'?'district':'home');

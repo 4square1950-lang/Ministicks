@@ -5,13 +5,14 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Ministicks | Rink Tour</title>
   <link rel="stylesheet" href="rink-tour.css">
+  <link rel="stylesheet" href="sport-shell.css">
   <link rel="stylesheet" href="credits-roll.css">
   <script src="credits-roll.js" defer></script>
   <script src="./dist/customizer_data.js" defer></script>
   <script src="runtime/rink-tour.bundle.js" type="module"></script>
 </head>
 <body>
-  <header class="top"><button data-page="home" class="brand">MINISTICKS</button><nav aria-label="Game menu"><button data-page="tour">Campaign</button><button data-page="profile">Profile</button><button data-page="results">Stats &amp; standings</button><button data-page="credits" id="creditsButton" hidden>Credits &amp; credibility</button></nav></header>
+  <header class="top"><button data-page="home" class="brand">MINISTICKS</button><nav aria-label="Game menu"><button data-page="tour">Campaign</button><button data-page="profile">Profile</button><button data-page="settings">Settings</button><button data-page="results">Stats &amp; standings</button><button data-page="credits" id="creditsButton" hidden>Credits &amp; credibility</button></nav></header>
   <main>
     <section id="home" class="page hero">
       <div class="home-foreground"><p class="eyebrow">Mini Sticks League</p><h1>Rink Tour</h1>
@@ -67,45 +68,51 @@
       <p class="controls">P1 · WASD move · Mouse aim · Click or Space shoot · Right-click or E pass / poke · Tab or Q switch · Shift stand · T timeout</p>
       <p class="controls" id="localControls" hidden>P2 · Arrows move · K / L aim · Enter shoot · O pass / poke · U switch · Right Shift stand · P timeout</p>
     </section>
-    <section id="profile" class="page profile-page" hidden>
-      <nav class="profile-nav" aria-label="Profile navigation"><button class="profile-red" data-profile-back aria-label="Back">←</button><button class="profile-red profile-close" data-page="home" aria-label="Close profile">×</button></nav>
-      <header class="panel profile-cover"><div class="profile-avatar"><span id="profileMascot">🏒</span><button id="editProfile" aria-label="Edit profile">✎</button></div><div>
-        <h1 id="displayHandle"></h1><p id="displayName"></p>
-        <div class="profile-counts">
+    <section id="profile" class="page sport-profile" hidden>
+      <nav class="sport-nav" aria-label="Profile navigation"><button data-profile-back aria-label="Back">←</button><button data-page="home" aria-label="Close profile">×</button></nav>
+      <header class="sport-panel sport-cover"><div class="sport-avatar"><span id="profileMascot">🏒</span><button id="editProfile" class="sport-pencil" aria-label="Edit profile">✎</button></div><div>
+        <h1 id="displayName"></h1><p id="displayHandle"></p>
+        <div class="profile-counts sport-connections">
           <details><summary><strong id="friendsCount">0</strong> Friends</summary><div id="friendsList"></div></details>
           <details><summary><strong id="followersCount">0</strong> Followers</summary><div id="followersList"></div></details>
           <details><summary><strong id="followingCount">0</strong> Following</summary><div id="followingList"></div></details>
         </div>
         <p id="displayBio"></p><a id="youtubeLink" target="_blank" rel="noreferrer" hidden>YouTube channel ↗</a><p id="levelTitle" class="eyebrow"></p>
       </div></header>
-      <article class="panel"><div class="section-title"><h2>3D character</h2><button data-page="studio">Open Character Studio</button></div><div class="viewport profile-preview" id="profilePreview"></div></article>
-      <article class="panel profile-panels">
-        <div class="buttons" id="profileTabs" role="group" aria-label="Profile sections"><button data-profile-tab="summary" aria-pressed="true">Stats</button><button data-profile-tab="items">Items</button><button data-profile-tab="progress">Campaign</button><button data-profile-tab="gallery">Recordings</button></div>
+      <article class="sport-panel sport-preview"><div class="viewport" id="profilePreview" aria-label="3D player preview"></div><footer><span id="profileKitName"></span><button data-page="studio">Open Character Studio</button></footer></article>
+      <article class="sport-panel profile-panels">
+        <div class="buttons" id="profileTabs" role="group" aria-label="Profile sections"><button data-profile-tab="summary" aria-pressed="true">Stats</button><button data-profile-tab="items">Items</button><button data-profile-tab="progress">Campaign</button><button data-profile-tab="marketplace">Marketplace</button><button data-profile-tab="gallery">Recordings</button></div>
         <div id="profileTabContent"></div>
-        <footer class="profile-level"><progress id="xpBar"></progress><span id="xpProgress"></span></footer>
       </article>
+      <footer class="sport-panel sport-xp"><span id="xpLevel"></span><progress id="xpBar" aria-label="Level progress"></progress><span id="xpProgress"></span></footer>
     </section>
-    <section id="studio" class="page" hidden>
-      <header class="section-title"><h1>Character Studio</h1><button data-page="profile">Back to profile</button></header>
-      <div class="tour-grid"><div class="viewport hero-preview" id="studioPreview"></div>
-        <form class="panel" id="studioForm">
+    <section id="studio" class="page sport-studio" hidden>
+      <div class="sport-stage"><div class="viewport" id="studioPreview"></div><div class="sport-motion">
+        <select id="studioPose" aria-label="Animation"><option value="knee_idle">Ready</option><option value="knee_stickhandle">Stickhandling</option><option value="knee_wrist_shot">Wrist shot</option><option value="knee_pass">Pass</option><option value="goalie_glove_save">Glove save</option><option value="emote_goal_celebrate">Celebrate</option></select>
+        <button type="button" id="studioAutoPlay">Autoplay</button><button type="button" id="studioAutoRotate">Auto rotate</button>
+      </div></div>
+      <form class="sport-editor-side" id="studioForm">
+        <header class="sport-studio-head"><h1>Character Studio</h1><button type="button" data-page="profile" aria-label="Close Character Studio">×</button></header>
+        <nav class="sport-tabs" aria-label="Character options"><button type="button" data-kit-tab="jersey" aria-pressed="true">Jersey</button><button type="button" data-kit-tab="body" aria-pressed="false">Body</button></nav>
+        <div class="sport-options"><div data-kit-panel="jersey">
           <label>Jersey colour <input id="kitColor" type="color"></label>
           <label>Jersey number <input id="kitNumber" type="number" min="0" max="99" required></label>
           <label>Jersey name <input id="kitName" maxlength="18"></label>
-          <label>Height <input id="playerHeight" type="number" min="150" max="205" required></label>
+        </div><div data-kit-panel="body" hidden>
+          <label>Height (cm) <input id="playerHeight" type="number" min="150" max="205" required></label>
           <label>Build <input id="playerBuild" type="range" min="-1" max="1" step="0.1"></label>
-          <label>Preview pose <select id="studioPose"><option value="knee_idle">Ready</option><option value="knee_stickhandle">Stickhandling</option><option value="goalie_idle">Goalie</option><option value="emote_goal_celebrate">Celebration</option></select></label>
-          <button class="primary">Save character</button><p id="studioStatus" role="status"></p>
-        </form>
-      </div>
+        </div></div>
+        <footer class="sport-footer"><p id="studioStatus" role="status"></p><button type="button" data-page="profile">Cancel</button><button class="sport-save">Save changes</button></footer>
+      </form>
     </section>
+    <section id="settings" class="page" hidden></section>
     <section id="results" class="page" hidden><h1>Stats &amp; standings</h1>
       <div class="record-toolbar"><div class="buttons" id="recordTabs" role="group" aria-label="Results views"><button data-record-tab="standings" aria-pressed="true">Teams</button><button data-record-tab="individual">Runners</button><button data-record-tab="goalies">Goalies</button></div><label><span id="recordFilterLabel">Division</span><select id="recordFilter"></select></label></div>
       <article class="panel results-panel"><h2 id="recordsTitle"></h2><div class="table-scroll"><table><thead id="recordsHead"></thead><tbody id="recordsBody"></tbody></table></div><p id="noRecords"></p></article>
     </section>
     <section id="credits" class="page" hidden><header class="section-title"><h1>Credits &amp; credibility</h1><button data-page="home">Close</button></header><div id="creditsFilm" class="credits-film"><div data-credits-roll tabindex="0" aria-label="Scrolling credits"></div><figure><img data-credits-image alt=""><figcaption data-credits-caption></figcaption><div class="credits-actions"><button data-credits-pause>Pause</button><button data-credits-next>Next still</button></div></figure></div></section>
   </main>
-  <dialog id="profileEditor"><form id="profileForm"><header class="section-title"><h2>Edit profile</h2><button id="closeProfileEditor" type="button" aria-label="Close editor">×</button></header><fieldset><legend>Profile mascot</legend><div id="mascotOptions"></div></fieldset><label>Username <small>Change once every seven days</small><input id="playerHandle" required maxlength="64"></label><label>Display name <input id="playerName" required maxlength="64"></label><label>Bio <textarea id="bio" maxlength="1000" rows="4"></textarea></label><label>YouTube channel <input id="youtube" type="url" maxlength="256"></label><button class="primary">Save changes</button><p id="savedProfile" role="status"></p></form></dialog>
+  <dialog id="profileEditor" class="sport-editor"><form id="profileForm"><header class="section-title"><h2>Edit profile</h2><button id="closeProfileEditor" class="sport-close" type="button" aria-label="Close editor">×</button></header><fieldset><legend>Profile mascot</legend><div id="mascotOptions" class="sport-mascots"></div></fieldset><label>Username <small>Change once every seven days</small><input id="playerHandle" required maxlength="64"></label><label>Display name <input id="playerName" required maxlength="64"></label><label>Bio <textarea id="bio" maxlength="1000" rows="4"></textarea></label><label>YouTube channel <input id="youtube" type="url" maxlength="256"></label><button class="primary">Save changes</button><p id="savedProfile" role="status"></p></form></dialog>
   <dialog id="conversation"><h2 id="npcName"></h2><p id="npcGreeting"></p><p id="npcLine"></p><div class="buttons"><button id="npcReplay">Replay voices</button><button id="npcFollow">Follow</button><button id="npcClose" class="primary">Back</button></div></dialog>
   <dialog id="pauseMenu"><h2>Paused</h2><div class="buttons"><button id="resume" class="primary">Resume</button><button id="leaveRink">Leave rink</button></div></dialog>
   <dialog id="matchResult"><p class="eyebrow" id="resultLabel"></p><h2 id="resultTitle"></h2><p id="resultDetail"></p><div class="buttons"><button id="resultContinue" class="primary">Continue</button><button id="resultCredits" hidden>View credits</button></div></dialog>
