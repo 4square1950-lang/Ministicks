@@ -84,3 +84,10 @@ body[data-game-page=profile]{background:#141915}
 .rink-score{justify-content:center}
 .rink-score .club-emblem{width:1.8rem}
 @media(max-width:680px){#tour .tour-grid{grid-template-columns:1fr}#tour .stops{order:2;grid-template-columns:repeat(2,minmax(0,1fr))}#tour .tour-map{height:42dvh}#rink .rink-hud{top:4.5rem}.commentary-caption{bottom:8rem}}
+
+.clan-hub-link {
+  display:inline-flex;align-items:center;justify-content:center;
+  padding:.55rem .8rem;border:1px solid #8faba85c;border-radius:7px;
+  color:inherit;background:#253a40;text-decoration:none;font:inherit;
+}
+.clan-hub-link:hover,.clan-hub-link:focus-visible { border-color:currentColor; }

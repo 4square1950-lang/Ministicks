@@ -523,8 +523,14 @@ function openTravelMap() {
   show('tour');
   $('enterVenue').textContent = arrival ? 'Travel by ' + arrival.kind : 'Explore district';
 }
-function openDistrict() {
+const districtAngles = {
+  overview: { eye: [24, 25, -25], target: [0, 0, 0] },
+  entrance: { eye: [-8, 5, -4], target: [0, 2, 7] },
+  lobby: { eye: [0, 2.2, 7.5], target: [0, 1.5, 12] }
+};
+function openDistrict(angle = 'walk') {
   buildDistrict();
+  $('districtAngle').value = angle;
   $('districtName').textContent = cities[selected].city;
   $('enterVenue').textContent = 'Explore district';
   selectDistrictAvatar();
@@ -764,6 +770,7 @@ function updateDistrict(dt) {
   const x = Number(keys.has('KeyA') || keys.has('ArrowLeft')) - Number(keys.has('KeyD') || keys.has('ArrowRight'));
   const z = Number(keys.has('KeyW') || keys.has('ArrowUp')) - Number(keys.has('KeyS') || keys.has('ArrowDown'));
   const { ride } = district;
+  if (x || z) $('districtAngle').value = 'walk';
   let distance = 0;
   if (ride) {
     const braking = keys.has('Space');
@@ -1138,6 +1145,13 @@ function frame(time) {
       for (const part of room.frontage) part.visible = !isInside;
       inside ||= isInside;
     }
+    const venueAngle = districtAngles[$('districtAngle').value];
+    if (venueAngle) {
+      districtCamera.set(...venueAngle.eye);
+      districtLook.set(...venueAngle.target);
+      camera.position.lerp(districtCamera, 1 - Math.exp(-12 * dt));
+      camera.lookAt(districtLook);
+    } else {
     const viewDistance = ride ? 6.5 : inside ? 3.8 : 5.4;
     const range=viewDistance*Math.cos(district.cameraPitch);
     districtCamera.set(x-Math.sin(heading)*range,1.05+viewDistance*Math.sin(district.cameraPitch),z-Math.cos(heading)*range);
@@ -1155,6 +1169,7 @@ function frame(time) {
     if (!district.cameraReady) { camera.position.copy(districtCamera); district.cameraReady=true; }
     else camera.position.lerp(districtCamera,1-Math.exp(-9*dt));
     camera.lookAt(districtLook);
+    }
   } else if (page==='rink' || highlight) {
     if(!highlight)updateRink(dt);
     const states = highlight?.players ?? match?.players ?? [{x:-.55,z:-.85},{x:2.15,z:-1.7},{x:0,z:-5.82,goalie:true},
@@ -1440,7 +1455,10 @@ function mapMode(satellite) {
 }
 $('worldMapButton').onclick=()=>mapMode(false);$('satelliteButton').onclick=()=>mapMode(true);
 $('mapZoomOut').onclick=()=>map.changeZoom(-1);$('mapZoomIn').onclick=()=>map.changeZoom(1);
-$('enterVenue').onclick=openDistrict;$('interact').onclick=()=>interact();
+$('enterVenue').onclick=()=>openDistrict();
+$('previewVenue').onclick=()=>openDistrict('overview');
+$('districtAngle').onchange=()=>{ district.cameraReady=false; };
+$('interact').onclick=()=>interact();
 $('districtTravelMap').onclick=openTravelMap;
 $('npcClose').onclick=()=>$('conversation').close();
 $('npcReplay').onclick=()=>{
@@ -1574,6 +1592,7 @@ districtView.onpointermove=(event)=>{
   orbitDrag.travel+=Math.hypot(dx,dy);
   orbitDrag.x=event.clientX;orbitDrag.y=event.clientY;
   if(orbitDrag.travel<5)return;
+  $('districtAngle').value='walk';
   district.cameraYaw-=dx*.009;district.cameraPitch=cap(district.cameraPitch+dy*.007,.18,1.12);
   districtView.classList.add('is-dragging');
 };

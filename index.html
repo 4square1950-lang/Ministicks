@@ -12,7 +12,7 @@
   <script src="runtime/rink-tour.bundle.js" type="module"></script>
 </head>
 <body>
-  <header class="top"><button data-page="home" class="brand">MINISTICKS</button><nav aria-label="Game menu"><button data-page="tour">Campaign</button><button data-page="profile">Profile</button><button data-page="settings">Settings</button><button data-page="results">Stats &amp; standings</button><button data-page="credits" id="creditsButton" hidden>Credits &amp; credibility</button></nav></header>
+  <header class="top"><button data-page="home" class="brand">MINISTICKS</button><nav aria-label="Game menu"><button data-page="tour">Campaign</button><button data-page="profile">Profile</button><a class="clan-hub-link " data-clan-game="ministicks" href="http://localhost:4110/?game=ministicks" target="_blank" rel="noopener">Clans</a><button data-page="settings">Settings</button><button data-page="results">Stats &amp; standings</button><button data-page="credits" id="creditsButton" hidden>Credits &amp; credibility</button></nav></header>
   <main>
     <section id="home" class="page hero">
       <div class="home-foreground"><p class="eyebrow">Mini Sticks League</p><h1>Rink Tour</h1>
@@ -27,7 +27,7 @@
         <div id="tourMap" class="tour-map"></div><p id="mapCaption" class="map-caption" role="status"></p>
         <p class="eyebrow" id="venueCity"></p><h2 id="venueName"></h2>
         <div class="tour-opponent"><img id="tourClubEmblem" class="club-emblem" alt=""><div><small>Opponent</small><strong id="tourClubName"></strong></div></div>
-        <button id="enterVenue" class="primary">Visit city</button>
+        <button id="enterVenue" class="primary">Visit city</button><button id="previewVenue">Venue views</button>
       </article></div>
     </section>
     <section id="district" class="page" hidden>
@@ -38,6 +38,11 @@
           <select id="districtAvatar"><option value="player">Minifig</option><option value="maria" disabled>Maria</option></select>
           <button id="districtTravelMap">World map</button>
           <button id="districtRoomOpen">Join room</button>
+          <label for="districtAngle">Venue view</label>
+          <select id="districtAngle">
+            <option value="walk">Follow player</option><option value="overview">District overview</option>
+            <option value="entrance">Arena entrance</option><option value="lobby">Arena lobby</option>
+          </select>
           <small id="districtAvatarStatus" role="status"></small>
         </div>
       </header>
