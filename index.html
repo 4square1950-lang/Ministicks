@@ -37,15 +37,18 @@
           <label for="districtAvatar">Character</label>
           <select id="districtAvatar"><option value="player">Minifig</option><option value="maria" disabled>Maria</option></select>
           <button id="districtTravelMap">World map</button>
+          <button id="districtRoomOpen">Join room</button>
           <small id="districtAvatarStatus" role="status"></small>
         </div>
       </header>
       <div class="rink-screen viewport" id="districtPreview"><svg id="districtMap" viewBox="0 0 120 90" aria-label="District minimap" role="img">
         <g id="districtLayout"></g>
+        <g id="districtPeers"></g>
         <circle id="districtDot" cx="60" cy="77" r="4" class="mini-player"><title>You</title></circle>
       </svg></div>
       <div class="buttons district-actions"><button id="interact" class="primary" disabled>Interact · E</button><span id="districtHint" role="status"></span></div>
-      <p id="districtControls" class="controls">WASD or arrows Move · Shift Run · E Interact</p>
+      <p id="districtChatNotice" role="status" hidden></p>
+      <p id="districtControls" class="controls">WASD Move · Click a person to talk · Drag either mouse button to look</p>
     </section>
     <section id="rink" class="page" hidden>
       <header class="section-title"><div><p class="eyebrow" id="modeName"></p><h1 id="rinkName"></h1></div><div class="buttons"><button id="commentaryToggle" aria-pressed="false">Commentary off</button><button id="pause">Pause</button></div></header>
@@ -113,7 +116,16 @@
     <section id="credits" class="page" hidden><header class="section-title"><h1>Credits &amp; credibility</h1><button data-page="home">Close</button></header><div id="creditsFilm" class="credits-film"><div data-credits-roll tabindex="0" aria-label="Scrolling credits"></div><figure><img data-credits-image alt=""><figcaption data-credits-caption></figcaption><div class="credits-actions"><button data-credits-pause>Pause</button><button data-credits-next>Next still</button></div></figure></div></section>
   </main>
   <dialog id="profileEditor" class="sport-editor"><form id="profileForm"><header class="section-title"><h2>Edit profile</h2><button id="closeProfileEditor" class="sport-close" type="button" aria-label="Close editor">×</button></header><fieldset><legend>Profile mascot</legend><div id="mascotOptions" class="sport-mascots"></div></fieldset><label>Username <small>Change once every seven days</small><input id="playerHandle" required maxlength="64"></label><label>Display name <input id="playerName" required maxlength="64"></label><label>Bio <textarea id="bio" maxlength="1000" rows="4"></textarea></label><label>YouTube channel <input id="youtube" type="url" maxlength="256"></label><button class="primary">Save changes</button><p id="savedProfile" role="status"></p></form></dialog>
-  <dialog id="conversation"><h2 id="npcName"></h2><p id="npcGreeting"></p><p id="npcLine"></p><div class="buttons"><button id="npcReplay">Replay voices</button><button id="npcFollow">Follow</button><button id="npcClose" class="primary">Back</button></div></dialog>
+  <dialog id="campaignRoom"><form id="campaignJoin"><h2>Campaign room</h2><label>Room code <input id="campaignCode" pattern="[A-Za-z0-9]{6,16}" maxlength="16" required placeholder="6–16 letters or numbers"></label><p>Enter the same code and visit the same city to meet other players.</p><p id="roomStatus" role="status"></p><div class="buttons"><button id="campaignNewCode" type="button">New code</button><button id="campaignLeave" type="button" hidden>Leave room</button><button id="campaignClose" type="button">Close</button><button class="primary">Join</button></div></form></dialog>
+  <dialog id="conversation">
+    <header class="section-title"><h2 id="npcName"></h2><button id="npcClose" aria-label="Close chat">×</button></header>
+    <div id="npcIntro"><p id="npcGreeting"></p><p id="npcLine"></p></div>
+    <div id="chatHistory" role="log" aria-live="polite"></div>
+    <form id="districtMessage"><label for="districtText">Message</label><div class="chat-compose"><input id="districtText" maxlength="500" required autocomplete="off"><button class="primary">Send</button></div></form>
+    <p id="chatStatus" role="status"></p>
+    <div id="npcChatActions" class="buttons"><button id="npcDictate">Voice input</button><button id="npcReplay">Replay reply</button><button id="npcFollow">Follow</button></div>
+    <div id="playerChatActions" class="buttons" hidden><button id="districtCall">Voice call</button><button id="districtAccept" hidden>Accept voice</button><button id="districtEnd">End voice</button><button id="districtHear">Enable audio</button></div>
+  </dialog>
   <dialog id="pauseMenu"><h2>Paused</h2><div class="buttons"><button id="resume" class="primary">Resume</button><button id="leaveRink">Leave rink</button></div></dialog>
   <dialog id="matchResult"><p class="eyebrow" id="resultLabel"></p><h2 id="resultTitle"></h2><p id="resultDetail"></p><div class="buttons"><button id="resultContinue" class="primary">Continue</button><button id="resultCredits" hidden>View credits</button></div></dialog>
 </body>

@@ -1,6 +1,8 @@
 const http = require('node:http');
 const fs = require('node:fs');
 const path = require('node:path');
+const { campaignRoutes } = require('./district-online.cjs');
+const campaign = campaignRoutes({allowedOrigin:process.env.MINISTICKS_CAMPAIGN_ORIGIN});
 
 const mime = {
   '.html': 'text/html; charset=utf-8',
@@ -13,10 +15,11 @@ const mime = {
 };
 const rootFiles = new Set(['index.html', 'rink-tour.js', 'rink-tour.css', 'sport-shell.css', 'credits-roll.js', 'credits-roll.css', 'rink-campaign.js', 'team-match.js', 'tour-land.json', 'rink-broadcast.js', 'runtime/rink-tour.bundle.js']);
 const port = Number(process.env.MINISTICKS_PORT || 8096);
-const server = http.createServer((request, response) => {
-  let urlPath;
-  try { urlPath = decodeURIComponent(new URL(request.url, 'http://localhost').pathname); }
+const server = http.createServer(async (request, response) => {
+  let urlPath,url;
+  try { url = new URL(request.url, 'http://localhost');urlPath = decodeURIComponent(url.pathname); }
   catch { response.writeHead(400).end(); return; }
+  if (await campaign(request,response,url)) return;
   const name = urlPath === '/' ? 'index.html' : urlPath.slice(1);
   const file = path.resolve(__dirname, name);
   const relative = path.relative(__dirname, file).split(path.sep).join('/');
@@ -33,4 +36,4 @@ const server = http.createServer((request, response) => {
     else fs.createReadStream(file).on('error', () => response.destroy()).pipe(response);
   });
 });
-server.listen(port, '127.0.0.1', () => process.stdout.write('Ministicks: http://127.0.0.1:' + server.address().port + '\n'));
+server.listen(port, process.env.MINISTICKS_HOST || '127.0.0.1', () => process.stdout.write('Ministicks: http://localhost:' + server.address().port + '\n'));

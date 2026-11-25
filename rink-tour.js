@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { settingsView } from './sport-settings.js';
+import { districtChat } from './district-chat.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { clone } from 'three/addons/utils/SkeletonUtils.js';
 
@@ -123,6 +124,27 @@ let kitDraft = { ...career.kit }, composer, kitTexture, district, dialogue, mari
 const districtCamera = new THREE.Vector3();
 const districtLook = new THREE.Vector3();
 const districtBounds = { x: 27, z: 21 };
+const remoteActors=new Map(), districtRigs={};
+let groundContactMaterial;
+let nextDistrictSend=0;
+const online=districtChat({
+  receive:receiveDistrictMessage,
+  notice:(message)=>{
+    $('chatStatus').textContent=message;
+    if(message==='Voice ended.'){
+      $('districtAccept').hidden=true;$('districtCall').hidden=false;
+    }
+  },
+  state:(connected,status)=>{
+    $('roomStatus').textContent=status;
+    $('campaignLeave').hidden=!connected;
+    $('districtRoomOpen').textContent=connected?status:'Join room';
+    if(connected){
+      if(district && [...online.players.values()].some(person=>person.city===selected&&Math.hypot(person.x-district.x,person.z-district.z)<.8)&&districtPositionClear(district.x+1.25,district.z,district.yaw,'walk'))district.x+=1.25;
+      $('campaignRoom').close();
+    }
+  },
+});
 const keys = new Set();
 const aim = [0, 0];
 const map = setupTourMap({ map: $('tourMap'), caption: $('mapCaption'), onSelect: selectCity });
@@ -150,7 +172,7 @@ function streetBox(mat, size, position, solid) {
   const mesh = new THREE.Mesh(new THREE.BoxGeometry(...size), mat);
   mesh.position.set(...position);
   street.add(mesh);
-  if (solid) district.blockers.push({ x: position[0], z: position[2], w: size[0] / 2, d: size[2] / 2 });
+  if (solid) district.blockers.push({ x: position[0], z: position[2], w: size[0] / 2, d: size[2] / 2, h:position[1]+size[1]/2, mesh });
   return mesh;
 }
 function label(text, x, y, z) {
@@ -175,7 +197,7 @@ function buildDistrict() {
   for (const mat of district?.materials || []) mat.dispose();
   const stop = cities[selected];
   district = { x: 0, z: -8.5, yaw: 0, vx: 0, vz: 0, blockers: [], materials: [], targets: [],
-    people: [], rooms: [], vehicles: [], cameraReady: false, speed: 0 };
+    people: [], rooms: [], vehicles: [], cameraReady: false, cameraYaw:0, cameraPitch:.45, speed: 0 };
   const mat = (value) => { const item = material(value); district.materials.push(item); return item; };
   const ground = mat(0x596662), road = mat(0x353e46), sidewalk = mat(0xa2a29a);
   const building = mat(npcColors[selected]), trim = mat(0xd9cfc0), glass = mat(0x3e596e), dark = mat(0x1a2c39), park = mat(0x617b5f);
@@ -365,6 +387,7 @@ async function initActors() {
       loader.loadAsync('./dist/lod/player_LOD1.glb'),
       loader.loadAsync('./build/menu/menu_stand_anim.glb').then((gltf) => gltf.animations).catch(() => []),
     ]);
+    Object.assign(districtRigs,{player:asset,standing});
     actors = Array.from({ length: 6 }, (_, index) => actor(asset, index, standing));
     actors.forEach((who) => { pose(who, 'knee_idle'); who.mixer.update(0); });
     applyKit(page === 'studio' ? kitDraft : career.kit);
@@ -380,6 +403,7 @@ async function initActors() {
     });
     mariaAsset.then((gltf) => {
       if (!gltf) { $('districtAvatarStatus').textContent = 'Maria’s model could not load.'; return; }
+      districtRigs.maria=gltf;
       maria = actor(gltf,2,standing,{height:.945,build:0,skin:0xffe6d3,face:{}});
       maria.model.visible = false;
       alternateSkater = actor(gltf,4,standing);
@@ -443,6 +467,13 @@ function show(next) {
   if (page === 'district' && next !== 'district') {
     window.speechSynthesis?.cancel();
     if (maria) maria.model.visible = false;
+    online.endCall();
+    if(online.connected())online.away();
+    for(const who of [...actors,maria,...[...remoteActors.values()].map(peer=>peer.who)]){
+      if(who?.groundContact)who.groundContact.visible=false;
+    }
+    for (const peer of remoteActors.values()) peer.who.model.visible=false;
+    if($('conversation').open)$('conversation').close();
   }
   if (next === 'profile' && page !== 'studio' && page !== 'profile') backFromProfile = page;
   if (page === 'rink' && next !== 'rink') match = undefined;
@@ -543,9 +574,8 @@ function dismountDistrict() {
   }
   district.exitBlocked = true;
 }
-function interact() {
+function interact(target=nearestTarget()) {
   if (page !== 'district' || $('conversation').open) return;
-  const target = nearestTarget();
   if (!target) return;
   if (target.kind === 'arena') { openRink('campaign'); return; }
   if (target.kind === 'travel') { openTravelMap(); return; }
@@ -554,14 +584,67 @@ function interact() {
     Object.assign(district,{ ride:target, x:target.x, z:target.z, yaw:target.yaw, speed:0, vx:0, vz:0 });
     return;
   }
-  dialogue = target;
+  openDistrictConversation(target);
+}
+function openDistrictConversation(target) {
+  dialogue=target;
+  const real=target.kind==='remote';
+  $('npcName').textContent=target.name;
+  $('npcIntro').hidden=real;
+  $('npcChatActions').hidden=real;
+  $('playerChatActions').hidden=!real;
+  $('districtAccept').hidden=online.incoming()?.id!==target.id;
+  $('districtCall').hidden=!$('districtAccept').hidden;
+  $('chatStatus').textContent='';
+  $('districtText').value='';
+  $('districtChatNotice').hidden=true;
+  keys.clear();district.vx=district.vz=0;
+  if(!$('conversation').open)$('conversation').showModal();
+  if(real){drawChat(online.histories.get(target.id)||[]);return;}
   if (target.kind === 'coach' && !career.encountered.includes(target.id)) { career.encountered.push(target.id); save(); }
-  $('npcName').textContent = target.name; $('npcLine').textContent = target.line;
+  $('npcLine').textContent = target.line;
   $('npcGreeting').textContent = target.kind === 'coach' ? 'Do you have any advice for my next match?' : 'Hi there. How’s it going?';
   $('npcFollow').hidden = !target.id;
   $('npcFollow').textContent = career.following.includes(target.id) ? 'Unfollow' : 'Follow';
-  keys.clear(); district.vx = district.vz = 0;
-  $('conversation').showModal(); speakConversation();
+  target.history=[];
+  drawChat(target.history);
+  speakConversation();
+}
+function drawChat(history) {
+  const rows=history.map(({name,text})=>{
+    const row=document.createElement('p');
+    const author=document.createElement('strong');
+    author.textContent=name+': ';
+    row.append(author,document.createTextNode(text));
+    return row;
+  });
+  const log=$('chatHistory');log.replaceChildren(...rows);log.scrollTop=log.scrollHeight;
+}
+function receiveDistrictMessage(packet) {
+  if(page!=='district')return;
+  if($('conversation').open&&dialogue?.kind==='remote'&&dialogue.id===packet.id){
+    if(packet.type==='text')drawChat(online.histories.get(packet.id)||[]);
+    else{$('districtAccept').hidden=false;$('districtCall').hidden=true;$('chatStatus').textContent='Incoming voice call.';}
+    return;
+  }
+  const notification=$('districtChatNotice'),open=document.createElement('button');
+  open.textContent=(packet.type==='text'?'Message from ':'Voice call from ')+packet.name;
+  open.onclick=()=>openDistrictConversation({kind:'remote',id:packet.id,name:packet.name});
+  notification.replaceChildren(open);notification.hidden=false;
+}
+function pickDistrictPerson(px,py) {
+  const view=$('districtPreview').getBoundingClientRect();
+  raycaster.setFromCamera(new THREE.Vector2((px-view.left)/view.width*2-1,1-(py-view.top)/view.height*2),camera);
+  const wallHits=raycaster.intersectObjects(district.blockers.filter(box=>box.mesh.visible).map(box=>box.mesh),false);
+  let depth=wallHits[0]?.distance??Infinity, candidate;
+  for (const person of [...district.people,...[...remoteActors.values()].filter(peer=>peer.who.model.visible).map(peer=>peer.person)]){
+    const spot=new THREE.Vector3(person.x,.94,person.z);
+    const hit=raycaster.ray.intersectSphere(new THREE.Sphere(spot,.63),new THREE.Vector3());
+    if(!hit)continue;
+    const distance=hit.distanceTo(raycaster.ray.origin);
+    if(distance<depth){depth=distance;candidate=person;}
+  }
+  if(candidate)openDistrictConversation(candidate);
 }
 function openRink(nextMode) {
   mode = nextMode; match = undefined;
@@ -677,7 +760,7 @@ function renderDistrictMap() {
   })));
 }
 function updateDistrict(dt) {
-  if ($('conversation').open) return 0;
+  if ($('conversation').open || $('campaignRoom').open) return 0;
   const x = Number(keys.has('KeyA') || keys.has('ArrowLeft')) - Number(keys.has('KeyD') || keys.has('ArrowRight'));
   const z = Number(keys.has('KeyW') || keys.has('ArrowUp')) - Number(keys.has('KeyS') || keys.has('ArrowDown'));
   const { ride } = district;
@@ -696,11 +779,14 @@ function updateDistrict(dt) {
     Object.assign(ride,{x:district.x,z:district.z,yaw:district.yaw});
     distance = result.distance;
   } else {
-    const scale = (keys.has('ShiftLeft') || keys.has('ShiftRight') ? 5.15 : 3.35) / Math.max(1,Math.hypot(x,z));
+    const scale = (keys.has('ShiftLeft') || keys.has('ShiftRight') ? 3.85 : 2.15) / Math.max(1,Math.hypot(x,z));
+    const heading=district.cameraYaw;
+    const forwardX=x*Math.cos(heading)+z*Math.sin(heading);
+    const forwardZ=z*Math.cos(heading)-x*Math.sin(heading);
     const blend = 1-Math.exp(-dt*(x||z?13:22));
-    district.vx += (x*scale-district.vx)*blend;
-    district.vz += (z*scale-district.vz)*blend;
-    const angle = x||z ? Math.atan2(x,z) : district.yaw;
+    district.vx += (forwardX*scale-district.vx)*blend;
+    district.vz += (forwardZ*scale-district.vz)*blend;
+    const angle = x||z ? Math.atan2(forwardX,forwardZ) : district.yaw;
     const turn = Math.atan2(Math.sin(angle-district.yaw),Math.cos(angle-district.yaw));
     distance = moveDistrictBody(district,district.vx*dt,district.vz*dt,district.yaw+turn*(1-Math.exp(-14*dt)),
       (px,pz,yaw) => districtPositionClear(px,pz,yaw,'walk'),true).distance;
@@ -745,8 +831,50 @@ function updateDistrict(dt) {
   $('districtHint').textContent = district.exitBlocked ? 'Move away from the obstacle before getting out.'
     : ride ? Math.round(Math.abs(district.speed)*3.6)+' km/h' : '';
   $('districtControls').textContent = ride ? 'W/S Accelerate or reverse · A/D Steer · Space Brake · E Interact when stopped'
-    : 'WASD or arrows Move · Shift Run · E Interact';
+    : 'WASD Move · Shift Run · Click to talk · Drag either mouse button to look';
   return distance/dt || 0;
+}
+function updateRemoteWalkers(dt,time,speed){
+  if(online.connected()&&time>=nextDistrictSend){
+    nextDistrictSend=time+100;
+    const {x,z,yaw,ride}=district;
+    online.move({x,z,yaw,speed:cap(speed,0,13),city:selected,avatar:$('districtAvatar').value,ride:ride?.kind});
+  }
+  for(const [id,peer] of remoteActors){
+    const player=online.players.get(id);
+    if(player?.city===selected&&peer.avatar===player.avatar)continue;
+    scene.remove(peer.who.model);
+    if(peer.who.groundContact){scene.remove(peer.who.groundContact);peer.who.groundContact.geometry.dispose();}
+    peer.who.model.traverse(item=>{
+      if(item.isSprite){item.material.map.dispose();item.material.dispose();}
+      else if(['M_kit','M_skin'].includes(item.material?.name))item.material.dispose();
+    });
+    peer.marker.remove();
+    remoteActors.delete(id);
+  }
+  if(!districtRigs.player)return;
+  for(const player of online.players.values()){
+    if(player.city!==selected)continue;
+    let peer=remoteActors.get(player.id);
+    if(!peer){
+      const who=actor(districtRigs[player.avatar]||districtRigs.player,1,districtRigs.standing);
+      if(who.stick)who.stick.visible=false;
+      const nameTag=label(player.name,0,0,0);
+      who.model.add(nameTag);nameTag.position.set(0,2.02,0);nameTag.scale.set(1.44,.27,1);
+      const marker=document.createElementNS('http://www.w3.org/2000/svg','circle');
+      marker.setAttribute('class','mini-peer');marker.setAttribute('r','2.8');$('districtPeers').append(marker);
+      peer={who,marker,avatar:player.avatar,person:{kind:'remote',id:player.id,name:player.name,x:player.x,z:player.z,yaw:player.yaw}};
+      remoteActors.set(player.id,peer);
+    }
+    const who=peer.who, ready=peer.person;
+    const blend=1-Math.exp(-dt*13);
+    ready.x+= (player.x-ready.x)*blend;ready.z+=(player.z-ready.z)*blend;
+    ready.yaw+=Math.atan2(Math.sin(player.yaw-ready.yaw),Math.cos(player.yaw-ready.yaw))*blend;
+    who.model.visible=true;who.model.position.set(ready.x,0,ready.z);who.model.rotation.y=ready.yaw;
+    districtGait(who,dt,player.ride?0:Math.min(player.speed,3.85));
+    groundWalker(who,ready,!player.ride);
+    peer.marker.setAttribute('cx',60-ready.x*2.2);peer.marker.setAttribute('cy',48-ready.z*2);
+  }
 }
 const motion = (left,right,up,down,shift) => ({x:Number(keys.has(left))-Number(keys.has(right)),
   z:Number(keys.has(up))-Number(keys.has(down)), standing:keys.has(shift)});
@@ -811,6 +939,59 @@ function walkPose(who, dt, speed) {
   const knee = Math.cos(who.stride)*who.walkWeight;
   const angles = [swing*.35,-swing*.35,Math.max(0,knee)*.38,Math.max(0,-knee)*.38,-swing*.24,swing*.24,-.10,-.10];
   who.limbs.forEach((bone,index) => bone?.rotateX(angles[index]));
+}
+function districtGait(who,dt,speed) {
+  // Evaluate the idle rig first, then use ankle targets to keep the stance foot at floor height.
+  if(who.gaitFeet)who.contacts.slice(0,2).forEach((foot,i)=>foot?.quaternion.copy(who.gaitFeet[i]));
+  walkPose(who,dt,0);
+  who.gaitFeet??=who.contacts.slice(0,2).map(foot=>foot?.quaternion.clone());
+  who.contacts.slice(0,2).forEach((foot,i)=>{if(foot)who.gaitFeet[i].copy(foot.quaternion);});
+  who.gaitBlend=THREE.MathUtils.damp(who.gaitBlend??0,cap(speed/.75,0,1),12,dt);
+  if(who.gaitBlend<.015)return;
+  const run=cap((speed-2.2)/1.7,0,1), cycle=1.52+run*.57, stance=.62-run*.11;
+  who.gaitPhase=((who.gaitPhase??0)+speed*dt/cycle)%1;
+  const phase=who.gaitPhase;
+  const span=cycle*stance*.5;
+  const blend=who.gaitBlend;
+  const model=who.model;
+  const position=model.position.clone();
+  model.position.y+=(-.056+Math.cos(phase*4*Math.PI)*.018)*blend;
+  const ahead=new THREE.Vector3(Math.sin(model.rotation.y),0,Math.cos(model.rotation.y));
+  for(let i=0;i<2;i++){
+    const foot=who.contacts[i], hip=who.limbs[i];
+    if(!foot||!hip)continue;
+    const t=(phase+i*.5)%1;
+    const swing=cap((t-stance)/(1-stance),0,1);
+    const offset=t<stance ? span-cycle*t : THREE.MathUtils.lerp(-span,span,swing*swing*(3-2*swing));
+    const clearance=t<stance?0:Math.sin(swing*Math.PI)*(.15+run*.12);
+    const local=model.worldToLocal(foot.getWorldPosition(new THREE.Vector3()));
+    const floorY=cap(local.y*model.scale.y,.055,.125);
+    const target=model.localToWorld(new THREE.Vector3(local.x,0,offset*blend+local.z));
+    target.y=position.y+THREE.MathUtils.lerp(local.y*model.scale.y,floorY+clearance,blend);
+    const flat=foot.getWorldQuaternion(new THREE.Quaternion());
+    placeLimb(hip,who.limbs[i+2],foot,target,ahead.clone());
+    foot.quaternion.copy(foot.parent.getWorldQuaternion(new THREE.Quaternion()).invert().multiply(flat));
+    const arm=-Math.cos(t*Math.PI*2)*(.24+run*.23)*blend;
+    who.limbs[i+4]?.rotateX(arm);
+    who.limbs[i+6]?.rotateX(-(.13+run*.26)*blend);
+  }
+}
+function groundWalker(who,position,visible) {
+  if(!who.groundContact){
+    if(!groundContactMaterial){
+      const mask=document.createElement('canvas');mask.width=mask.height=64;
+      const ctx=mask.getContext('2d');
+      const edge=ctx.createRadialGradient(32,32,4,32,32,32);
+      edge.addColorStop(0,'rgba(12,24,22,.56)');edge.addColorStop(.62,'rgba(12,24,22,.28)');edge.addColorStop(1,'rgba(12,24,22,0)');
+      ctx.fillStyle=edge;ctx.fillRect(0,0,64,64);
+      groundContactMaterial=new THREE.MeshBasicMaterial({map:new THREE.CanvasTexture(mask),transparent:true,depthWrite:false});
+    }
+    const shadow=new THREE.Mesh(new THREE.PlaneGeometry(.88,.78),groundContactMaterial);
+    shadow.rotation.x=-Math.PI/2;scene.add(shadow);
+    who.groundContact=shadow;
+  }
+  who.groundContact.position.set(position.x,.008,position.z);
+  who.groundContact.visible=visible;
 }
 function aimBone(bone, from, toward) {
   const worldTurn = new THREE.Quaternion().setFromUnitVectors(from.normalize(),toward.normalize());
@@ -895,6 +1076,7 @@ function frame(time) {
   if(page==='home' && !reelPaused)reelTime=(reelTime+realDt)%120;
   const highlight=page==='home' && actors.length ? reel(reelTime) : null;
   if (alternateSkater && (highlight || page === 'rink' && !match)) {
+    if(actors[4].groundContact){scene.remove(actors[4].groundContact);actors[4].groundContact.geometry.dispose();}
     scene.remove(actors[4].model);
     actors[4] = alternateSkater;
     alternateSkater = null;
@@ -927,35 +1109,49 @@ function frame(time) {
     const avatar = $('districtAvatar').value === 'maria' && maria ? maria : actors[0];
     if (maria) maria.model.visible = false;
     if (actors[0]) actors[0].model.visible = false;
+    if(maria?.groundContact)maria.groundContact.visible=false;
+    if(actors[0]?.groundContact)actors[0].groundContact.visible=false;
     if (avatar) {
       avatar.model.visible = ride?.kind !== 'car';
       avatar.model.position.set(x,0,z);
       avatar.model.rotation.y = yaw;
       if (avatar.stick) avatar.stick.visible = false;
       if (avatar.model.visible) {
-        walkPose(avatar,dt,ride ? 0 : speed);
-        if (ride?.kind === 'bike') bikePose(avatar,ride);
+        if (ride?.kind === 'bike') {walkPose(avatar,dt,0);bikePose(avatar,ride);}
+        else districtGait(avatar,dt,speed);
       }
+      groundWalker(avatar,{x,z},!ride);
     }
     district.people.forEach((person,index) => {
       const who = actors[index+1];
       if (!who) return;
       who.model.position.set(person.x,0,person.z);
       who.model.rotation.y = person.yaw;
-      walkPose(who,dt,person.walking ? .85 : 0);
+      districtGait(who,dt,person.walking ? .85 : 0);
+      groundWalker(who,person,true);
     });
-    const heading = ride ? yaw : 0;
+    updateRemoteWalkers(dt,time,speed);
+    const heading = district.cameraYaw+(ride?yaw:0);
     let inside = false;
     for (const room of district.rooms) {
       const isInside = z >= room.front-.1 && z < room.front+room.depth && Math.abs(x-room.x)<room.width/2;
       for (const part of room.frontage) part.visible = !isInside;
       inside ||= isInside;
     }
-    const viewDistance = ride ? 6.5 : inside ? 3.8 : 5.2;
-    districtCamera.set(x-Math.sin(heading)*viewDistance,3.25,z-Math.cos(heading)*viewDistance);
-    districtLook.set(x+Math.sin(heading),1.0,z+Math.cos(heading));
-    const wall = district.blockers.find((box) => Math.abs(x-box.x)<box.w+2 && Math.abs(z-box.z)<box.d+4);
-    if (wall && !ride && !inside) districtCamera.y = 5.8;
+    const viewDistance = ride ? 6.5 : inside ? 3.8 : 5.4;
+    const range=viewDistance*Math.cos(district.cameraPitch);
+    districtCamera.set(x-Math.sin(heading)*range,1.05+viewDistance*Math.sin(district.cameraPitch),z-Math.cos(heading)*range);
+    districtLook.set(x,1.02,z);
+    const sight=districtCamera.clone().sub(districtLook), length=sight.length();
+    const ray=new THREE.Ray(districtLook,sight.normalize());
+    let visible=length;
+    for(const box of district.blockers){
+      if(!box.mesh.visible)continue;
+      const bounds=new THREE.Box3(new THREE.Vector3(box.x-box.w,0,box.z-box.d),new THREE.Vector3(box.x+box.w,box.h,box.z+box.d));
+      const hit=ray.intersectBox(bounds,new THREE.Vector3());
+      if(hit)visible=Math.min(visible,Math.max(.6,hit.distanceTo(districtLook)-.25));
+    }
+    if(visible<length)districtCamera.copy(districtLook).addScaledVector(sight,visible);
     if (!district.cameraReady) { camera.position.copy(districtCamera); district.cameraReady=true; }
     else camera.position.lerp(districtCamera,1-Math.exp(-9*dt));
     camera.lookAt(districtLook);
@@ -1244,11 +1440,72 @@ function mapMode(satellite) {
 }
 $('worldMapButton').onclick=()=>mapMode(false);$('satelliteButton').onclick=()=>mapMode(true);
 $('mapZoomOut').onclick=()=>map.changeZoom(-1);$('mapZoomIn').onclick=()=>map.changeZoom(1);
-$('enterVenue').onclick=openDistrict;$('interact').onclick=interact;
+$('enterVenue').onclick=openDistrict;$('interact').onclick=()=>interact();
 $('districtTravelMap').onclick=openTravelMap;
 $('npcClose').onclick=()=>$('conversation').close();
-$('npcReplay').onclick=speakConversation;
-$('conversation').addEventListener('close',()=>window.speechSynthesis?.cancel());
+$('npcReplay').onclick=()=>{
+  const line=dialogue?.history?.at(-1)?.text||dialogue?.line;
+  if(line){window.speechSynthesis?.cancel();districtSpeech(line,dialogue.voice);}
+};
+let currentSpeechInput;
+$('conversation').addEventListener('close',()=>{
+  window.speechSynthesis?.cancel();
+  currentSpeechInput?.abort();
+  if(dialogue?.kind==='remote')online.endCall();
+});
+$('districtRoomOpen').onclick=()=>{keys.clear();$('campaignRoom').showModal();};
+$('campaignClose').onclick=()=>$('campaignRoom').close();
+$('campaignLeave').onclick=()=>{online.disconnect();$('campaignRoom').close();};
+$('campaignNewCode').onclick=()=>{
+  $('campaignCode').value=[...crypto.getRandomValues(new Uint8Array(4))].map(value=>value.toString(16).padStart(2,'0')).join('').toUpperCase();
+};
+$('campaignJoin').onsubmit=(event)=>{
+  event.preventDefault();
+  online.connect($('campaignCode').value.trim().toUpperCase(),career.name);
+};
+$('districtMessage').onsubmit=async (event)=>{
+  event.preventDefault();
+  const target=dialogue, text=$('districtText').value.trim();
+  if(!target||!text)return;
+  $('districtText').value='';
+  try{
+    if(target.kind==='remote'){
+      await online.message(target.id,text);
+      if(dialogue===target)drawChat(online.histories.get(target.id)||[]);
+    }else{
+      const reply=/arena|match|play|rink/i.test(text)?'Head to the arena lobby to start a match.'
+        : /car|bike|ride/i.test(text)?'There’s a car and a bike beside the crosswalk.'
+        : /hello|^hi\b|^hey\b/i.test(text)?'Hi! Welcome to '+cities[selected].city+'.':target.line;
+      target.history.push({name:'You',text},{name:target.name,text:reply});
+      target.history=target.history.slice(-50);
+      drawChat(target.history);window.speechSynthesis?.cancel();districtSpeech(reply,target.voice);
+    }
+  } catch(error) {if(dialogue===target){$('districtText').value=text;$('chatStatus').textContent=error.message;}}
+};
+const SpeechInput=window.SpeechRecognition||window.webkitSpeechRecognition;
+$('npcDictate').hidden=!SpeechInput;
+$('npcDictate').onclick=()=>{
+  if(currentSpeechInput)return;
+  const input=new SpeechInput();currentSpeechInput=input;input.lang='en-CA';input.interimResults=false;
+  const target=dialogue;
+  input.onresult=(event)=>{if($('conversation').open&&target===dialogue)$('districtText').value=event.results[0][0].transcript.slice(0,500);};
+  input.onerror=()=>{$('chatStatus').textContent='Voice input unavailable. You can type a message.';};
+  input.onend=()=>{currentSpeechInput=null;};
+  try{input.start();}catch{currentSpeechInput=null;$('chatStatus').textContent='Voice input unavailable.';}
+};
+function tryVoice(operation){
+  operation.catch((error)=>{
+    online.endCall();
+    $('chatStatus').textContent=error.name==='NotAllowedError'?'Microphone permission was denied.':error.message;
+  });
+}
+$('districtCall').onclick=()=>{if(dialogue?.kind==='remote')tryVoice(online.voice(dialogue.id));};
+$('districtAccept').onclick=()=>{
+  $('districtAccept').hidden=true;$('districtCall').hidden=false;
+  tryVoice(online.accept());
+};
+$('districtEnd').onclick=()=>{online.endCall();$('districtAccept').hidden=true;$('districtCall').hidden=false;};
+$('districtHear').onclick=online.enableAudio;
 $('districtAvatar').onchange=()=>{
   career.districtAvatar=$('districtAvatar').value;
   $('districtAvatar').blur();
@@ -1304,6 +1561,30 @@ $('resultCredits').onclick=()=>{$('matchResult').close();show('credits');};
 $('matchResult').addEventListener('cancel',(event)=>event.preventDefault());
 const ground = new THREE.Plane(new THREE.Vector3(0,1,0),-.45);
 const raycaster = new THREE.Raycaster();
+const districtView=$('districtPreview');
+let orbitDrag;
+districtView.onpointerdown=(event)=>{
+  if(![0,2].includes(event.button)||page!=='district')return;
+  orbitDrag={id:event.pointerId,button:event.button,x:event.clientX,y:event.clientY,travel:0};
+  districtView.setPointerCapture(event.pointerId);
+};
+districtView.onpointermove=(event)=>{
+  if(orbitDrag?.id!==event.pointerId)return;
+  const dx=event.clientX-orbitDrag.x,dy=event.clientY-orbitDrag.y;
+  orbitDrag.travel+=Math.hypot(dx,dy);
+  orbitDrag.x=event.clientX;orbitDrag.y=event.clientY;
+  if(orbitDrag.travel<5)return;
+  district.cameraYaw-=dx*.009;district.cameraPitch=cap(district.cameraPitch+dy*.007,.18,1.12);
+  districtView.classList.add('is-dragging');
+};
+districtView.onpointerup=(event)=>{
+  if(orbitDrag?.id!==event.pointerId)return;
+  const click=orbitDrag.button===0&&orbitDrag.travel<5;
+  orbitDrag=null;districtView.classList.remove('is-dragging');
+  if(click)pickDistrictPerson(event.clientX,event.clientY);
+};
+districtView.onlostpointercapture=()=>{orbitDrag=null;districtView.classList.remove('is-dragging');};
+districtView.oncontextmenu=(event)=>event.preventDefault();
 $('playPreview').onpointermove=(event)=>{
   if(!match)return;
   const rect=$('playPreview').getBoundingClientRect();

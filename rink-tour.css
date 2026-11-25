@@ -46,7 +46,17 @@ body[data-game-page=home] .top{position:fixed;inset:0 0 auto;z-index:3;backgroun
 #rink #localControls:not([hidden]){bottom:1.8rem}
 .district-actions{position:absolute;bottom:1rem;left:1rem;margin:0 0 1.12rem;max-width:calc(100% - 3rem);color:#fff}
 #districtHint:not(:empty){padding:.4rem .55rem;background:#162731ed;border-radius:.4rem;font-size:.82rem}
-#districtMap{bottom:2.4rem}
+#districtMap{bottom:2.4rem;width:15rem;max-width:43%}
+#districtPreview{pointer-events:auto;touch-action:none;cursor:grab;z-index:0}
+#districtPreview.is-dragging{cursor:grabbing}
+.district-actions{z-index:1}
+#district .controls{z-index:1;pointer-events:none}
+#districtChatNotice{position:absolute;z-index:1;left:1rem;top:5.5rem;background:#162731ed;border:1px solid #38505d;border-radius:.4rem;padding:.45rem .7rem}
+#conversation,#campaignRoom{width:min(30rem,calc(100vw - 1.2rem))}
+#chatHistory{max-height:13rem;overflow:auto;overflow-wrap:anywhere}
+.chat-compose{display:flex;gap:.5rem}.chat-compose input{min-width:0;flex:1}
+#conversation .buttons{margin-top:.6rem}#chatStatus:empty,#chatHistory:empty{display:none}
+.mini-peer{fill:#86d8fb;stroke:#142630;stroke-width:.8}
 .district-tools{display:flex;flex-wrap:wrap;gap:.45rem;align-items:center;justify-content:flex-end}
 .district-tools select{width:auto;pointer-events:auto}.district-tools small:empty{display:none}
 #npcGreeting{color:#aebfca}
