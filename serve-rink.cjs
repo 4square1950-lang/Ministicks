@@ -11,7 +11,7 @@ const mime = {
   '.webp': 'image/webp',
   '.png': 'image/png',
 };
-const rootFiles = new Set(['index.html', 'rink-tour.js', 'rink-tour.css', 'credits-roll.js', 'credits-roll.css', 'rink-campaign.js', 'team-match.js', 'tour-land.json', 'rink-broadcast.js']);
+const rootFiles = new Set(['index.html', 'rink-tour.js', 'rink-tour.css', 'credits-roll.js', 'credits-roll.css', 'rink-campaign.js', 'team-match.js', 'tour-land.json', 'rink-broadcast.js', 'runtime/rink-tour.bundle.js']);
 const port = Number(process.env.MINISTICKS_PORT || 8096);
 const server = http.createServer((request, response) => {
   let urlPath;
