@@ -56,7 +56,6 @@ export function makeSurface(renderer) {
 export function buildBroadcastSet(world) {
   const group = new THREE.Group();
   world.add(group);
-  const neutral = new THREE.MeshStandardMaterial({ color:0xffffff,roughness:.86 });
   const paint=(color,roughness=.74)=>new THREE.MeshStandardMaterial({color,roughness});
   const beam=paint(0x2a3540), desk=paint(0x172938), trim=paint(0xe8c77e);
   const box=(w,h,d,x,y,z,mat)=>{
@@ -81,60 +80,69 @@ export function buildBroadcastSet(world) {
     box(.3,.12,.62,6.83,.87,z,beam);
     box(.055,.27,.06,6.59,1.01,z+.22,beam);
   }
-  const kit = [
-    new THREE.InstancedMesh(new THREE.CapsuleGeometry(.18,.32,4,8),neutral,86),
-    new THREE.InstancedMesh(new THREE.SphereGeometry(.132,9,7),neutral,86),
-    new THREE.InstancedMesh(new THREE.SphereGeometry(.134,9,6,0,Math.PI*2,0,Math.PI*.49),neutral,86),
-    new THREE.InstancedMesh(new THREE.CapsuleGeometry(.063,.20,3,6),neutral,172),
-    new THREE.InstancedMesh(new THREE.CapsuleGeometry(.074,.22,3,6),neutral,172),
-  ];
-  kit.forEach(mesh=>{mesh.count=0;mesh.frustumCulled=false;mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);group.add(mesh);});
   const cast=[];
   const schedule=rng(49);
-  const skin=[0x94634a,0xc59069,0xe0ad83,0x724b3e,0xf0c5a0];
-  const shirt=[0x605e68,0x265881,0x536b61,0x97654e,0x747489,0x826055,0x9d8259,0x3a536f];
-  for(const side of [-1,1]) for(let row=0;row<3;row++) for(let seat=0;seat<14;seat++) {
-    const z=(seat-6.5)*1.01+(schedule()-.5)*.15;
+  const shirt=[0x534c5d,0x447a9d,0x526c56,0xa35f46,0x706393,0x776159,0xb58b53,0x3a536f,0xa54c53];
+  for(const side of [-1,1]) for(let row=0;row<3;row++) for(let seat=0;seat<9;seat++) {
+    const z=(seat-4)*1.52+(row%2)*.22+(schedule()-.5)*.26;
     if(side===1&&row===0&&z<-3.5)continue;
-    cast.push({x:side*(6.67+row*.88),y:.31+row*.52,z,yaw:-side*Math.PI/2,angle:schedule()*Math.PI*2,
-      size:.82+schedule()*.27, shirt:shirt[Math.floor(schedule()*shirt.length)],skin:skin[Math.floor(schedule()*skin.length)],
-      hair:[0x2c211d,0x482d20,0x93674d,0x302925][Math.floor(schedule()*4)], active:schedule()<.44});
+    cast.push({x:side*(6.54+row*.88),y:.34+row*.52,z,yaw:-side*Math.PI/2,angle:schedule()*Math.PI*2,
+      size:.73+schedule()*.2, shirt:shirt[Math.floor(schedule()*shirt.length)], variant:Math.floor(schedule()*4), active:schedule()<.47});
   }
-  cast.push({x:7.32,y:.16,z:-5.94,yaw:-Math.PI/2,angle:1,size:1.08,shirt:0x1e2c41,skin:0xc59069,hair:0x2b232c,host:true},
-    {x:7.32,y:.16,z:-4.53,yaw:-Math.PI/2,angle:4,size:1.12,shirt:0x2e3848,skin:0x94634a,hair:0x322828,host:true});
-  const colors = new THREE.Color();
-  cast.forEach((person,index)=>{
-    kit.forEach((mesh,i)=>{
-      const double=i>=3;
-      if (double) mesh.setColorAt(index*2+1,colors.setHex(i===3?person.shirt:0x232c3a));
-      mesh.setColorAt(index*(double?2:1),colors.setHex([person.shirt,person.skin,person.hair,person.shirt,0x232c3a][i]));
-      mesh.count=cast.length*(double?2:1);
-    });
+  cast.push({x:7.35,y:.49,z:-5.94,yaw:-Math.PI/2,angle:1,size:.92,shirt:0x354554,variant:1},
+    {x:7.35,y:.49,z:-4.53,yaw:-Math.PI/2,angle:4,size:.96,shirt:0x473f58,variant:2});
+  const signs = [['LET’S GO',0x253e70],['WHAT A SAVE',0x8b3241],['RINK CREW',0x315c54]].map(([text,color])=>{
+    const canvas = document.createElement('canvas'); canvas.width=256; canvas.height=112;
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle='#f7ecd4'; ctx.fillRect(0,0,256,112);
+    ctx.strokeStyle='#bda477'; ctx.lineWidth=7; ctx.strokeRect(4,4,248,104);
+    ctx.textAlign='center'; ctx.textBaseline='middle'; ctx.fillStyle='#'+color.toString(16);
+    ctx.font='bold 32px system-ui'; ctx.fillText(text,128,57,224);
+    const map=new THREE.CanvasTexture(canvas); map.colorSpace=THREE.SRGBColorSpace;
+    return new THREE.MeshBasicMaterial({map,side:THREE.DoubleSide});
   });
-  const base=new THREE.Object3D(), part=new THREE.Object3D();
-  function draw(mesh,index,x,y,z,rx,rz) {
-    part.position.set(x,y,z);part.rotation.set(rx,0,rz);part.updateMatrix();
-    part.matrix.premultiply(base.matrix);mesh.setMatrixAt(index,part.matrix);
-  }
-  function update(time,reaction) {
-    cast.forEach((person,index)=>{
-      const pulse=person.active?Math.sin(time*(reaction?6.1:2.1)+person.angle):0;
-      base.position.set(person.x,person.y+(reaction&&!person.host&&person.active?Math.max(0,pulse)*.15:0),person.z);
-      base.rotation.set(0,person.yaw,0);
-      base.scale.setScalar(person.size);base.updateMatrix();
-      draw(kit[0],index,0,.57,0,.12,0);
-      draw(kit[1],index,0,.95,.04,0,0);
-      draw(kit[2],index,0,.974,.034,0,0);
-      for(const [i,side] of [[0,-1],[1,1]]){
-        const clap=person.host ? .57 : reaction&&person.active ? 1.15+pulse*.48 : .26+pulse*.16;
-        draw(kit[3],index*2+i,side*.209,.55+clap*.06,.10,clap,-side*clap*.6);
-        draw(kit[4],index*2+i,side*.105,.23,.14,-1.03,0);
+  let batches = [];
+  function mount(templates) {
+    batches = templates.map((parts,variant) => {
+      const seats = cast.filter((person) => person.variant === variant);
+      const meshes = parts.map(({geometry,material,clothing}) => {
+        const mesh = new THREE.InstancedMesh(geometry,material,seats.length);
+        mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
+        // Matrices are updated for reactions without changing the static seating region.
+        mesh.frustumCulled = false;
+        if (clothing) seats.forEach((person,index)=>mesh.setColorAt(index,new THREE.Color(person.shirt)));
+        group.add(mesh);
+        return mesh;
+      });
+      for (const [index,person] of seats.entries()) {
+        if (variant !== 3 || index%2) continue;
+        person.sign = new THREE.Mesh(new THREE.PlaneGeometry(.68,.29),signs[index%signs.length]);
+        group.add(person.sign);
       }
+      return { seats,meshes };
     });
-    kit.forEach((mesh)=>{mesh.instanceMatrix.needsUpdate=true;});
+    update(0,false);
   }
-  update(0,false);
-  return update;
+  const base=new THREE.Object3D();
+  function update(time,reaction) {
+    for (const { seats,meshes } of batches) {
+      for (const [index,person] of seats.entries()) {
+        const pulse = Math.sin(time*(reaction?4.2:1.42)+person.angle);
+        const cheer = reaction && person.active ? Math.max(0,pulse) : 0;
+        base.position.set(person.x,person.y+cheer*.11,person.z);
+        base.rotation.set(-cheer*.09,person.yaw+pulse*.10,cheer*.06);
+        base.scale.setScalar(person.size); base.updateMatrix();
+        for (const mesh of meshes) mesh.setMatrixAt(index,base.matrix);
+        if (person.sign) {
+          person.sign.position.set(0,.91,.53).applyMatrix4(base.matrix);
+          person.sign.rotation.set(-.12,base.rotation.y,.05*pulse);
+          person.sign.scale.setScalar(person.size);
+        }
+      }
+      for (const mesh of meshes) mesh.instanceMatrix.needsUpdate=true;
+    }
+  }
+  return { mount,update };
 }
 
 export function buildHighlightReel() {

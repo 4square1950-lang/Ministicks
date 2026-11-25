@@ -93,8 +93,10 @@ scene.add(ball, target);
 
 
 import { cities, setupTourMap } from './rink-campaign.js';
+import { districtClear, moveDistrictBody } from './district-motion.js';
 import { attackDirection, callTimeout, createTeamMatch, switchSkater, tapFaceoff, teamAction, tickTeamMatch } from './team-match.js';
 import { buildBroadcastSet, buildHighlightReel, clubFor, clubs, divisions, makeSurface } from './rink-broadcast.js';
+import { bakeSpectator, skaterLooks, stripeOfficial, styleSkater } from './rink-characters.js';
 import { KitComposer } from './viewer/src/kit/compose.js';
 
 const cap = (value, min, max) => Math.max(min, Math.min(max, value));
@@ -109,7 +111,10 @@ function save() {
 }
 const postseason = () => career.wins.length === cities.length || career.champion;
 let page = 'home', selected = 0, mode = 'single', match, actors = [], leagueTab = 'standings', profileTab = 'summary', backFromProfile = 'home';
-let kitDraft = { ...career.kit }, composer, kitTexture, district, dialogue;
+let kitDraft = { ...career.kit }, composer, kitTexture, district, dialogue, maria, arrival, official, alternateSkater;
+const districtCamera = new THREE.Vector3();
+const districtLook = new THREE.Vector3();
+const districtBounds = { x: 27, z: 21 };
 const keys = new Set();
 const aim = [0, 0];
 const map = setupTourMap({ map: $('tourMap'), caption: $('mapCaption'), onSelect: selectCity });
@@ -118,7 +123,7 @@ const cityOpponents = ['Boston Huskies','Montreal Royals','Buffalo Beacons','Det
   'Saskatchewan Sovereigns','Edmonton Condors','Ottawa Outlaws','Thunder Bay T-Wolves','Minnesota Stars'];
 const npcColors = [0x354c69, 0xe1b77b, 0xdd835f, 0x477864, 0xb05d58, 0xb98b50, 0x6d7e79, 0x386865, 0x4f6284, 0x786182];
 const floorTextures = renderer ? makeSurface(renderer) : {};
-const animateCrowd = buildBroadcastSet(world);
+const broadcast = buildBroadcastSet(world);
 const reel = buildHighlightReel();
 let reelTime=0, reelPaused=matchMedia('(prefers-reduced-motion: reduce)').matches, floorKey;
 let commentary=false, heardEvent=0, commentaryUntil=0, crowdUntil=0;
@@ -151,55 +156,143 @@ function label(text, x, y, z) {
   texture.colorSpace = THREE.SRGBColorSpace;
   const sign = new THREE.Sprite(new THREE.SpriteMaterial({ map: texture }));
   sign.position.set(x, y, z); sign.scale.set(4.9, .92, 1); street.add(sign);
+  return sign;
 }
 function buildDistrict() {
-  for (const child of [...street.children]) {
-    child.geometry?.dispose(); child.material?.map?.dispose();
-    if (child.isSprite) child.material.dispose();
-    street.remove(child);
-  }
+  street.traverse((child) => {
+    child.geometry?.dispose();
+    if (child.isSprite) { child.material.map?.dispose(); child.material.dispose(); }
+  });
+  street.clear();
   for (const mat of district?.materials || []) mat.dispose();
   const stop = cities[selected];
-  district = { x: 0, z: -9, yaw: 0, blockers: [], materials: [], targets: [], phase: 0 };
+  district = { x: 0, z: -8.5, yaw: 0, vx: 0, vz: 0, blockers: [], materials: [], targets: [],
+    people: [], rooms: [], vehicles: [], cameraReady: false, speed: 0 };
   const mat = (value) => { const item = material(value); district.materials.push(item); return item; };
   const ground = mat(0x596662), road = mat(0x353e46), sidewalk = mat(0xa2a29a);
   const building = mat(npcColors[selected]), trim = mat(0xd9cfc0), glass = mat(0x3e596e), dark = mat(0x1a2c39), park = mat(0x617b5f);
-  streetBox(ground, [58, .15, 58], [0, -.12, 0]);
-  streetBox(road, [49, .045, 4.4], [0, -.04, -3]);
-  for (const z of [-6.25, .06]) streetBox(sidewalk, [49, .05, 2], [0, -.032, z]);
-  for (let x = -24; x <= 24; x += 3) streetBox(trim, [1.37, .015, .065], [x, -.012, -3]);
-  for (let index = 0; index < 9; index++) streetBox(trim, [.17, .018, 4.25], [(index - 4) * .28, -.008, -3]);
-  const height = 4.8 + (selected % 4) * .83;
-  const width = 10.5 + (selected % 3) * 1.15;
-  const front = 6.4;
-  streetBox(building, [width, height, 6], [0, height/2, front+3], true);
-  streetBox(trim, [width+.35, .18, .09], [0, height-.27, front-.04]);
-  streetBox(dark, [2.15, 2.5, .09], [0, 1.25, front-.07]);
-  streetBox(trim, [.09, 2.48, .12], [0, 1.24, front-.13]);
-  for (let side of [-1, 1]) {
-    for (let index = 1; index <= 3; index++) streetBox(glass, [.76, 1.47, .13], [side * (.9 + index * 1.1), height*.52, front-.07]);
-    for (let index = 0; index < 3; index++) {
-      const h = 2.7 + ((selected * 3 + index + (side+1)) % 6) * .54;
-      const x = side * (8.4 + index * 4.6);
-      const z = 5.3 + (index % 2) * 2.6;
-      streetBox(index % 2 ? sidewalk : building, [3.6, h, 4.2], [x, h/2, z], true);
-      for (let offset of [-.95, .95]) streetBox(glass, [.72, 1.16, .08], [x + offset, h*.63, z-2.14]);
-      streetBox(park, [1.4, .48, .68], [x, .24, z-2.8], true);
-    }
+  const roadWidth = [5.6, 5, 6.4][selected % 3];
+  const roadZ = -3;
+  streetBox(ground, [90, .15, 90], [0, -.12, 0]);
+  streetBox(road, [64, .045, roadWidth], [0, -.04, roadZ]);
+  for (const side of [-1, 1]) streetBox(sidewalk, [57, .05, 1.8], [0, -.032, roadZ + side * (roadWidth / 2 + .9)]);
+  for (let x = -26; x <= 26; x += 3) streetBox(trim, [1.37, .015, .065], [x, -.012, roadZ]);
+  for (let index = 0; index < 8; index++) streetBox(trim, [.18, .018, roadWidth-.14], [(index - 3.5) * .3, -.008, roadZ]);
+  for (const z of [-20.8, 20.8]) streetBox(dark, [54, .52, .24], [0, .26, z], true);
+  for (const x of [-26.8, 26.8]) {
+    streetBox(dark, [.24, .52, 15], [x, .26, -13.3], true);
+    streetBox(dark, [.24, .52, 20], [x, .26, 10.4], true);
   }
-  streetBox(trim, [3.7, .16, .76], [0, 2.67, front-.36]);
-  label(stop.arena, 0, 3.48, front-.52);
-  label(stop.coach, -3.1, 2.16, 2.25);
-  label('Arena staff', 3.3, 2.16, 3.7);
-  district.targets = [
-    { kind: 'arena', x: 0, z: front-.75 },
-    { kind: 'coach', x: -3.1, z: 2.25, name: stop.coach, line: stop.tips, id: stop.id },
-    { kind: 'staff', x: 3.3, z: 3.7, name: 'Arena staff', line: 'The arena entrance is under the sign. Head inside when you’re ready.' },
-  ];
-  district.blockers.push({ x: -3.1, z: 2.25, w: .31, d: .31 }, { x: 3.3, z: 3.7, w: .31, d: .31 });
+  function room(name, x, front, width, depth, height, facade) {
+    const gap = 2.7, wing = (width-gap)/2;
+    const frontage = [];
+    streetBox(sidewalk, [width, .095, depth], [x, -.048, front+depth/2]);
+    for (const side of [-1, 1]) {
+      frontage.push(streetBox(facade, [wing, height, .27], [x+side*(gap+wing)/2, height/2, front], true));
+      streetBox(facade, [.28, height, depth], [x+side*width/2, height/2, front+depth/2], true);
+      frontage.push(streetBox(glass, [wing*.7, .96, .09], [x+side*(gap+wing)/2, height*.57, front-.16]));
+      frontage.push(streetBox(trim, [wing*.73, .09, .13], [x+side*(gap+wing)/2, height*.57-.49, front-.16]));
+    }
+    streetBox(facade, [width, height, .27], [x, height/2, front+depth], true);
+    frontage.push(streetBox(facade, [gap, height-2.35, .27], [x, (height+2.35)/2, front]));
+    frontage.push(streetBox(trim, [width+.16, .12, .28], [x, height, front-.12]));
+    frontage.push(label(name, x, 2.86, front-.28));
+    district.rooms.push({ x,front,width,depth,frontage });
+    streetBox(dark, [width*.47, .92, .76], [x-width*.12, .46, front+depth-1.05], true);
+    streetBox(trim, [width*.49, .065, .85], [x-width*.12, .95, front+depth-1.05]);
+    streetBox(dark, [.64, .37, 1.5], [x-width*.38, .185, front+1.8], true);
+    streetBox(park, [.75, .095, 1.56], [x-width*.38, .415, front+1.8]);
+    return { x: x+width*.25, z: front+depth-1.75 };
+  }
+  room(stop.arena, 0, 6.5, 10.2 + selected%3, 7, 4.5, building);
+  const cafe = room(['Corner Café','Café du Parc','Harbor Café','Motor City Diner','Prairie Café','Foothills Café','Pacific Coffee','Fika House','Harbour Café','Corner Kavárna'][selected],
+    -11, 4.8 + selected%2, 7.4, 5.8, 3.7, trim);
+  room(['Pro Shop','Clubhouse','Equipment Shop'][selected%3], 11, 5.7, 7, 6.2, 3.9, building);
+  room('Community centre', selected%2 ? 14 : -14, -19, 8.4, 6.5, 3.8, trim);
+  streetBox(park, [3.2, .39, 1.1], [17, .195, 2.8], true);
+  district.people = [
+    { kind: 'coach', x: -3.1, z: 2.25, yaw: Math.PI, name: stop.coach, line: stop.tips, id: stop.id, voice: selected },
+    { kind: 'staff', x: 3.85, z: 10.6, yaw: Math.PI, name: 'Arena attendant', line: 'Welcome to the club. The match desk is just inside this lobby.', voice: 1 },
+    { ...cafe, kind: 'staff', yaw: Math.PI, name: 'Café host', line: 'Taking a break between matches? The coach is out by the arena.', voice: 2 },
+    { kind: 'staff', x: 9, z: .9, yaw: 0, route: [6, 12], direction: 1, name: 'Local player', line: 'I take the bike when traffic gets busy. There’s usually one parked near the crosswalk.', voice: 3 },
+  ].map((person) => ({...person,w:.31,d:.31}));
+  district.targets = [{ kind: 'arena', x: 0, z: 11.2, prompt: 'Start arena match' }, ...district.people,
+    { kind: 'travel', x: -24.2, z: roadZ, prompt: 'Choose next city' },
+    { kind: 'travel', x: 24.2, z: roadZ, prompt: 'Choose next city' }];
+  label('Tour route', -24.2, 1.5, roadZ-2.8);
+  label('Tour route', 24.2, 1.5, roadZ-2.8);
+  makeDistrictVehicle('car', -4.9, -7.5, Math.PI/2, building, dark, glass, trim);
+  makeDistrictVehicle('bike', 3.65, -7.55, Math.PI/2, building, dark, glass, trim);
+  makeDistrictVehicle('car', 13.9, -4.34, -Math.PI/2, trim, dark, glass, trim, true);
+  makeDistrictVehicle('car', -14.3, -1.68, Math.PI/2, building, dark, glass, trim, true);
+  if (arrival) {
+    const [x, z, yaw] = arrival.kind === 'car' ? [17.5, -7.5, -Math.PI/2] : [10, -8.6, -Math.PI/2];
+    const vehicle = makeDistrictVehicle(arrival.kind, x, z, yaw, building, dark, glass, trim);
+    Object.assign(district, { x, z, yaw, ride: vehicle });
+    arrival = null;
+  }
+  renderDistrictMap();
 }
 
-function actor(asset, index, standing) {
+function makeDistrictVehicle(kind, x, z, yaw, paint, rubber, glass, metal, traffic = false) {
+  const model = new THREE.Group();
+  street.add(model);
+  const part = (geometry, mat, px, py, pz) => {
+    const mesh = new THREE.Mesh(geometry, mat);
+    mesh.position.set(px, py, pz);
+    model.add(mesh);
+    return mesh;
+  };
+  const box = (w,h,d,x,y,z,mat) => part(new THREE.BoxGeometry(w,h,d),mat,x,y,z);
+  const wheels = [];
+  let crank;
+  if (kind === 'car') {
+    box(1.48,.52,3.25,0,.59,0,paint);
+    box(1.32,.50,1.70,0,1.06,-.16,glass);
+    box(1.35,.11,1.72,0,1.36,-.16,paint);
+    for (const side of [-1,1]) {
+      for (const axle of [-1.04,1.04]) wheels.push(part(new THREE.CylinderGeometry(.32,.32,.20,18),rubber,side*.72,.32,axle));
+      box(.36,.13,.07,side*.49,.67,1.64,metal);
+      box(.35,.13,.07,side*.49,.64,-1.64,metal);
+    }
+    box(1.52,.11,.12,0,.39,1.61,metal);
+    box(1.52,.11,.12,0,.39,-1.61,metal);
+  } else {
+    for (const axle of [-.66,.66]) {
+      const wheel = part(new THREE.TorusGeometry(.32,.047,8,20),rubber,0,.37,axle);
+      wheel.rotation.y = Math.PI/2;
+      const spoke = new THREE.Mesh(new THREE.BoxGeometry(.027,.59,.02),metal);
+      const cross = spoke.clone();
+      cross.rotation.z = Math.PI/2;
+      wheel.add(spoke,cross);
+      wheels.push(wheel);
+    }
+    const bar = (ay,az,by,bz) => {
+      const tube = part(new THREE.CylinderGeometry(.035,.035,Math.hypot(by-ay,bz-az),8),paint,0,(ay+by)/2,(az+bz)/2);
+      tube.rotation.x = Math.atan2(bz-az,by-ay);
+    };
+    bar(.37,-.66,.94,-.25); bar(.94,-.25,.85,.53); bar(.85,.53,.37,-.05); bar(.37,-.05,.37,-.66);
+    bar(.37,.66,1.1,.49);
+    box(.53,.055,.06,0,1.11,.49,metal);
+    box(.22,.08,.24,0,.94,-.25,rubber);
+    crank = new THREE.Group();
+    crank.position.set(0,.46,-.05);
+    model.add(crank);
+    for (const side of [-1,1]) {
+      const pedal = new THREE.Mesh(new THREE.BoxGeometry(.16,.035,.08),metal);
+      pedal.position.set(side*.18,side*.13,0);
+      crank.add(pedal);
+    }
+  }
+  if (kind === 'car') wheels.forEach((wheel) => { wheel.rotation.z = Math.PI/2; });
+  const vehicle = { kind, x, z, yaw, model, wheels, crank, traffic };
+  model.position.set(x,0,z);
+  model.rotation.y = yaw;
+  district.vehicles.push(vehicle);
+  return vehicle;
+}
+
+function actor(asset, index, standing, look = skaterLooks[index]) {
   const model = clone(asset.scene);
   model.traverse((object) => {
     if (object.isSkinnedMesh) object.frustumCulled = false;
@@ -207,15 +300,18 @@ function actor(asset, index, standing) {
     object.material = object.material.clone();
     object.material.color.set(index < 3 ? (index ? 0x9ac4ef : 0xffffff) : 0xec8465);
   });
+  if (look) styleSkater(model,look);
   scene.add(model);
   const clips = new Map([...asset.animations, ...standing].map((clip) => {
     const copy = clip.clone();
     copy.tracks = copy.tracks.filter((track) => !/^root\.(?:position|quaternion)$/.test(track.name));
     return [copy.name, copy];
   }));
-  const legs = [];
-  for (const name of ['thigh_l','thigh_r','calf_l','calf_r']) { const bone = model.getObjectByName(name); if (bone) legs.push(bone); }
-  return { model, mixer: new THREE.AnimationMixer(model), clips, clip: '', action: null, legs, stride: 0 };
+  const limbs = ['thigh_l','thigh_r','calf_l','calf_r','upperarm_l','upperarm_r','lowerarm_l','lowerarm_r']
+    .map((name) => model.getObjectByName(name));
+  const contacts = ['foot_l','foot_r','hand_l','hand_r'].map((name) => model.getObjectByName(name));
+  return { model, mixer: new THREE.AnimationMixer(model), clips, clip: '', action: null,
+    limbs, contacts, pelvis:model.getObjectByName('pelvis'), stick:model.getObjectByName('Stick'), stride: 0, walkWeight: 0 };
 }
 function pose(who, name, loop = true) {
   if (!who.clips.has(name) || who.clip === name) return;
@@ -266,6 +362,27 @@ async function initActors() {
     applyKit(page === 'studio' ? kitDraft : career.kit);
     $('startChallenge').disabled = false;
     if (page === 'rink') $('feedback').textContent = 'Press Start match when ready.';
+    official = actor(asset,1,standing,{ height:.97,build:-.12,skin:0xd4a88d,face:{nose_big:.39,chin_strong:.48} });
+    stripeOfficial(official.model);
+    if (official.stick) official.stick.visible = false;
+    official.model.visible = false;
+    const mariaAsset = new Promise((resolve) => {
+      // The rink loads with its existing rig while Maria's optional model downloads.
+      loader.load('./dist/girl/lod/player_LOD1.glb', resolve, undefined, () => resolve(null));
+    });
+    mariaAsset.then((gltf) => {
+      if (!gltf) { $('districtAvatarStatus').textContent = 'Maria’s model could not load.'; return; }
+      maria = actor(gltf,2,standing,{height:.945,build:0,skin:0xffe6d3,face:{}});
+      maria.model.visible = false;
+      alternateSkater = actor(gltf,4,standing);
+      alternateSkater.model.visible = false;
+      $('districtAvatar').querySelector('[value=maria]').disabled = false;
+      if (career.districtAvatar === 'maria') $('districtAvatar').value = 'maria';
+    });
+    mariaAsset.then((gltf) => {
+      const templates = [asset,gltf || asset,asset,gltf || asset].map((model,index) => seatedFan(model,index,standing));
+      broadcast.mount(templates);
+    }).catch((error) => console.error('Could not build rinkside spectators.',error));
     if (window.CUSTOMIZER_DATA) {
       const data = window.CUSTOMIZER_DATA;
       composer = await KitComposer.fromBase64({ ...data.images, glyphs: data.glyphs, layout: data.layout });
@@ -277,10 +394,48 @@ async function initActors() {
   }
 }
 
+function seatedFan(asset,index,standing) {
+  const look = { ...skaterLooks[[1,3,2,4][index]], height:1 };
+  const who = actor(asset,index,standing,look);
+  pose(who,who.clips.has('menu_stand_idle')?'menu_stand_idle':'ref_bind');
+  who.mixer.update(0);
+  const seat = new THREE.Vector3(0,.12,-.065);
+  if (who.pelvis) who.model.position.add(seat.sub(who.pelvis.getWorldPosition(new THREE.Vector3())));
+  for (let i=0;i<2;i++) {
+    const hip = who.limbs[i]?.getWorldPosition(new THREE.Vector3());
+    if (!hip) continue;
+    const handSide = Math.sign(hip.x);
+    placeLimb(who.limbs[i],who.limbs[i+2],who.contacts[i],new THREE.Vector3(hip.x,-.37,.53),new THREE.Vector3(0,0,1));
+    const hands = [
+      [.19,.12,.41],
+      [.24,.22,.34],
+      [.15,.38,.47],
+      [.29,.84,.51],
+    ][index];
+    placeLimb(who.limbs[i+4],who.limbs[i+6],who.contacts[i+2],new THREE.Vector3(handSide*hands[0],hands[1],hands[2]),new THREE.Vector3(handSide,-.65,0));
+  }
+  const parts = bakeSpectator(who.model);
+  for (const part of parts) if (part.clothing) {
+    // Separate darker trousers from each fan's shirt while sharing geometry across seats.
+    part.material.onBeforeCompile = (shader) => {
+      shader.vertexShader=shader.vertexShader.replace('#include <common>','#include <common>\nvarying float seatedY;')
+        .replace('#include <begin_vertex>','#include <begin_vertex>\nseatedY = position.y;');
+      shader.fragmentShader=shader.fragmentShader.replace('#include <common>','#include <common>\nvarying float seatedY;')
+        .replace('#include <color_fragment>','#include <color_fragment>\nif (seatedY < 0.105) diffuseColor.rgb = mix(diffuseColor.rgb, vec3(0.025,0.032,0.04),0.85);');
+    };
+  }
+  scene.remove(who.model);
+  return parts;
+}
+
 function show(next) {
   if (next === 'credits' && !postseason()) return;
   if (page === 'credits') $('creditsFilm').creditsCleanup?.();
   if (page === 'studio' && next !== 'studio') applyKit(career.kit);
+  if (page === 'district' && next !== 'district') {
+    window.speechSynthesis?.cancel();
+    if (maria) maria.model.visible = false;
+  }
   if (next === 'profile' && page !== 'studio' && page !== 'profile') backFromProfile = page;
   if (page === 'rink' && next !== 'rink') match = undefined;
   if (page === 'rink' && next !== 'rink') {
@@ -317,25 +472,84 @@ function selectCity(index) {
     return button;
   }));
 }
+function selectDistrictAvatar() {
+  $('districtAvatar').value = maria && career.districtAvatar === 'maria' ? 'maria' : 'player';
+}
+function openTravelMap() {
+  arrival = district.ride ? { kind:district.ride.kind } : null;
+  show('tour');
+  $('enterVenue').textContent = arrival ? 'Travel by ' + arrival.kind : 'Explore district';
+}
 function openDistrict() {
   buildDistrict();
   $('districtName').textContent = cities[selected].city;
+  $('enterVenue').textContent = 'Explore district';
+  selectDistrictAvatar();
   show('district');
 }
 function nearestTarget() {
-  return district.targets.find((target) => Math.hypot(district.x-target.x,district.z-target.z) < 1.7);
+  const { ride, x, z, speed } = district;
+  const distance = (target) => Math.hypot(x-target.x,z-target.z);
+  if (ride) {
+    if (Math.abs(speed) > 1.2) return null;
+    return district.targets.find((target) => target.kind === 'travel' && distance(target) < 3.1)
+      ?? { kind: 'dismount', prompt: ride.kind === 'car' ? 'Exit car' : 'Get off bike' };
+  }
+  return [...district.targets, ...district.vehicles.filter((vehicle) => !vehicle.traffic)]
+    .filter((target) => distance(target) < (target.kind === 'car' ? 2.45 : 1.8))
+    .sort((a,b) => distance(a)-distance(b))[0];
+}
+function districtSpeech(line, character = '') {
+  const synth = window.speechSynthesis;
+  if (!synth || typeof SpeechSynthesisUtterance !== 'function') return;
+  const voices = synth.getVoices().filter((voice) => /^en\b/i.test(voice.lang));
+  const ranked = [...voices].sort((a,b) => +/natural|premium|enhanced|neural/i.test(b.name) - +/natural|premium|enhanced|neural/i.test(a.name));
+  const preferred = character === 'maria' ? /aria|jenny|sonia|samantha|zira|serena|ava/i
+    : character === 'player' ? /guy|ryan|alex|david|daniel|andrew/i : null;
+  const speech = new SpeechSynthesisUtterance(line);
+  speech.voice = (preferred && ranked.find((voice) => preferred.test(voice.name))) || ranked[Number(character) % ranked.length] || ranked[0] || null;
+  speech.lang = speech.voice?.lang ?? 'en-CA';
+  speech.rate = character === 'maria' ? .99 : .94;
+  speech.pitch = character === 'maria' ? 1.07 : 1;
+  synth.speak(speech);
+}
+function speakConversation() {
+  window.speechSynthesis?.cancel();
+  districtSpeech($('npcGreeting').textContent, $('districtAvatar').value);
+  districtSpeech(dialogue.line, dialogue.voice);
+}
+function dismountDistrict() {
+  const vehicle = district.ride;
+  const clearance = vehicle.kind === 'car' ? 1.33 : .86;
+  for (const angle of [Math.PI/2,-Math.PI/2,Math.PI]) {
+    const distance = angle === Math.PI ? clearance + 1.08 : clearance;
+    const x = vehicle.x + Math.sin(vehicle.yaw+angle)*distance;
+    const z = vehicle.z + Math.cos(vehicle.yaw+angle)*distance;
+    if (!districtPositionClear(x,z,vehicle.yaw,'walk')) continue;
+    Object.assign(district,{ x,z,ride:null,speed:0,vx:0,vz:0,exitBlocked:false });
+    return;
+  }
+  district.exitBlocked = true;
 }
 function interact() {
   if (page !== 'district' || $('conversation').open) return;
   const target = nearestTarget();
   if (!target) return;
   if (target.kind === 'arena') { openRink('campaign'); return; }
+  if (target.kind === 'travel') { openTravelMap(); return; }
+  if (target.kind === 'dismount') { dismountDistrict(); return; }
+  if (target.kind === 'bike' || target.kind === 'car') {
+    Object.assign(district,{ ride:target, x:target.x, z:target.z, yaw:target.yaw, speed:0, vx:0, vz:0 });
+    return;
+  }
   dialogue = target;
   if (target.kind === 'coach' && !career.encountered.includes(target.id)) { career.encountered.push(target.id); save(); }
   $('npcName').textContent = target.name; $('npcLine').textContent = target.line;
+  $('npcGreeting').textContent = target.kind === 'coach' ? 'Do you have any advice for my next match?' : 'Hi there. How’s it going?';
   $('npcFollow').hidden = !target.id;
   $('npcFollow').textContent = career.following.includes(target.id) ? 'Unfollow' : 'Follow';
-  keys.clear(); $('conversation').showModal();
+  keys.clear(); district.vx = district.vz = 0;
+  $('conversation').showModal(); speakConversation();
 }
 function openRink(nextMode) {
   mode = nextMode; match = undefined;
@@ -432,25 +646,95 @@ function finishMatch() {
   $('matchResult').showModal();
 }
 
+function districtPositionClear(x,z,yaw,kind,ignored) {
+  return districtClear(x,z,yaw,kind,districtBounds,district.blockers.concat(district.people),district.vehicles,ignored);
+}
+function renderDistrictMap() {
+  const map = $('districtLayout');
+  const svg = (tag, attributes) => {
+    const item = document.createElementNS('http://www.w3.org/2000/svg',tag);
+    for (const [name,value] of Object.entries(attributes)) item.setAttribute(name,value);
+    return item;
+  };
+  const buildings = district.blockers.filter((box) => Math.abs(box.x)<24 && Math.abs(box.z)<20);
+  map.replaceChildren(svg('path',{d:'M0 54H120',class:'mini-road'}), ...buildings.map((box) => svg('rect',{
+    x:60-(box.x+box.w)*2.2,y:48-(box.z+box.d)*2,
+    width:Math.max(.8,box.w*4.4),height:Math.max(.8,box.d*4),class:'mini-building',
+  })), ...district.targets.filter((target) => target.kind==='arena' || target.kind==='travel').map((target) => svg('circle',{
+    cx:60-target.x*2.2,cy:48-target.z*2,r:2.6,class:'mini-coach',
+  })));
+}
 function updateDistrict(dt) {
-  if ($('conversation').open) return false;
+  if ($('conversation').open) return 0;
   const x = Number(keys.has('KeyA') || keys.has('ArrowLeft')) - Number(keys.has('KeyD') || keys.has('ArrowRight'));
   const z = Number(keys.has('KeyW') || keys.has('ArrowUp')) - Number(keys.has('KeyS') || keys.has('ArrowDown'));
-  const length = Math.hypot(x,z);
-  const move = (p,q) => !district.blockers.some((rect) => Math.abs(p-rect.x)<rect.w+.28 && Math.abs(q-rect.z)<rect.d+.28);
-  if (length) {
-    const nextX = cap(district.x+x*4.1*dt/length,-18,18), nextZ = cap(district.z+z*4.1*dt/length,-12,13);
-    if (move(nextX,district.z)) district.x = nextX;
-    if (move(district.x,nextZ)) district.z = nextZ;
-    district.yaw = Math.atan2(x,z);
+  const { ride } = district;
+  let distance = 0;
+  if (ride) {
+    const braking = keys.has('Space');
+    const isBike = ride.kind === 'bike';
+    const goal = braking ? 0 : z > 0 ? (isBike ? 7 : 12) : z < 0 ? (isBike ? -2 : -3.4) : 0;
+    const acceleration = braking ? 16 : z ? (isBike ? 5 : 7) : 2.6;
+    district.speed += cap(goal-district.speed,-acceleration*dt,acceleration*dt);
+    const yaw = district.yaw+x*Math.sign(district.speed)*Math.min(1,Math.abs(district.speed))*(isBike ? 1.85 : 1.36)*dt;
+    const result = moveDistrictBody(district,Math.sin(yaw)*district.speed*dt,Math.cos(yaw)*district.speed*dt,yaw,
+      (px,pz,angle) => districtPositionClear(px,pz,angle,ride.kind,ride));
+    if (result.blocked) district.speed = 0;
+    if (result.distance > .003) district.exitBlocked = false;
+    Object.assign(ride,{x:district.x,z:district.z,yaw:district.yaw});
+    distance = result.distance;
+  } else {
+    const scale = (keys.has('ShiftLeft') || keys.has('ShiftRight') ? 5.15 : 3.35) / Math.max(1,Math.hypot(x,z));
+    const blend = 1-Math.exp(-dt*(x||z?13:22));
+    district.vx += (x*scale-district.vx)*blend;
+    district.vz += (z*scale-district.vz)*blend;
+    const angle = x||z ? Math.atan2(x,z) : district.yaw;
+    const turn = Math.atan2(Math.sin(angle-district.yaw),Math.cos(angle-district.yaw));
+    distance = moveDistrictBody(district,district.vx*dt,district.vz*dt,district.yaw+turn*(1-Math.exp(-14*dt)),
+      (px,pz,yaw) => districtPositionClear(px,pz,yaw,'walk'),true).distance;
   }
-  const target = nearestTarget();
-  $('districtDot').setAttribute('cx',60-district.x*3.3);
-  $('districtDot').setAttribute('cy',48-district.z*3.1);
-  $('interact').disabled = !target;
-  $('interact').textContent = target ? (target.kind === 'arena' ? 'Enter arena' : 'Talk to ' + target.name) + ' · E' : 'Interact · E';
-  $('districtHint').textContent = target ? '' : 'Cross the street to reach the arena and meet the local coach.';
-  return length > 0;
+  for (const person of district.people) {
+    person.walking = false;
+    if (!person.route) continue;
+    const next = person.x + person.direction * .85 * dt;
+    if (next < person.route[0] || next > person.route[1] || Math.hypot(next-district.x,person.z-district.z)<1
+      || !districtClear(next,person.z,person.yaw,'walk',districtBounds,district.blockers,district.vehicles)) {
+      person.direction *= -1;
+      continue;
+    }
+    person.x=next; person.yaw=person.direction*Math.PI/2; person.walking=true;
+  }
+  const occupants = ride ? district.people : [...district.people,{x:district.x,z:district.z,w:.38,d:.38}];
+  for (const vehicle of district.vehicles) {
+    let travel = vehicle === ride ? Math.sign(district.speed)*distance : 0;
+    if (vehicle.traffic) {
+      const next = vehicle.x + Math.sin(vehicle.yaw)*3.2*dt;
+      if (districtClear(next,vehicle.z,vehicle.yaw,'car',districtBounds,district.blockers.concat(occupants),district.vehicles,vehicle)) {
+        travel = 3.2 * dt; vehicle.x = next;
+      } else if (vehicle.x * Math.sin(vehicle.yaw) > 24.8) {
+        const incoming = -Math.sign(vehicle.x)*24.3;
+        if (districtClear(incoming,vehicle.z,vehicle.yaw,'car',districtBounds,district.blockers.concat(occupants),district.vehicles,vehicle)) vehicle.x = incoming;
+      }
+    }
+    vehicle.model.position.set(vehicle.x,0,vehicle.z);
+    vehicle.model.rotation.y = vehicle.yaw;
+    for (const wheel of vehicle.wheels) {
+      if (vehicle.kind === 'bike') wheel.rotateZ(-travel/.32);
+      else wheel.rotateY(travel/.32);
+    }
+    if (vehicle.crank) vehicle.crank.rotation.x -= travel/.46;
+  }
+  const nearby = nearestTarget();
+  $('districtDot').setAttribute('cx',60-district.x*2.2);
+  $('districtDot').setAttribute('cy',48-district.z*2);
+  $('interact').disabled = !nearby;
+  const prompt = nearby?.prompt || (nearby?.name ? 'Talk to '+nearby.name : nearby?.kind === 'car' ? 'Drive car' : 'Ride bike');
+  $('interact').textContent = (nearby ? prompt : 'Interact')+' · E';
+  $('districtHint').textContent = district.exitBlocked ? 'Move away from the obstacle before getting out.'
+    : ride ? Math.round(Math.abs(district.speed)*3.6)+' km/h' : '';
+  $('districtControls').textContent = ride ? 'W/S Accelerate or reverse · A/D Steer · Space Brake · E Interact when stopped'
+    : 'WASD or arrows Move · Shift Run · E Interact';
+  return distance/dt || 0;
 }
 const motion = (left,right,up,down,shift) => ({x:Number(keys.has(left))-Number(keys.has(right)),
   z:Number(keys.has(up))-Number(keys.has(down)), standing:keys.has(shift)});
@@ -502,12 +786,78 @@ function updatePresentation() {
   } else if(match.freeze){text.textContent='Goalie freeze · '+Math.ceil(match.freeze.left);help.textContent='Retreat for the goalie’s outlet.';}
 }
 
-function walkPose(who, dt, moving) {
+function walkPose(who, dt, speed) {
   pose(who, who.clips.has('menu_stand_idle') ? 'menu_stand_idle' : 'ref_bind');
+  // Remove the last additive pose before sampling, including bones the idle clip leaves unkeyed.
+  if (who.walkBase) who.limbs.forEach((bone,index) => bone?.quaternion.copy(who.walkBase[index]));
   who.mixer.update(dt);
-  who.stride += moving ? dt * 18 : 0;
-  const swing = moving ? Math.sin(who.stride) : 0;
-  for (let i=0;i<who.legs.length;i++) who.legs[i].rotateX(i<2 ? (i ? -1 : 1)*swing*.25 : Math.max(0,(i===2 ? -1 : 1)*swing)*.26);
+  who.walkBase ??= who.limbs.map((bone) => bone?.quaternion.clone());
+  who.limbs.forEach((bone,index) => { if (bone) who.walkBase[index].copy(bone.quaternion); });
+  who.walkWeight += (Math.min(speed/.9,1)-who.walkWeight)*(1-Math.exp(-12*dt));
+  who.stride += dt*Math.min(18,speed*3.7);
+  const swing = Math.sin(who.stride)*who.walkWeight;
+  const knee = Math.cos(who.stride)*who.walkWeight;
+  const angles = [swing*.35,-swing*.35,Math.max(0,knee)*.38,Math.max(0,-knee)*.38,-swing*.24,swing*.24,-.10,-.10];
+  who.limbs.forEach((bone,index) => bone?.rotateX(angles[index]));
+}
+function aimBone(bone, from, toward) {
+  const worldTurn = new THREE.Quaternion().setFromUnitVectors(from.normalize(),toward.normalize());
+  const parent = bone.parent.getWorldQuaternion(new THREE.Quaternion());
+  bone.quaternion.premultiply(parent.clone().invert().multiply(worldTurn).multiply(parent));
+}
+function placeLimb(upper, lower, end, target, bend) {
+  if (!upper || !lower || !end) return;
+  const start = upper.getWorldPosition(new THREE.Vector3());
+  const joint = lower.getWorldPosition(new THREE.Vector3());
+  const tip = end.getWorldPosition(new THREE.Vector3());
+  const a = start.distanceTo(joint), b = joint.distanceTo(tip);
+  const direction = target.clone().sub(start);
+  if (a < .005 || b < .005 || direction.lengthSq() < .00001) return;
+  const distance = cap(direction.length(),Math.abs(a-b)+.001,a+b-.001);
+  direction.normalize();
+  const side = bend.addScaledVector(direction,-bend.dot(direction)).normalize();
+  const leg = (a*a-b*b+distance*distance)/(2*distance);
+  const towardJoint = direction.clone().multiplyScalar(leg).addScaledVector(side,Math.sqrt(Math.max(0,a*a-leg*leg)));
+  aimBone(upper,joint.sub(start),towardJoint);
+  lower.getWorldPosition(joint);
+  end.getWorldPosition(tip);
+  aimBone(lower,tip.sub(joint),target.clone().sub(joint));
+}
+function bikePose(who, ride) {
+  const local = (x,y,z) => ride.model.localToWorld(new THREE.Vector3(x,y,z));
+  const seat = local(0,1.00,-.25);
+  if (who.pelvis) who.model.position.add(seat.sub(who.pelvis.getWorldPosition(new THREE.Vector3())));
+  for (let index=0;index<2;index++) {
+    const side = index ? -1 : 1;
+    const forward = new THREE.Vector3(Math.sin(ride.yaw),0,Math.cos(ride.yaw));
+    const pedalY = .49+side*.13*Math.cos(ride.crank.rotation.x);
+    const pedalZ = -.05+side*.13*Math.sin(ride.crank.rotation.x);
+    placeLimb(who.limbs[index],who.limbs[index+2],who.contacts[index],local(side*.18,pedalY,pedalZ),forward);
+    placeLimb(who.limbs[index+4],who.limbs[index+6],who.contacts[index+2],local(side*.22,1.11,.49),new THREE.Vector3(0,-1,0));
+  }
+}
+function updateOfficial(dt, puck, game) {
+  const who = official;
+  const spot = who.model.position;
+  const call = game?.event;
+  if (who.lastCall !== call) {
+    who.lastCall = call;
+    who.callTime = call ? 1.2 : 0;
+  }
+  who.callTime = Math.max(0,(who.callTime ?? 0)-dt);
+  const atDraw = game?.faceoff;
+  const desiredZ = atDraw ? (atDraw.side ? 1.2 : -1.2) : cap(puck.z,-6.1,6.1);
+  const motion = cap(desiredZ-spot.z,-dt*2.15,dt*2.15);
+  spot.set(-5.52,0,spot.z+motion);
+  who.model.rotation.y = Math.atan2(puck.x-spot.x,puck.z-spot.z);
+  const running = Math.abs(motion)/(dt || 1);
+  walkPose(who,dt,running);
+  const active = who.callTime>0 ? call?.type : '';
+  if (active !== 'goal' && active !== 'travel' && !atDraw) return;
+  const z = active === 'travel' ? (call.side ? -1 : 1) : 0;
+  const aim = new THREE.Vector3(active==='goal'?.51:.59,active==='goal'?1.23:atDraw?.96:1.38,z*.38);
+  aim.add(spot);
+  placeLimb(who.limbs[4],who.limbs[6],who.contacts[2],aim,new THREE.Vector3(0,-1,0));
 }
 const motionClips = {shot:'knee_wrist_shot',pass:'knee_pass',poke:'knee_poke_check',save:'goalie_glove_save',goal:'emote_goal_celebrate'};
 let last = performance.now();
@@ -529,6 +879,11 @@ function frame(time) {
   const rinkStyle = page === 'rink' && mode === 'campaign' ? selected % venueDetails.length : 0;
   if(page==='home' && !reelPaused)reelTime=(reelTime+realDt)%120;
   const highlight=page==='home' && actors.length ? reel(reelTime) : null;
+  if (alternateSkater && (highlight || page === 'rink' && !match)) {
+    scene.remove(actors[4].model);
+    actors[4] = alternateSkater;
+    alternateSkater = null;
+  }
   const chosenFloor=page==='rink' ? $('rinkSurface').value : highlight?.replay?'plastic':'carpet';
   if(chosenFloor!==floorKey){
     floorKey=chosenFloor; floorMat.map=floorTextures[floorKey];
@@ -540,19 +895,55 @@ function frame(time) {
   ball.visible = Boolean(highlight || page==='rink' && match);
   target.visible = !!(page==='rink' && match && !match.faceoff && match.owner === match.controls[0]);
   trackers.forEach((ring,index)=>{ring.visible=page==='rink' && match?.controls[index]!==undefined;});
-  actors.forEach((who,index) => { who.model.visible = Boolean(highlight || page==='rink' || (street.visible ? index<3 : index===0)); });
-  if(highlight && !reelPaused || page==='rink')animateCrowd(time/1000,Boolean(highlight?.crowd || time<crowdUntil));
+  actors.forEach((who,index) => {
+    who.model.visible = Boolean(highlight || page==='rink' || (street.visible ? index<=district.people.length : index===0));
+    if (who.stick) who.stick.visible = !street.visible;
+  });
+  if(highlight && !reelPaused || page==='rink')broadcast.update(time/1000,Boolean(highlight?.crowd || time<crowdUntil));
+  if (official) {
+    official.model.visible = Boolean(highlight || page==='rink');
+    if (official.model.visible && !$('pauseMenu').open && (!highlight || !reelPaused)) {
+      updateOfficial(dt,highlight?.ball || match?.ball || {x:0,z:0},highlight ? null : match);
+    }
+  }
   if (street.visible && district) {
-    const moving = updateDistrict(dt);
-    actors.forEach((who,index) => {
-      if (index>=3) return;
-      const coords = index ? district.targets[index] : district;
-      who.model.position.set(coords.x,0,coords.z);
-      who.model.rotation.y = index ? Math.PI : district.yaw;
-      walkPose(who,dt,!index && moving);
+    const speed = updateDistrict(dt);
+    const { x,z,yaw,ride } = district;
+    const avatar = $('districtAvatar').value === 'maria' && maria ? maria : actors[0];
+    if (maria) maria.model.visible = false;
+    if (actors[0]) actors[0].model.visible = false;
+    if (avatar) {
+      avatar.model.visible = ride?.kind !== 'car';
+      avatar.model.position.set(x,0,z);
+      avatar.model.rotation.y = yaw;
+      if (avatar.stick) avatar.stick.visible = false;
+      if (avatar.model.visible) {
+        walkPose(avatar,dt,ride ? 0 : speed);
+        if (ride?.kind === 'bike') bikePose(avatar,ride);
+      }
+    }
+    district.people.forEach((person,index) => {
+      const who = actors[index+1];
+      if (!who) return;
+      who.model.position.set(person.x,0,person.z);
+      who.model.rotation.y = person.yaw;
+      walkPose(who,dt,person.walking ? .85 : 0);
     });
-    camera.position.set(district.x-1.7,3.75,district.z-5.9);
-    camera.lookAt(district.x,.95,district.z+1.25);
+    const heading = ride ? yaw : 0;
+    let inside = false;
+    for (const room of district.rooms) {
+      const isInside = z >= room.front-.1 && z < room.front+room.depth && Math.abs(x-room.x)<room.width/2;
+      for (const part of room.frontage) part.visible = !isInside;
+      inside ||= isInside;
+    }
+    const viewDistance = ride ? 6.5 : inside ? 3.8 : 5.2;
+    districtCamera.set(x-Math.sin(heading)*viewDistance,3.25,z-Math.cos(heading)*viewDistance);
+    districtLook.set(x+Math.sin(heading),1.0,z+Math.cos(heading));
+    const wall = district.blockers.find((box) => Math.abs(x-box.x)<box.w+2 && Math.abs(z-box.z)<box.d+4);
+    if (wall && !ride && !inside) districtCamera.y = 5.8;
+    if (!district.cameraReady) { camera.position.copy(districtCamera); district.cameraReady=true; }
+    else camera.position.lerp(districtCamera,1-Math.exp(-9*dt));
+    camera.lookAt(districtLook);
   } else if (page==='rink' || highlight) {
     if(!highlight)updateRink(dt);
     const states = highlight?.players ?? match?.players ?? [{x:-.55,z:-.85},{x:2.15,z:-1.7},{x:0,z:-5.82,goalie:true},
@@ -561,7 +952,7 @@ function frame(time) {
       const state=states[index];
       who.model.position.set(state.x,0,state.z); who.model.rotation.y=state.yaw ?? (state.side ? Math.PI : 0);
       if ($('pauseMenu').open || highlight && reelPaused) return;
-      if (state.onFeet) walkPose(who,dt,state.walking);
+      if (state.onFeet) walkPose(who,dt,state.walking ? 2 : 0);
       else {
         const clip = state.action ? motionClips[state.action.kind] : state.goalie ? 'goalie_idle' :
           Math.hypot(state.vx||0,state.vz||0)>.08 ? 'knee_shuffle_fwd' : 'knee_idle';
@@ -805,7 +1196,15 @@ function mapMode(satellite) {
 $('worldMapButton').onclick=()=>mapMode(false);$('satelliteButton').onclick=()=>mapMode(true);
 $('mapZoomOut').onclick=()=>map.changeZoom(-1);$('mapZoomIn').onclick=()=>map.changeZoom(1);
 $('enterVenue').onclick=openDistrict;$('interact').onclick=interact;
+$('districtTravelMap').onclick=openTravelMap;
 $('npcClose').onclick=()=>$('conversation').close();
+$('npcReplay').onclick=speakConversation;
+$('conversation').addEventListener('close',()=>window.speechSynthesis?.cancel());
+$('districtAvatar').onchange=()=>{
+  career.districtAvatar=$('districtAvatar').value;
+  $('districtAvatar').blur();
+  save();
+};
 $('npcFollow').onclick=()=>{
   if(!dialogue?.id)return;
   const followed=career.following.includes(dialogue.id);
@@ -861,7 +1260,8 @@ $('playPreview').oncontextmenu=(event)=>{
 window.addEventListener('keydown',(event)=>{
   if(!['district','rink'].includes(page)||document.querySelector('dialog[open]'))return;
   const code=event.code;
-  if (/^(Arrow|Space)/.test(code) && !(event.target instanceof HTMLButtonElement && code==='Space'))event.preventDefault();
+  if (event.target instanceof HTMLSelectElement) return;
+  if (/^(Arrow|Space)/.test(code) && (!(event.target instanceof HTMLButtonElement && code==='Space') || page==='district' && district.ride))event.preventDefault();
   keys.add(code);
   if(event.repeat)return;
   if(page==='district'){if(code==='KeyE')interact();return;}
